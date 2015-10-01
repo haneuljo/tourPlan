@@ -28,6 +28,7 @@
 	
 	<mappers>
 		<mapper resource="com/tour/mybatis/memberMapper.xml"/>
+		<mapper resource="com/tour/mybatis/clipBoardMapper.xml"/>
 	</mappers>
 
 </configuration>

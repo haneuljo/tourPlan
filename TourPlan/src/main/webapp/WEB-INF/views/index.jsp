@@ -113,6 +113,28 @@
   
 <div class="container">
   <h3>내용 추가</h3>
+  
+  
+  
+  <button id="clipTest">클립테스트</button>
+  
+  <script>
+  
+  	$("#clipTest").click(function(){
+  		$.ajax({
+			type:"GET",
+			url:"<%=cp%>/clipCount",
+			dataType:"html",		
+			success:function(data){
+			},
+			error:function(e){
+				alert("1111111111"+e.responseText);
+			}
+			
+		});
+  		
+  	});
+  </script>
 </div>
 
 </body>

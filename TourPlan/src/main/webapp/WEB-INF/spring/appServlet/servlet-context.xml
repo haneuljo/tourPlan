@@ -50,6 +50,8 @@
 		<beans:property name="password" value="a123"/>
 	</beans:bean>
 	
+	<beans:bean id="JSONUtil" class="com.tour.util.JSONResponseUtil"/>
+	
 	<beans:bean id="MemberDAO" class="com.tour.dao.MemberDAO">
 		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
 	</beans:bean>
@@ -71,6 +73,10 @@
 	</beans:bean>
 	
 	<beans:bean id="ReviewDAO" class="com.tour.dao.ReviewDAO">
+		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
+	</beans:bean>
+	
+	<beans:bean id="ClipBoardDAO" class="com.tour.dao.ClipBoardDAO">
 		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
 	</beans:bean>
 	
