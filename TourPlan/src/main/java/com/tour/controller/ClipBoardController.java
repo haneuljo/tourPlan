@@ -1,8 +1,11 @@
 package com.tour.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tour.dao.ClipBoardDAO;
 import com.tour.dto.ClipBoardDTO;
@@ -35,9 +39,12 @@ public class ClipBoardController {
 	
 	
 	@RequestMapping("/clipCount")
-	public String memberSign(HttpServletRequest req, HttpServletResponse resp ) throws ParseException, IOException {
+	@ResponseBody
+	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp ) throws ParseException, IOException {
 		
 		List<ClipBoardDTO> clipCountList= dao.clipCount();
+		List<ClipBoardDTO> clipList= new ArrayList<ClipBoardDTO>();
+		
 		
 		System.out.println("DB clipCount" + clipCountList.size());
 		String url =
@@ -52,7 +59,6 @@ public class ClipBoardController {
         JSONArray array = (JSONArray)jsonitem.get("item");
 
         System.out.println(array.size());
-		Iterator<ClipBoardDTO> it = clipCountList.iterator();
 		
 		for (int i = 0; i < array.size(); i++) {
 			
@@ -60,19 +66,24 @@ public class ClipBoardController {
 			Long contentid = (Long) entity.get("contentid");
 
 			System.out.println(i + "contentid:" + contentid);
-			
+		
+			Iterator<ClipBoardDTO> it = clipCountList.iterator();
 			while (it.hasNext()) {
-				ClipBoardDTO dto = new ClipBoardDTO();
+				ClipBoardDTO dto = it.next();
+				
 
 				if (contentid == dto.getContentid()) {
-
-					System.out.println("¤Ð¤Ð");
+					
+					clipList.add(dto);
 					break;
 
 				}
 			}
+			
 		}
-		return "redirect:/";
+		System.out.println(clipList.size());
+		
+		return clipList;
 	}
 	
 	

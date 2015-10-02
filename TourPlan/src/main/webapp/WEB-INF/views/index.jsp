@@ -126,6 +126,7 @@
 			url:"<%=cp%>/clipCount",
 			dataType:"html",		
 			success:function(data){
+				alert(data);
 			},
 			error:function(e){
 				alert("1111111111"+e.responseText);
