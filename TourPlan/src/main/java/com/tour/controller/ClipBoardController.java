@@ -40,9 +40,10 @@ public class ClipBoardController {
 		List<ClipBoardDTO> clipCountList= dao.clipCount();
 		
 		System.out.println("DB clipCount" + clipCountList.size());
-		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?keyword=%EA%B2%BD%EB%B3%B5%EA%B6%81&areaCode=&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=12&pageNo=1&ServiceKey="
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?keyword="+
+		"°æº¹±Ã&areaCode=&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=12&pageNo=1&_type=json&ServiceKey="
 					+tourAPIKey;
-	
+		System.out.println(url);
 		JSONParser jsonparser = new JSONParser();
         JSONObject jsonobject = (JSONObject)jsonparser.parse(jsonUtil.getJSONResponseString(resp, url));
         JSONObject json =  (JSONObject) jsonobject.get("response");
