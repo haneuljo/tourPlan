@@ -63,6 +63,7 @@
 
 <body>
 
+<!-- ---- 모든 jsp 일단 복사 ---- -->
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -106,10 +107,12 @@
   </div>
 </nav>
 
+
 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     
   </div> 
+<!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
   
 <div class="container">
   <h3>내용 추가</h3>
