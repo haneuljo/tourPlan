@@ -2,6 +2,8 @@ package com.tour.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.tour.dto.PlanDTO;
+
 public class PlanDAO {
 	
 
@@ -10,5 +12,20 @@ public class PlanDAO {
 	public void setSessionTemplate(SqlSessionTemplate sessionTemplate) throws Exception{
 		this.sessionTemplate = sessionTemplate;
 	}	
+	
+	//일정등록
+	public void planInsert(PlanDTO dto) {
+		
+		sessionTemplate.insert("com.tour.plan.planInsert", dto);
+		
+	}
+	
+	//groupNum 최대값
+	public int planMax(){
+		
+		int result = sessionTemplate.selectOne("com.tour.plan.planMax");
+		
+		return result;
+	}
 	
 }

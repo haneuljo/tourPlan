@@ -9,7 +9,7 @@
 	<!-- source -->
 	<properties>
 		<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="url" value="jdbc:oracle:thin:@192.168.0.17:1521:xe"/>
+		<property name="url" value="jdbc:oracle:thin:@192.168.0.150:1521:xe"/>
 		<property name="username" value="tour"/>
 		<property name="password" value="a123"/>
 	</properties>
@@ -29,6 +29,8 @@
 	<mappers>
 		<mapper resource="com/tour/mybatis/memberMapper.xml"/>
 		<mapper resource="com/tour/mybatis/clipBoardMapper.xml"/>
+		<mapper resource="com/tour/mybatis/planMapper.xml"/>
+		<mapper resource="com/tour/mybatis/planInfoMapper.xml"/>
 	</mappers>
 
 </configuration>
