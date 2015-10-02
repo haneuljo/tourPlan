@@ -40,8 +40,8 @@ public class ClipBoardController {
 		List<ClipBoardDTO> clipCountList= dao.clipCount();
 		
 		System.out.println("DB clipCount" + clipCountList.size());
-		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?keyword="+
-		"°æº¹±Ã&areaCode=&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=12&pageNo=1&_type=json&ServiceKey="
+		String url =
+				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode=1&sigunguCode=&cat1=A02&cat2=A0201&cat3=A02010100&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=12&pageNo=1&_type=json&ServiceKey="
 					+tourAPIKey;
 		System.out.println(url);
 		JSONParser jsonparser = new JSONParser();
@@ -54,21 +54,23 @@ public class ClipBoardController {
         System.out.println(array.size());
 		Iterator<ClipBoardDTO> it = clipCountList.iterator();
 		
-		
-		while(it.hasNext()){
+		for (int i = 0; i < array.size(); i++) {
 			
-			ClipBoardDTO dto = new ClipBoardDTO();
-			for(int i = 0 ; i < array.size(); i++){
-				JSONObject entity = (JSONObject)array.get(i);
-				int contentid =  (Integer) entity.get("contentid");
-				
-				if(contentid==dto.getContentid()){
-					
+			JSONObject entity = (JSONObject) array.get(i);
+			Long contentid = (Long) entity.get("contentid");
+
+			System.out.println(i + "contentid:" + contentid);
+			
+			while (it.hasNext()) {
+				ClipBoardDTO dto = new ClipBoardDTO();
+
+				if (contentid == dto.getContentid()) {
+
 					System.out.println("¤Ð¤Ð");
-					
-					
+					break;
+
 				}
-	         }
+			}
 		}
 		return "redirect:/";
 	}
