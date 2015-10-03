@@ -79,7 +79,7 @@
             <li><a href="#">Page 1-3</a></li>
           </ul>
         </li>
-        <li><a href="#">Page 2</a></li>
+        <li><a href="<%=cp%>/planInfo.action">여행일정</a></li>
         <li><a href="#">Page 3</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
