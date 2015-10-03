@@ -1,0 +1,50 @@
+create table member
+(email varchar2(50),
+pwd varchar2(20) not null,
+name varchar2(20) not null,
+profileImg varchar2(500),
+constraint pk_member_email primary key(email));
+
+create table planInfo(
+planNum number(9) not null,
+groupNum number(9),
+content varchar2(4000) not null,
+startDate date,
+endDate date, 
+contentid number(9),
+contenttypeid number(9),
+constraint pk_planInfo_planNum primary key(planNum));
+
+create table comments(
+commNum number(9) not null,  
+content varchar2(4000) not null,
+commDate date,
+email varchar2(50) not null,
+groupNum number(9) not null,
+constraint pk_comments_commNum primary key(commNum));
+
+create table review
+(reviewNum number(9),
+content varchar2(4000) not null,
+reviewDate date,
+score number,
+contentid number(9),
+email varchar2(50),
+constraint pk_review_reviewNum primary key(reviewNum));
+
+create table plan(
+groupNum number(9),
+email varchar2(50) not null,
+constraint pk_plan_groupNum primary key(groupNum));
+
+create table planLike(
+planLikeNum number(9),
+email varchar2(50) not null,
+groupNum number(9),
+constraint pk_planLike_planLikeNum primary key(planLikeNum));
+
+create table clipBoard(
+clipBoardNum number(9) not null,  
+email varchar2(50) not null,
+contentid number(9),
+constraint pk_clipBoard_clipBoardNum primary key(clipBoardNum));  
