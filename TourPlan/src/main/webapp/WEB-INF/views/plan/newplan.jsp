@@ -277,10 +277,10 @@
 						$("#result").append('데이터가 없습니다.');
 						
 					}else{
+						
 						for(j=0;j<buffer.length;j++){
 							alert(buffer.length);
 							alert(buffer[j]);
-						
 							for(i=0;i<data.response.body.totalCount;i++){	
 								//alert("아놔"+data.response.body.items.item[i].title);
 								 //alert(buffer.length);
@@ -288,11 +288,14 @@
 									
 									$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/><input type="hidden" name="contentid" value="' + buffer[j] +'"/>'
 									+'<select name="sday" style="width: 116px;"><option value="0">시작날짜</option><option value="2015-10-04">2015-10-04</option></select>'
-									+'<select name="stime" style="width: 116px;"><option value="0">시작시간</option><option value="14:00">14:00</option></select>'
-									+'<select name="eday" style="width: 116px;"><option value="0">끝날짜</option><option value="2015-10-04">2015-10-04</option></select>&nbsp;&nbsp;'
+									+'<select name="stime" style="width: 116px;"><option value="0">시작시간</option><option value="14:00">14:00</option></select>&nbsp;&nbsp;&nbsp;&nbsp;'
+									+'<select name="eday" style="width: 116px;"><option value="0">끝날짜</option><option value="2015-10-04">2015-10-04</option></select>'
 									+'<select name="etime" style="width: 116px;"><option value="0">끝시간</option><option value="15:00">15:00</option></select><br/>'+data.response.body.items.item[i].title+'</div><br/>');
+									
+									alert("d" + buffer[j]);
 								}
 							}
+							alert("두번째"  + buffer[j])
 						}
 					}
 					
