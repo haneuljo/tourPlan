@@ -242,7 +242,7 @@
 	
 	 //일정추가부분?
 	 function choice(){
-		 var contentid = $("#contentid").val()
+		 var contentid = $("#contentid").val();
 		// alert("여기는?");
 		// alert(contentid);
 		// alert(areaCode);
@@ -260,8 +260,12 @@
 						
 					}else{
 						for(i=0;i<data.response.body.totalCount;i++){	
-							$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/><br/>'+data.response.body.items.item[i].title+'</div>');
-							
+							//alert("아놔"+data.response.body.items.item[i].title);
+							if(data.response.body.items.item[i].contentid==contentid){
+								$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/>'
+								+'<select style="width: 116px;"><option value="0">날짜</option></select>'
+								+'<select style="width: 116px;"><option value="0">시간</option></select><br/>'+data.response.body.items.item[i].title+'</div>');
+							}
 						}
 					}
 					
@@ -271,6 +275,7 @@
 				}
 			});
 	 }
+	 
 	// marker is clicked, the info window will open with the secret message
 	function attachSecretMessage(marker, secretMessage) {
 	  var infowindow = new google.maps.InfoWindow({
