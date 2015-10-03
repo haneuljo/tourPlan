@@ -71,7 +71,7 @@ public class ClipBoardController {
 		
 		System.out.println("DB clipCount" + clipCountList.size());
 		String url =
-				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode="+areaCode+"&cat1=A02&cat2=A0201&cat3=A02010100&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=12&pageNo=1&_type=json&ServiceKey="
+				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode="+areaCode+"&sigunguCode=&cat1=A02&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=20&pageNo=1&_type=json&ServiceKey="
 					+tourAPIKey;
 		System.out.println(url);
 		JSONParser jsonparser = new JSONParser();

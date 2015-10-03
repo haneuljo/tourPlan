@@ -146,7 +146,7 @@
 							$("#clipResult").empty();
 							//alert(data);
 							$.each(data, function(index, value) {
-								$("#clipResult").append('<div><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립수 : '+value.clipCount+'관광지명 : '+value.title+'</div>');
+								$("#clipResult").append('<div id="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
 							});  
 							 
 							
@@ -158,7 +158,7 @@
 					});
 					
 				});
-					
+				
 					
 			},
 			error:function(e){
