@@ -18,6 +18,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,17 +48,30 @@ public class ClipBoardController {
 		return "clipBoard/travelMain";
 	}
 	
+	//지역코드 API
+	@RequestMapping("/areaCodeAPI")
+	@ResponseBody
+	public ResponseEntity<String> areaCodeAPI(HttpServletResponse response) throws IOException {
+
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&numOfRows=17&ServiceKey="
+				+ tourAPIKey;
+
+		JSONResponseUtil util = new JSONResponseUtil();
+		return util.getJSONResponse(response, url);
+	}
+	
 	//clipCount해서 비교
 	@RequestMapping("/clipCount")
 	@ResponseBody
-	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp ) throws ParseException, IOException {
+	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp,Integer areaCode) throws ParseException, IOException {
 		
+		System.out.println("areacode : "+areaCode);
 		List<ClipBoardDTO> clipCountList= dao.clipCount();
 		List<ClipBoardDTO> clipList= new ArrayList<ClipBoardDTO>();
 		
 		System.out.println("DB clipCount" + clipCountList.size());
 		String url =
-				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode=1&sigunguCode=&cat1=A02&cat2=A0201&cat3=A02010100&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=12&pageNo=1&_type=json&ServiceKey="
+				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode="+areaCode+"&cat1=A02&cat2=A0201&cat3=A02010100&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=12&pageNo=1&_type=json&ServiceKey="
 					+tourAPIKey;
 		System.out.println(url);
 		JSONParser jsonparser = new JSONParser();

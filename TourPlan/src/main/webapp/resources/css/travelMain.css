@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+#areaContainer{
+ 
+}
+#area {
+	border: 1px solid;
+	float: left;
+	width: 15%;
+	text-align: center;
+}

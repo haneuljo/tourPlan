@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="<%=cp%>/resources/css/travelMain.css" type="text/css"/>
   
    <style>
   .modal-header, h4, .close {
@@ -21,6 +22,8 @@
   .modal-footer {
       background-color: #f9f9f9;
   }
+  
+  
   </style>
   <script>
 	$(document).ready(function(){
@@ -116,35 +119,62 @@
 <!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
   
 <div class="container">
-  <h3>내용 추가</h3>
-  <div id="clipResult"></div>
+
+  <div id="areaContainer"></div>
+  <div id="clipResult"></div>  
   
   <script>
-  
-  $(document).ready(function(){
-  		$.ajax({
-			type:"GET",
-			url:"<%=cp%>/clipCount",
+ 	 $(document).ready(function(){
+ 		 var areaCode;
+ 		 var sigunguCode;
+ 		 $.ajax({
+ 			type:"GET",
+			url:"<%=cp%>/areaCodeAPI",
 			dataType:"json",		
 			success:function(data){
 				
-				$("#clipResult").empty();
-				//alert(data);
-				$.each(data, function(index, value) {
-					$("#clipResult").append('<div><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립수 : '+value.clipCount+'관광지명 : '+value.title+'</div>');
-				});  
-				 
-				
+				for(i=0;i<data.response.body.items.item.length;i++){	
+					$("#areaContainer").append('<div id="area" data="'+data.response.body.items.item[i].code+'">'+data.response.body.items.item[i].name+'<a></div>');
+				}
+				$("#areaContainer div").bind("click", function(){
+					$.ajax({
+						type:"GET",
+						url:"<%=cp%>/clipCount?areaCode="+$(this).attr('data'),
+						dataType:"json",		
+						success:function(data){
+							
+							$("#clipResult").empty();
+							//alert(data);
+							$.each(data, function(index, value) {
+								$("#clipResult").append('<div><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립수 : '+value.clipCount+'관광지명 : '+value.title+'</div>');
+							});  
+							 
+							
+						},
+						error:function(e){
+							alert("1111111111"+e.responseText);
+						}
+						
+					});
+					
+				});
+					
+					
 			},
 			error:function(e){
-				alert("1111111111"+e.responseText);
+				//alert("1111111111"+e.responseText);
 			}
-			
-		});
+ 			 
+ 		 });
+  		
   		
   	});
   </script>
+  
+  
+  
 </div>
+
 
 </body>
 </html>
