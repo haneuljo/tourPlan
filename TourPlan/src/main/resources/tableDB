@@ -42,3 +42,9 @@ planLikeNum number(9),
 email varchar2(50) not null,
 groupNum number(9),
 constraint pk_planLike_planLikeNum primary key(planLikeNum));
+
+create table clipBoard(
+clipBoardNum number(9) not null,  
+email varchar2(50) not null,
+contentid number(9),
+constraint pk_clipBoard_clipBoardNum primary key(clipBoardNum));  
