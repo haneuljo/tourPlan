@@ -1,17 +1,91 @@
 package com.tour.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tour.dao.PlanDAO;
+import com.tour.util.JSONResponseUtil;
 
 @Controller("PlanController")
 public class PlanController {
 	
+	String tourAPIKey = "sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D";
+	
 	@Autowired
 	@Qualifier("PlanDAO")
 	PlanDAO dao;
+	
+	@RequestMapping("search")
+	public String search() {
+		
+		return "plan/search";
+	}
+	
+	//지역코드 API
+		@RequestMapping("/areaCodeAPI")
+		@ResponseBody
+		public ResponseEntity<String> areaCodeAPI(HttpServletResponse response) throws IOException {
+				
+			String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&numOfRows=17&ServiceKey="
+					+ tourAPIKey;
+			
+			JSONResponseUtil util = new JSONResponseUtil();
+			return util.getJSONResponse(response, url);
+		}
+		@RequestMapping("/sigunguCodeAPI")
+		@ResponseBody
+		public ResponseEntity<String> sigunguCodeAPI(HttpServletResponse response, Integer areaCode) throws IOException {
+			
+			String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&numOfRows=30&ServiceKey="
+					+ tourAPIKey
+					+ "&areaCode="+areaCode;
+			
+			JSONResponseUtil util = new JSONResponseUtil();
+			return util.getJSONResponse(response, url);
+		}
+		@RequestMapping("/searchStayAPI")
+		@ResponseBody
+		public ResponseEntity<String> searchStayAPI(HttpServletResponse response,Integer areaCode, Integer sigunguCode) throws IOException {
+			
+			String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&ServiceKey="
+					+ tourAPIKey
+					+ "&areaCode="+areaCode+"&sigunguCode="+sigunguCode;
+
+			JSONResponseUtil util = new JSONResponseUtil();
+			return util.getJSONResponse(response, url);
+		}
+		
+		@RequestMapping("/areaBasedListAPI")
+		@ResponseBody
+		public ResponseEntity<String> areaBasedListAPI(HttpServletResponse response,Integer areaCode, Integer sigunguCode,Integer contentTypeId) throws IOException {
+			
+			String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&ServiceKey="
+					+ tourAPIKey
+					+ "&areaCode="+areaCode+"&sigunguCode="+sigunguCode + "&contentTypeId=" + contentTypeId;
+
+			JSONResponseUtil util = new JSONResponseUtil();
+			return util.getJSONResponse(response, url);
+		}
+	
+		@RequestMapping("/areaBasedList")
+		@ResponseBody
+		public ResponseEntity<String> areaBasedList(HttpServletResponse response,Integer areaCode, Integer sigunguCode) throws IOException {
+			
+			String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&ServiceKey="
+					+ tourAPIKey
+					+ "&areaCode="+areaCode+"&sigunguCode="+sigunguCode;
+
+			JSONResponseUtil util = new JSONResponseUtil();
+			return util.getJSONResponse(response, url);
+		}
 	
 	
 }
