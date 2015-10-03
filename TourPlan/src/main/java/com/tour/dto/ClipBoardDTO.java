@@ -3,7 +3,21 @@ package com.tour.dto;
 public class ClipBoardDTO {
 	
 	int clipBoardNum, contentid, clipCount;
-	String email;
+	String email, firstimage,title;
+	
+	
+	public String getFirstimage() {
+		return firstimage;
+	}
+	public void setFirstimage(String firstimage) {
+		this.firstimage = firstimage;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public int getClipBoardNum() {
 		return clipBoardNum;
 	}
@@ -28,7 +42,7 @@ public class ClipBoardDTO {
 	public void setClipCount(int clipCount) {
 		this.clipCount = clipCount;
 	}
-	
+
 	
 	
 }

@@ -2,6 +2,8 @@ package com.tour.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -45,7 +47,6 @@ public class ClipBoardController {
 		List<ClipBoardDTO> clipCountList= dao.clipCount();
 		List<ClipBoardDTO> clipList= new ArrayList<ClipBoardDTO>();
 		
-		
 		System.out.println("DB clipCount" + clipCountList.size());
 		String url =
 				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode=1&sigunguCode=&cat1=A02&cat2=A0201&cat3=A02010100&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=12&pageNo=1&_type=json&ServiceKey="
@@ -57,30 +58,69 @@ public class ClipBoardController {
         JSONObject jsonbody =  (JSONObject) json.get("body");
         JSONObject jsonitem =  (JSONObject) jsonbody.get("items");
         JSONArray array = (JSONArray)jsonitem.get("item");
-
+        
+      	
+        JSONObject jsonOj = new JSONObject();
+        
         System.out.println(array.size());
 		
 		for (int i = 0; i < array.size(); i++) {
-			
+			int chk=0;
 			JSONObject entity = (JSONObject) array.get(i);
 			Long contentid = (Long) entity.get("contentid");
 
-			System.out.println(i + "contentid:" + contentid);
+			//System.out.println(i + "contentid:" + contentid);
 		
 			Iterator<ClipBoardDTO> it = clipCountList.iterator();
 			while (it.hasNext()) {
 				ClipBoardDTO dto = it.next();
-				
-
+				//System.out.println("여기까지?");
 				if (contentid == dto.getContentid()) {
 					
+					dto.setFirstimage((String)entity.get("firstimage"));
+					dto.setTitle((String)entity.get("title"));
+					//System.out.println("클립 카운트 " + dto.getClipCount());
+					chk=1;
 					clipList.add(dto);
 					break;
 
 				}
 			}
+			if(chk==0){
+				ClipBoardDTO dto = new ClipBoardDTO();
+				dto.setFirstimage((String)entity.get("firstimage"));
+				dto.setTitle((String)entity.get("title"));
+				
+				dto.setContentid(Integer.parseInt(contentid.toString()));
+				dto.setClipCount(0);
+				clipList.add(dto);
+			}
 			
 		}
+		
+		Collections.sort(clipList, new Comparator <ClipBoardDTO>() {
+
+			@Override
+			public int compare(ClipBoardDTO o1, ClipBoardDTO o2) {
+				
+				int count1 = o1.getClipCount();
+				int count2 = o2.getClipCount();
+				
+				if(count1>count2){
+					return -1;
+					
+				}else if(count1<count2){
+					return 1;
+					
+				}else
+					return 0;
+			
+			}
+		});
+		
+		
+			
+		
 		System.out.println(clipList.size());
 		
 		return clipList;
