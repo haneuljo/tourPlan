@@ -121,42 +121,79 @@
 <div class="container">
 
   <div id="areaContainer"></div>
-  <div id="clipResult"></div>  
+  <div id="clipResult">
+  	
+  </div>  
   
   <script>
  	 $(document).ready(function(){
  		 var areaCode;
  		 var sigunguCode;
+ 		 
  		 $.ajax({
  			type:"GET",
 			url:"<%=cp%>/areaCodeAPI",
 			dataType:"json",		
 			success:function(data){
 				
+				var count=1;
 				for(i=0;i<data.response.body.items.item.length;i++){	
-					$("#areaContainer").append('<div id="area" data="'+data.response.body.items.item[i].code+'">'+data.response.body.items.item[i].name+'<a></div>');
-				}
-				$("#areaContainer div").bind("click", function(){
-					$.ajax({
-						type:"GET",
-						url:"<%=cp%>/clipCount?areaCode="+$(this).attr('data'),
-						dataType:"json",		
-						success:function(data){
-							
-							$("#clipResult").empty();
-							//alert(data);
-							$.each(data, function(index, value) {
-								$("#clipResult").append('<div id="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
-							});  
-							 
-							
-						},
-						error:function(e){
-							alert("1111111111"+e.responseText);
-						}
-						
-					});
+					$("#areaContainer").append('<div id="area" data="'+data.response.body.items.item[i].code+'"index="'+count+'">'+data.response.body.items.item[i].name+'<span></span></div>');
 					
+					if((i+1)%6==0 || i==data.response.body.items.item.length-1){
+						$("#areaContainer").append('<div id="sigugun'+count+'"data="'+data.response.body.items.item[i].code+'" index="'+count+'"></div>');
+						count++;
+					}
+				}
+				$("#areaContainer div:has(span)").bind("click", function(){
+					areaCode=$(this).attr('data');
+					//alert(areaCode);
+					if($(this).attr('id')=="area"){
+						var index=$(this).attr('index');
+						//alert(index);
+						$.ajax({
+							type:"GET",
+							url:"<%=cp%>/sigunguCodeAPI?areaCode="+areaCode,
+							dataType:"json",		
+							success:function(data){
+								$("#sigugun"+index).empty();
+								//alert(data);
+								for(i=0;i<data.response.body.items.item.length;i++){
+									$("#sigugun"+index).append('<div id="segugun_info" data="'+data.response.body.items.item[i].code+'">'+data.response.body.items.item[i].name+'<a></div>');
+								}  
+								
+								$("#sigugun"+index+" div").bind("click", function(){
+									sigunguCode = $(this).attr('data');
+									$.ajax({
+										type:"GET",
+										url:"<%=cp%>/clipCount?areaCode="+areaCode+"&sigugunCode="+sigunguCode,
+										dataType:"json",		
+										success:function(data){
+											
+											$("#clipResult").empty();
+											//alert(data);
+											$.each(data, function(index, value) {
+												$("#clipResult").append('<div id="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
+											});  
+											 
+											
+										},
+										error:function(e){
+											alert("1111111111"+e.responseText);
+										}					
+									
+									});
+								});
+								
+							},
+							error:function(e){
+								alert("1111111111"+e.responseText);
+							}
+							
+						});
+						
+					}
+				
 				});
 				
 					

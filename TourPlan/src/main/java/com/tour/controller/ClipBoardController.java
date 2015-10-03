@@ -60,10 +60,23 @@ public class ClipBoardController {
 		return util.getJSONResponse(response, url);
 	}
 	
+	//시구군 코드 API
+	@RequestMapping("/sigunguCodeAPI")
+	@ResponseBody
+	public ResponseEntity<String> sigunguCodeAPI(HttpServletResponse response, Integer areaCode) throws IOException {
+		
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&numOfRows=30&ServiceKey="
+				+ tourAPIKey
+				+ "&areaCode="+areaCode;
+		
+		JSONResponseUtil util = new JSONResponseUtil();
+		return util.getJSONResponse(response, url);
+	}
+	
 	//clipCount해서 비교
 	@RequestMapping("/clipCount")
 	@ResponseBody
-	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp,Integer areaCode) throws ParseException, IOException {
+	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp,Integer areaCode, Integer sigugunCode) throws ParseException, IOException {
 		
 		System.out.println("areacode : "+areaCode);
 		List<ClipBoardDTO> clipCountList= dao.clipCount();
@@ -71,7 +84,7 @@ public class ClipBoardController {
 		
 		System.out.println("DB clipCount" + clipCountList.size());
 		String url =
-				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode="+areaCode+"&sigunguCode=&cat1=A02&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=20&pageNo=1&_type=json&ServiceKey="
+				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode="+areaCode+"&sigunguCode="+sigugunCode+"&cat1=A02&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=20&pageNo=1&_type=json&ServiceKey="
 					+tourAPIKey;
 		System.out.println(url);
 		JSONParser jsonparser = new JSONParser();
