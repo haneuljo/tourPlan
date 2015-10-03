@@ -257,7 +257,10 @@
 	//var jbAry = new Array();
 	 //일정추가부분?
 	var buffer = new Array();
-	 function choice(){
+	var chk = 0;
+	//검색을 할때 empty하도록
+	$("#result").empty();
+	function choice(){
 		 alert($("#contentid").val());
 		 buffer.push($("#contentid").val());
 		
@@ -272,15 +275,16 @@
 				data:"areaCode="+areaCode,
 				dataType:"json",		
 				success:function(data){
-					$("#result").empty();
+				
 					if(data.response.body.totalCount==0){
 						$("#result").append('데이터가 없습니다.');
 						
 					}else{
 						
-						for(j=0;j<buffer.length;j++){
+						for(j=chk;j<buffer.length;j++){
+							chk=buffer.length;
 							alert(buffer.length);
-							alert(buffer[j]);
+							alert(j);
 							for(i=0;i<data.response.body.totalCount;i++){	
 								//alert("아놔"+data.response.body.items.item[i].title);
 								 //alert(buffer.length);
