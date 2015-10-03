@@ -3,17 +3,42 @@
  height:130px;
 }
 #area {
-	border: 1px solid;
+	/* border: 1px solid; */
 	float: left;
 	width: 15%;
 	height:40px;
 	text-align: center;
-    padding-top: 5px;
+    padding-top: 7px;
 	
 }
 #travel_info {
-	border: 1px solid;
 	float: left;
 	width: 25%;
+	text-align: center;
+}
+#sigugun1{
+	float: left;
+	width: 90%;
+	padding-left:5%;
+	padding-left:5%;
+}
+#sigugun2{
+	float: left;
+	width: 90%;
+	padding-left:5%;
+	padding-left:5%;
+	
+}
+#sigugun3{
+	float: left;
+	width: 90%;
+	padding-left:5%;
+	padding-left:5%;
+}
+#segugun_info {
+	float: left;
+	width: 12%;
+	height:40px;
+	padding-top: 7px;
 	text-align: center;
 }
