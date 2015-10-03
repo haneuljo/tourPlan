@@ -272,12 +272,13 @@
 				data:"areaCode="+areaCode,
 				dataType:"json",		
 				success:function(data){
-					$("#result").empty();
+			//	$("#result").empty();
 					if(data.response.body.totalCount==0){
 						$("#result").append('데이터가 없습니다.');
 						
 					}else{
-						for(j=0;j<buffer.length;j++){
+						for(
+								j=0;j<buffer.length;j++){
 							alert(buffer.length);
 							alert(buffer[j]);
 						
