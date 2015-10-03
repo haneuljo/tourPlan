@@ -46,5 +46,16 @@ public class PlanInfoController {
 		return util.getJSONResponse(res, url);
 	}
 	
+	@RequestMapping("/register")
+	public String register(HttpServletRequest req,HttpServletResponse res, Integer contentid,String sday,String stime,String eday,String etime) {
+		
+		System.out.println("컨아이디:" + contentid);
+		String start = sday +" " + stime;
+		String end = eday + " " + etime;
+		System.out.println("시작:" + start );
+		System.out.println("끝:" + end);
+		return "plan/newplan";
+	}
+	
 	
 }
