@@ -39,7 +39,15 @@ public class ClipBoardController {
 	String tourAPIKey = "sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D";
 	
 	
+	//여행지 페이지 띄우기
+	@RequestMapping("/travel")
+	public String travel(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
+		
+		
+		return "clipBoard/travelMain";
+	}
 	
+	//clipCount해서 비교
 	@RequestMapping("/clipCount")
 	@ResponseBody
 	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp ) throws ParseException, IOException {
@@ -58,9 +66,6 @@ public class ClipBoardController {
         JSONObject jsonbody =  (JSONObject) json.get("body");
         JSONObject jsonitem =  (JSONObject) jsonbody.get("items");
         JSONArray array = (JSONArray)jsonitem.get("item");
-        
-      	
-        JSONObject jsonOj = new JSONObject();
         
         System.out.println(array.size());
 		
@@ -98,6 +103,7 @@ public class ClipBoardController {
 			
 		}
 		
+		//clipList 정렬, clipCount 순으로?
 		Collections.sort(clipList, new Comparator <ClipBoardDTO>() {
 
 			@Override

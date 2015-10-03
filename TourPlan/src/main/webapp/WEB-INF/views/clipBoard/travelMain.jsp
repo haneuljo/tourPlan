@@ -117,7 +117,33 @@
   
 <div class="container">
   <h3>내용 추가</h3>
+  <div id="clipResult"></div>
   
+  <script>
+  
+  $(document).ready(function(){
+  		$.ajax({
+			type:"GET",
+			url:"<%=cp%>/clipCount",
+			dataType:"json",		
+			success:function(data){
+				
+				$("#clipResult").empty();
+				//alert(data);
+				$.each(data, function(index, value) {
+					$("#clipResult").append('<div><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립수 : '+value.clipCount+'관광지명 : '+value.title+'</div>');
+				});  
+				 
+				
+			},
+			error:function(e){
+				alert("1111111111"+e.responseText);
+			}
+			
+		});
+  		
+  	});
+  </script>
 </div>
 
 </body>
