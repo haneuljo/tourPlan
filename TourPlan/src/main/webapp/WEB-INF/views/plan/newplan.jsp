@@ -66,6 +66,19 @@
 	});
   </script>
   
+  <script type="text/javascript">
+	function register(){
+		
+		var f = document.planForm;
+		
+		f.action = "<%=cp%>/register.action";
+		f.submit();
+	}
+  
+  
+  
+  </script>
+  
 </head>
 
 <body>
@@ -122,10 +135,135 @@
 <!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
   
 <div class="container">
-<script>
+  <h3>내용 추가</h3>
+  지역 :
+	<select id="selectArea" style="width: 116px;">
+		<option value="0">선택</option>
+	</select>
+	<!-- <select id="selectSubArea" style="width: 116px;">
+		<option value="0">선택</option>
+	</select> -->
+	<button id="btn">검색</button>
+	<div id="map"></div>
+
+	
+<form action="" name="planForm" method="post">	
+	<script>
+	var areaCode;
+	var sigunguCode;
+	var map;
+	
+	
+	function initMap() {
+	
+	  map = new google.maps.Map(document.getElementById('map'), {
+	    zoom: 12,
+	    center: {lat: 37.5, lng: 127.037}  
+	  });
+	  
+	  $.ajax({
+		  type:"GET",
+		  url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&numOfRows=17&MobileOS=ETC&MobileApp=AppTesting&_type=json",
+		  dataType:"json",
+		  success:function(data){	
+			$('#selectArea').empty();
+			$("#selectArea").append('<option value="0">선택</option>');
+			for(i=0;i<data.response.body.items.item.length;i++){	
+				$("#selectArea").append('<option value="'+data.response.body.items.item[i].code+'">'+data.response.body.items.item[i].name+'</option>')
+			}
+		},error:function(e){}
+	  });
+	  $("#selectArea").change(function(){
+		  areaCode=$("#selectArea option:selected").val();
+		  //지역별로 시구군 코드가 다르므로 !!! numOfRows check할것
+		  $.ajax({
+			type:"GET",
+			url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&MobileOS=ETC&MobileApp=AppTesting",
+			dataType:"json",		
+			success:function(data){
+				$('#selectSubArea').empty();
+				$("#selectSubArea").append('<option value="0">선택</option>');
+				for(i=0;i<data.response.body.items.item.length;i++){	
+					$("#selectSubArea").append('<option value="'+data.response.body.items.item[i].code+'">'+data.response.body.items.item[i].name+'</option>')
+				}
+			},error:function(e){}
+		});
+	});
+	/* $("#selectSubArea").change(function(){
+		sigunguCode=$("#selectSubArea option:selected").val();
+	}); */
+}
+	
+	$("#btn").click(function(){
+		$.ajax({
+			type:"GET",
+			//url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&numOfRows=10&_type=json",
+			url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+ "&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json",
+			dataType:"json",		
+			success:function(data){
+				if(data.response.body.items.item.length==0){
+					alert("데이터가 없습니다.");
+				}else{ 
+					var secretMessages = new Array(data.response.body.totalCount);
+					var mapy;
+					var mapx;
+					
+					for(i=0;i<data.response.body.items.item.length;i++){	
+						var obj = data.response.body.items.item[i];
+						//var contentid = data.response.body.items.item[i].contentid;
+						secretMessages[i]='<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/>&nbsp;&nbsp;<input type="hidden" id="contentid" name="contentid" value="'+data.response.body.items.item[i].contentid+'"/><input type="button" value="일정에 추가" id="sel" onclick="choice();"/> <br/>'+data.response.body.items.item[i].title+'</div>';
+						
+						if(keyFind(obj, 'mapx')){
+							//alert(i+"주소좌표변환필요");
+							$.ajax({
+								type:"GET",
+								url:"http://maps.googleapis.com/maps/api/geocode/json?address="+obj.addr1+"&language=ko&sensor=false",
+								dataType:"json",		
+								async:false,
+								success:function(data){
+									mapx=data.results[0].geometry.location.lng;
+									mapy=data.results[0].geometry.location.lat;
+									
+								
+								},error:function(e){	alert("1111111111"+e.responseText);
+								}
+							});
+						} else{
+							mapy=obj.mapy;
+							mapx=obj.mapx;
+							
+						}  
+						
+						//alert(i + " : " + mapy);
+						var itemsXY = new google.maps.LatLng(mapy,mapx);
+						var itemsMarker=new google.maps.Marker({ //마커
+						  	  position:itemsXY,
+						  		 map: map
+						  	  });
+						attachSecretMessage(itemsMarker, secretMessages[i]);
+						    
+					}
+					
+					
+				}  
+		
+			},error:function(e){
+				alert("1111111111"+e.responseText);
+			}
+		});
+	
+	});
+	
+	//var jbAry = new Array();
 	 //일정추가부분?
-	 function choice(){
-		 var contentid = $("#contentid").val();
+	var buffer = new Array();
+	var chk = 0;
+	//검색을 할때 empty하도록
+	$("#result").empty();
+	function choice(){
+		 alert($("#contentid").val());
+		 buffer.push($("#contentid").val());
+		
 		// alert("여기는?");
 		// alert(contentid);
 		// alert(areaCode);
@@ -137,18 +275,31 @@
 				data:"areaCode="+areaCode,
 				dataType:"json",		
 				success:function(data){
-					$("#result").empty();
+				
 					if(data.response.body.totalCount==0){
 						$("#result").append('데이터가 없습니다.');
 						
 					}else{
-						for(i=0;i<data.response.body.totalCount;i++){	
-							//alert("아놔"+data.response.body.items.item[i].title);
-							if(data.response.body.items.item[i].contentid==contentid){
-								$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/>'
-								+'<select style="width: 116px;"><option value="0">날짜</option></select>'
-								+'<select style="width: 116px;"><option value="0">시간</option></select><br/>'+data.response.body.items.item[i].title+'</div>');
+						
+						for(j=chk;j<buffer.length;j++){
+							chk=buffer.length;
+							//alert(buffer.length);
+							//alert(j);
+							for(i=0;i<data.response.body.totalCount;i++){	
+								//alert("아놔"+data.response.body.items.item[i].title);
+								 //alert(buffer.length);
+								if(data.response.body.items.item[i].contentid==buffer[j]){
+									
+									$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/><input type="hidden" name="contentid" value="' + buffer[j] +'"/>'
+									+'<select name="sday" style="width: 116px;"><option value="0">시작날짜</option><option value="2015-10-04">2015-10-04</option></select>'
+									+'<select name="stime" style="width: 116px;"><option value="0">시작시간</option><option value="14:00:00">14:00</option></select>&nbsp;&nbsp;&nbsp;&nbsp;'
+									+'<select name="eday" style="width: 116px;"><option value="0">끝날짜</option><option value="2015-10-04">2015-10-04</option></select>'
+									+'<select name="etime" style="width: 116px;"><option value="0">끝시간</option><option value="15:00:00">15:00</option></select><br/>'+data.response.body.items.item[i].title+'</div><br/>');
+									
+									//alert("d" + buffer[j]);
+								}
 							}
+							//alert("두번째"  + buffer[j])
 						}
 					}
 					
@@ -186,7 +337,12 @@
 	
 
     </script>
-  
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"
+		async defer></script>
+	<div id="result"></div>
+	<input type="button" value="일정저장" onclick="register();"/>
+  </form>
 </div>
 
 </body>

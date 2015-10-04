@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
   <link rel="stylesheet" href="<%=cp%>/resources/css/travelMain.css" type="text/css"/>
   
    <style>
@@ -23,7 +24,12 @@
       background-color: #f9f9f9;
   }
   
-  
+	*{
+	margin:0;
+	padding:0;
+	}
+	html,body{height:100%;}
+	#map{height: 100%;}
   </style>
   <script>
 	$(document).ready(function(){
@@ -62,6 +68,19 @@
 	});
   </script>
   
+  <script type="text/javascript">
+	function register(){
+		
+		var f = document.planForm;
+		
+		f.action = "<%=cp%>/register.action";
+		f.submit();
+	}
+  
+  
+  
+  </script>
+  
 </head>
 
 <body>
@@ -82,8 +101,7 @@
             <li><a href="#">Page 1-3</a></li>
           </ul>
         </li>
-        <li><a href="<%=cp%>/travel">여행지</a></li>
-        <li><a href="<%=cp%>/planInfo.action">여행일정</a></li>
+        <li><a href="#">여행일정</a></li>
         <li><a href="#">Page 3</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -99,7 +117,7 @@
 	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이페이지<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	            <li><a href="#">Page 1-1</a></li>
-	            <li><a href="#">Page 1-2</a></li>
+	            <li><a href="<%=cp%>/planInfo.action">여행일정</a></li>
 	            <li><a href="<%=cp%>/">회원정보수정</a></li>
 	            <li><a href="<%=cp%>logout.action">로그아웃</a></li>
 	          </ul>
@@ -119,23 +137,33 @@
 <!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
   
 <div class="container">
-
+  <h3>내용 추가</h3>
   <div id="areaContainer"></div>
-  <div id="clipResult">
-  	
-  </div>  
-  
-  <script>
- 	 $(document).ready(function(){
- 		 var areaCode;
- 		 var sigunguCode;
- 		 
- 		 $.ajax({
- 			type:"GET",
+	<!-- <select id="selectSubArea" style="width: 116px;">
+		<option value="0">선택</option>
+	</select> -->
+
+	
+<form action="" name="planForm" method="post">	
+	<script>
+	var areaCode;
+	var sigunguCode;
+	var map;
+	
+	
+	function initMap() {
+	
+	  map = new google.maps.Map(document.getElementById('map'), {
+	    zoom: 12,
+	    center: {lat: 37.5, lng: 127.037}  
+	  });
+	  
+	  $.ajax({
+	 		type:"GET",
 			url:"<%=cp%>/areaCodeAPI",
 			dataType:"json",		
 			success:function(data){
-				
+					
 				var count=1;
 				for(i=0;i<data.response.body.items.item.length;i++){	
 					$("#areaContainer").append('<div id="area" data="'+data.response.body.items.item[i].code+'"index="'+count+'">'+data.response.body.items.item[i].name+'<span></span></div>');
@@ -161,22 +189,27 @@
 								for(i=0;i<data.response.body.items.item.length;i++){
 									$("#sigugun"+index).append('<div id="segugun_info" data="'+data.response.body.items.item[i].code+'">'+data.response.body.items.item[i].name+'<a></div>');
 								}  
-								
+							
 								$("#sigugun"+index+" div").bind("click", function(){
 									sigunguCode = $(this).attr('data');
 									$.ajax({
 										type:"GET",
-										url:"<%=cp%>/clipCount?areaCode="+areaCode+"&sigugunCode="+sigunguCode,
+										url:"<%=cp%>/clipCount?areaCode="+areaCode+"&sigugunCode="+sigunguCode+"&mapChk=1",
 										dataType:"json",		
 										success:function(data){
 											
-											$("#clipResult").empty();
-											//alert(data);
 											$.each(data, function(index, value) {
-												$("#clipResult").append('<div id="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
+												var itemsXY = new google.maps.LatLng(value.mapy,value.mapx);
+
+												var itemsMarker=new google.maps.Marker({
+												  	  position:itemsXY,
+												  	  });
+												    itemsMarker.setMap(map);
 											});  
 											 
 											
+											alert(data);
+						
 										},
 										error:function(e){
 											alert("1111111111"+e.responseText);
@@ -184,34 +217,54 @@
 									
 									});
 								});
-								
-							},
-							error:function(e){
-								alert("1111111111"+e.responseText);
-							}
-							
-						});
-						
+									
+							},	error:function(e){alert("1111111111"+e.responseText);}
+						});		
 					}
-				
-				});
-				
 					
+				});
 			},
-			error:function(e){
-				//alert("1111111111"+e.responseText);
+				error:function(e){
+					//alert("1111111111"+e.responseText);
+				}
+		});
+	
+}
+	
+	// marker is clicked, the info window will open with the secret message
+	function attachSecretMessage(marker, secretMessage) {
+	  var infowindow = new google.maps.InfoWindow({
+	    content: secretMessage
+	  });
+
+	  marker.addListener('click', function() {
+	    infowindow.open(marker.get('map'), marker);
+	  });
+	  
+	}
+	
+	//json key값 있는지 판단
+	function keyFind(obj, key){
+		var chk=false;
+		for (var j in obj) {
+			if (!obj.hasOwnProperty(key)){
+				chk=true;
+				break;
 			}
- 			 
- 		 });
-  		
-  		
-  	});
-  </script>
-  
-  
-  
+		}
+		return chk;
+		
+	}
+	
+
+    </script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"
+		async defer></script>
+	<div id="result"></div>
+	<input type="button" value="일정저장" onclick="register();"/>
+  </form>
 </div>
-
-
+<div id="map"></div>
 </body>
 </html>

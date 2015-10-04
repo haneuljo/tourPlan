@@ -1,7 +1,6 @@
 package com.tour.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tour.dao.PlanInfoDAO;
-import com.tour.dto.PlanDTO;
+import com.tour.dto.PlanInfoDTO;
 import com.tour.util.JSONResponseUtil;
 
 @Controller("PlanInfoController")
@@ -48,16 +47,31 @@ public class PlanInfoController {
 		return util.getJSONResponse(res, url);
 	}
 	
-	@RequestMapping("/myPlan")
-	public String myPlan(HttpServletRequest req,HttpServletResponse res) {
+	@RequestMapping("/register")
+	public String register(PlanInfoDTO pdto,HttpServletRequest req,HttpServletResponse res, Integer contentid[],String sday[],String stime[],String eday[],String etime[]) {
 		
-		int groupNum=1;
+			
 		
-		List<PlanDTO> lists = dao.getLists(groupNum);
-		
-		req.setAttribute("lists", lists);
-		
-		return "plan/myPlan";
+		for(int i=0;i<contentid.length;i++){
+			System.out.println("컨아이디:" + contentid[i]);
+			String start = sday[i] +" " + stime[i];
+			String end = eday[i] + " " + etime[i];
+			System.out.println("시작:" + start );
+			System.out.println("끝:" + end);
+			
+			pdto.setPlanNum(dao.planInfoMax()+1);
+			pdto.setGroupNum(1);
+			pdto.setContent("관광지");
+			pdto.setStartDate(start);
+			pdto.setEndDate(end);
+			pdto.setContentid(contentid[i]);
+			pdto.setContenttypeid(12);
+			
+			dao.planInfoInsert(pdto);
+		}
+			
+		return "plan/planInfo";
 	}
+	
 	
 }

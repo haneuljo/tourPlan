@@ -60,10 +60,30 @@ public class ClipBoardController {
 		return util.getJSONResponse(response, url);
 	}
 	
+	//시구군 코드 API
+	@RequestMapping("/sigunguCodeAPI")
+	@ResponseBody
+	public ResponseEntity<String> sigunguCodeAPI(HttpServletResponse response, Integer areaCode) throws IOException {
+		
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&numOfRows=30&ServiceKey="
+				+ tourAPIKey
+				+ "&areaCode="+areaCode;
+		
+		JSONResponseUtil util = new JSONResponseUtil();
+		return util.getJSONResponse(response, url);
+	}
+	
+	//클립 Map
+	@RequestMapping("/travelMap")
+	public String travelMap(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
+			
+		return "clipBoard/travelMap";
+	}
+	
 	//clipCount해서 비교
 	@RequestMapping("/clipCount")
 	@ResponseBody
-	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp,Integer areaCode) throws ParseException, IOException {
+	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp,Integer areaCode, Integer sigugunCode, Integer mapChk) throws ParseException, IOException {
 		
 		System.out.println("areacode : "+areaCode);
 		List<ClipBoardDTO> clipCountList= dao.clipCount();
@@ -71,7 +91,7 @@ public class ClipBoardController {
 		
 		System.out.println("DB clipCount" + clipCountList.size());
 		String url =
-				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode="+areaCode+"&sigunguCode=&cat1=A02&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=20&pageNo=1&_type=json&ServiceKey="
+				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode="+areaCode+"&sigunguCode="+sigugunCode+"&cat1=A02&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=20&pageNo=1&_type=json&ServiceKey="
 					+tourAPIKey;
 		System.out.println(url);
 		JSONParser jsonparser = new JSONParser();
@@ -88,7 +108,7 @@ public class ClipBoardController {
 			JSONObject entity = (JSONObject) array.get(i);
 			Long contentid = (Long) entity.get("contentid");
 
-			//System.out.println(i + "contentid:" + contentid);
+			System.out.println(i + "contentid:" + contentid);
 		
 			Iterator<ClipBoardDTO> it = clipCountList.iterator();
 			while (it.hasNext()) {
@@ -98,6 +118,14 @@ public class ClipBoardController {
 					
 					dto.setFirstimage((String)entity.get("firstimage"));
 					dto.setTitle((String)entity.get("title"));
+				
+					if(entity.containsKey("mapx")){
+						
+						dto.setMapx(entity.get("mapx"));
+						dto.setMapy(entity.get("mapy"));
+						
+					}
+					dto.setAddr1((String)entity.get("addr1"));
 					//System.out.println("클립 카운트 " + dto.getClipCount());
 					chk=1;
 					clipList.add(dto);
@@ -105,14 +133,24 @@ public class ClipBoardController {
 
 				}
 			}
-			if(chk==0){
-				ClipBoardDTO dto = new ClipBoardDTO();
-				dto.setFirstimage((String)entity.get("firstimage"));
-				dto.setTitle((String)entity.get("title"));
+			if(mapChk==null){
 				
-				dto.setContentid(Integer.parseInt(contentid.toString()));
-				dto.setClipCount(0);
-				clipList.add(dto);
+				if(chk==0){
+					ClipBoardDTO dto = new ClipBoardDTO();
+					dto.setFirstimage((String)entity.get("firstimage"));
+					dto.setTitle((String)entity.get("title"));
+					if(entity.containsKey("mapx")){
+						
+						dto.setMapx(entity.get("mapx"));
+						dto.setMapy(entity.get("mapy"));
+						
+					}
+					dto.setAddr1((String)entity.get("addr1"));
+					dto.setContentid(Integer.parseInt(contentid.toString()));
+					dto.setClipCount(0);
+					clipList.add(dto);
+				}
+
 			}
 			
 		}
