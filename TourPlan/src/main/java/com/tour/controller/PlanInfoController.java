@@ -1,6 +1,7 @@
 package com.tour.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tour.dao.PlanInfoDAO;
+import com.tour.dto.PlanDTO;
 import com.tour.util.JSONResponseUtil;
 
 @Controller("PlanInfoController")
@@ -46,5 +48,16 @@ public class PlanInfoController {
 		return util.getJSONResponse(res, url);
 	}
 	
+	@RequestMapping("/myPlan")
+	public String myPlan(HttpServletRequest req,HttpServletResponse res) {
+		
+		int groupNum=1;
+		
+		List<PlanDTO> lists = dao.getLists(groupNum);
+		
+		req.setAttribute("lists", lists);
+		
+		return "plan/myPlan";
+	}
 	
 }

@@ -16,6 +16,10 @@
 		select nvl(max(planNum),0) from planInfo 
 	</select>
 	
+	<select id="getLists" resultType="com.tour.dto.PlanDTO" parameterType="int">
+		select * from planInfo where groupNum = #{groupNum}
+	</select>
+	
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 
 	from post where seq=#{seq}

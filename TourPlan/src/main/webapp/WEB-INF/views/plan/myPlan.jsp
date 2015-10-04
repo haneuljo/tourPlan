@@ -122,70 +122,9 @@
 <!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
   
 <div class="container">
-<script>
-	 //일정추가부분?
-	 function choice(){
-		 var contentid = $("#contentid").val();
-		// alert("여기는?");
-		// alert(contentid);
-		// alert(areaCode);
-			$.ajax({
-				type:"POST",
-				//url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&numOfRows=10&_type=json",
-				url:"<%=cp%>/choice.action",
-				//data:"contentid=" + contentid,
-				data:"areaCode="+areaCode,
-				dataType:"json",		
-				success:function(data){
-					$("#result").empty();
-					if(data.response.body.totalCount==0){
-						$("#result").append('데이터가 없습니다.');
-						
-					}else{
-						for(i=0;i<data.response.body.totalCount;i++){	
-							//alert("아놔"+data.response.body.items.item[i].title);
-							if(data.response.body.items.item[i].contentid==contentid){
-								$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/>'
-								+'<select style="width: 116px;"><option value="0">날짜</option></select>'
-								+'<select style="width: 116px;"><option value="0">시간</option></select><br/>'+data.response.body.items.item[i].title+'</div>');
-							}
-						}
-					}
-					
-			
-				},error:function(e){
-					alert("1111111111"+e.responseText);
-				}
-			});
-	 }
-	 
-	// marker is clicked, the info window will open with the secret message
-	function attachSecretMessage(marker, secretMessage) {
-	  var infowindow = new google.maps.InfoWindow({
-	    content: secretMessage
-	  });
-
-	  marker.addListener('click', function() {
-	    infowindow.open(marker.get('map'), marker);
-	  });
-	  
-	}
-	
-	//json key값 있는지 판단
-	function keyFind(obj, key){
-		var chk=false;
-		for (var j in obj) {
-			if (!obj.hasOwnProperty(key)){
-				chk=true;
-				break;
-			}
-		}
-		return chk;
-		
-	}
-	
-
-    </script>
+<c:forEach var="dto" items="${lists}">
+${dto.planNum } //${dto.groupNum }//${dto.contentid }//${dto.contenttypeid }//${dto.content }//${dto.startDate }//${dto.endDate }<br/>
+</c:forEach>
   
 </div>
 

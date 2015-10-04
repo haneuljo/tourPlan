@@ -9,7 +9,7 @@
 	<!-- source -->
 	<properties>
 		<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="url" value="jdbc:oracle:thin:@192.168.219.123:1521:XE"/>
+		<property name="url" value="jdbc:oracle:thin:@192.168.219.118:1521:XE"/>
 		<property name="username" value="tour"/>
 		<property name="password" value="a123"/>
 	</properties>
