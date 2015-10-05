@@ -1,9 +1,7 @@
 package com.tour.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -91,50 +89,16 @@ public class PlanInfoController {
 		return "plan/myPlan";
 	}
 	
-	@RequestMapping("/myPlanTest")                                    //내일정보기
-	public String myPlanTest(HttpServletRequest req) {
-		
-		forTest(req);
+	
+	//------------------임시저장소관련---------------------
+	
+	
+	public void insertInfoLists (HashMap<String, Object> hMap,HttpServletRequest req) {
 		
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 		
 		List<HashMap<String, Object>> lists= info.getInfoList();
-			
-		req.setAttribute("lists", lists);
-			
-		return "plan/myPlanTest";
-	}
-	
-	
-	//------------------임시저장소관련---------------------
-	
-	
-	public void insertInfoLists (HashMap<String, Object> hMap,HttpServletRequest req) {              //로그인안했을시 에러남
-		
-		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
-		List<HashMap<String, Object>> lists;
-		
-		if(info.getInfoList()==null){                                        
-			lists = new  ArrayList<HashMap<String,Object>>();
-			System.out.println("infolist is null");
-		}else{
-		lists = info.getInfoList();
-		System.out.println("not null");
-		}
-		
-		Iterator<HashMap<String, Object>> it = lists.iterator();
-		HashMap<String, Object> dto = new HashMap<String, Object>();
-		
-		while(it.hasNext()){
-			
-			dto = (HashMap<String, Object>)it.next();
-			System.out.println(dto.get("planNum"));
-		}
-		
-		
-		
 		
 		lists.add(hMap);
 		
@@ -143,40 +107,14 @@ public class PlanInfoController {
 		session.setAttribute("loginInfo", info);
 	}
 	
-	public void forTest (HttpServletRequest req) {
-		HashMap<String, Object> hMap = new HashMap<String, Object>();
-		hMap.put("planNum", 1);
-		hMap.put("groupNum", 1);
-		hMap.put("contentid", 1);
-		hMap.put("contenttypeid", 1);
-		hMap.put("longTime",60);
-		hMap.put("content", "111");
-		hMap.put("startDate", "2015-10-1 00:00:00");
-		
-		insertInfoLists(hMap, req );
-		
-		HashMap<String, Object> hMap1 = new HashMap<String, Object>();
-		hMap.put("planNum", 2);
-		hMap.put("groupNum", 1);
-		hMap.put("contentid", 2);
-		hMap.put("contenttypeid", 2);
-		hMap.put("longTime",60);
-		hMap.put("content", "222");
-		hMap.put("startDate", "2015-10-1 00:00:01");
-		
-		insertInfoLists(hMap1, req );
-		
-		HashMap<String, Object> hMap2 = new HashMap<String, Object>();
-		hMap.put("planNum", 3);
-		hMap.put("groupNum", 1);
-		hMap.put("contentid", 3);
-		hMap.put("contenttypeid", 3);
-		hMap.put("longTime",60);
-		hMap.put("content", "333");
-		hMap.put("startDate", "2015-10-1 00:00:02");
-		
-		insertInfoLists(hMap2, req );
+	
+	//dragTest
+	
+	@RequestMapping("/dragTest")
+	public String dragTest(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
 		
 		
+		return "plan/dragTest";
 	}
+	
 }

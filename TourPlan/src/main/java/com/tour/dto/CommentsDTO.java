@@ -2,7 +2,7 @@ package com.tour.dto;
 
 public class CommentsDTO {
 	
-	int commNum, groupNum;
-	String content, commDate, email;
+	private int commNum, groupNum;
+	private String content, commDate, email;
 	
 }
