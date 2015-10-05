@@ -4,8 +4,8 @@ public class PlanInfoDTO {
 	
 
 	
-	int planNum, groupNum, contentid, contenttypeid;
-	String content, startDate, endDate;
+	int planNum, groupNum, contentid, contenttypeid,longTime;
+	String content, startDate;
 	public int getPlanNum() {
 		return planNum;
 	}
@@ -42,11 +42,4 @@ public class PlanInfoDTO {
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-	
 }
