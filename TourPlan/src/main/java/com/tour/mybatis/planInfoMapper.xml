@@ -16,7 +16,7 @@
 		select nvl(max(planNum),0) from planInfo 
 	</select>
 	
-	<select id="getLists" resultType="com.tour.dto.PlanDTO" parameterType="int">
+	<select id="getLists" resultType="com.tour.dto.PlanInfoDTO" parameterType="int">
 		select * from planInfo where groupNum = #{groupNum}
 	</select>
 	
