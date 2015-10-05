@@ -106,4 +106,15 @@ public class PlanInfoController {
 		
 		session.setAttribute("loginInfo", info);
 	}
+	
+	
+	//dragTest
+	
+	@RequestMapping("/dragTest")
+	public String dragTest(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
+		
+		
+		return "plan/dragTest";
+	}
+	
 }
