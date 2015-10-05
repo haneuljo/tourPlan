@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tour.dao.PlanInfoDAO;
 import com.tour.dto.PlanInfoDTO;
 import com.tour.util.JSONResponseUtil;
+import com.tour.util.SessionInfo;
 
 @Controller("PlanInfoController")
 public class PlanInfoController {
@@ -87,12 +89,21 @@ public class PlanInfoController {
 		return "plan/myPlan";
 	}
 	
-	public List<HashMap<String, String>> setLists () {
+	
+	//------------------임시저장소관련---------------------
+	
+	
+	public void insertInfoLists (HashMap<String, Object> hMap,HttpServletRequest req) {
 		
-		HashMap<String, String> hMap;
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 		
-		List<HashMap<String, String>> lists = null;
+		List<HashMap<String, Object>> lists= info.getInfoList();
 		
-		return lists;
+		lists.add(hMap);
+		
+		info.setInfoList(lists);
+		
+		session.setAttribute("loginInfo", info);
 	}
 }
