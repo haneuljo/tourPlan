@@ -1,6 +1,7 @@
 package com.tour.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,6 +72,18 @@ public class PlanInfoController {
 		}
 			
 		return "plan/planInfo";
+	}
+	
+	@RequestMapping("/myPlan")                                    //내일정보기
+	public String myPlan(HttpServletRequest req) {
+		
+		int groupNum = 1;
+		
+		List<PlanInfoDTO> lists = dao.getLists(groupNum);
+			
+		req.setAttribute("lists", lists);
+			
+		return "plan/myPlan";
 	}
 	
 	
