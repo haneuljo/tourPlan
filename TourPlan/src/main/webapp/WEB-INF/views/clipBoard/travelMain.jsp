@@ -61,6 +61,109 @@
 	    });
 	});
   </script>
+   <script>
+ 	 $(document).ready(function(){
+ 		 var areaCode;
+ 		 var sigunguCode;
+ 		 var cliplike;
+ 		 
+ 		 $.ajax({
+ 			type:"GET",
+			url:"<%=cp%>/areaCodeAPI",
+			dataType:"json",		
+			success:function(data){
+				
+				var count=1;
+				for(i=0;i<data.response.body.items.item.length;i++){	
+					$("#areaContainer").append('<div id="area" data="'+data.response.body.items.item[i].code+'"index="'+count+'">'+data.response.body.items.item[i].name+'<span></span></div>');
+					
+					if((i+1)%6==0 || i==data.response.body.items.item.length-1){
+						$("#areaContainer").append('<div id="sigugun'+count+'"data="'+data.response.body.items.item[i].code+'" index="'+count+'"></div>');
+						count++;
+					}
+				}
+				$("#areaContainer div:has(span)").bind("click", function(){
+					areaCode=$(this).attr('data');
+					//alert(areaCode);
+					if($(this).attr('id')=="area"){
+						var index=$(this).attr('index');
+						//alert(index);
+						$.ajax({
+							type:"GET",
+							url:"<%=cp%>/sigunguCodeAPI?areaCode="+areaCode,
+							dataType:"json",		
+							success:function(data){
+								$("#sigugun"+index).empty();
+								//alert(data);
+								for(i=0;i<data.response.body.items.item.length;i++){
+									$("#sigugun"+index).append('<div id="segugun_info" data="'+data.response.body.items.item[i].code+'">'+data.response.body.items.item[i].name+'<a></div>');
+								}  
+								
+								
+								$("#sigugun"+index+" div").bind("click", function(){
+									sigunguCode = $(this).attr('data');
+									$.ajax({
+										type:"GET",
+										url:"<%=cp%>/clipCount?areaCode="+areaCode+"&sigugunCode="+sigunguCode,
+										dataType:"json",		
+										success:function(data){
+											
+											$("#clipResult").empty();
+											//alert(data);
+											$.each(data, function(index, value) {
+												$("#clipResult").append('<div id="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'<span class="glyphicon glyphicon-heart" onclick="cliplike('+value.contentid+')"></span></div>');
+											
+	
+													
+												
+												
+											}); 
+											
+											
+											 
+											
+										},
+										error:function(e){
+											alert("1111111111"+e.responseText);
+										}					
+									
+									});
+								});
+								
+						
+								
+							},
+							error:function(e){
+								alert("1111111111"+e.responseText);
+							}
+							
+						});
+						
+					}
+				
+				});
+				
+					
+			},
+			error:function(e){
+				//alert("1111111111"+e.responseText);
+			}
+ 			 
+ 		 });
+  		
+  		
+  	});
+ 	 
+ 	function cliplike(cd) {
+ 		
+ 		var f= document.clip;
+		alert(cd);
+ 		f.action = '<%=cp%>/clipLike?contentid=' +cd;
+ 		f.submit();
+ 		
+ 		
+	} 	 
+  </script>
   
 </head>
 
@@ -98,7 +201,7 @@
 	        <c:otherwise>
 	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이페이지<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#">Page 1-1</a></li>
+	            <li id="myclip"><a href="">My Clip</a></li>
 	            <li><a href="#">Page 1-2</a></li>
 	            <li><a href="<%=cp%>/">회원정보수정</a></li>
 	            <li><a href="<%=cp%>logout.action">로그아웃</a></li>
@@ -111,6 +214,41 @@
   </div>
 </nav>
 
+<script>
+	
+	$(document).ready(function(){
+	
+		$("#myclip").click(function(){
+			alert("myclip");
+			$.ajax({
+				
+				type:"POST",
+				//url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json",
+				url:"<%=cp%>/myClip",
+				//data:"areaCode="+areaCode+"&sigunguCode="+sigunguCode,
+				dataType:"json",		
+				success:function(data){
+					$("#clipresult").empty();
+					if(data.response.body.totalCount==0){
+						$("#clipresult").append('데이터가 없습니다.');
+						
+					}else{
+						for(i=0;i<data.response.body.totalCount;i++){	
+							$("#clipresult").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/><br/>'+data.response.body.items.item[i].title+'</div>');
+							
+						}
+					}
+				
+			},
+			
+		});
+	
+	});
+});
+	
+
+</script>
+
 
 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -119,94 +257,13 @@
 <!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
   
 <div class="container">
-
+<form action="" name="clip" method="post">
   <div id="areaContainer"></div>
   <div id="clipResult">
   	
   </div>  
-  
-  <script>
- 	 $(document).ready(function(){
- 		 var areaCode;
- 		 var sigunguCode;
- 		 
- 		 $.ajax({
- 			type:"GET",
-			url:"<%=cp%>/areaCodeAPI",
-			dataType:"json",		
-			success:function(data){
-				
-				var count=1;
-				for(i=0;i<data.response.body.items.item.length;i++){	
-					$("#areaContainer").append('<div id="area" data="'+data.response.body.items.item[i].code+'"index="'+count+'">'+data.response.body.items.item[i].name+'<span></span></div>');
-					
-					if((i+1)%6==0 || i==data.response.body.items.item.length-1){
-						$("#areaContainer").append('<div id="sigugun'+count+'"data="'+data.response.body.items.item[i].code+'" index="'+count+'"></div>');
-						count++;
-					}
-				}
-				$("#areaContainer div:has(span)").bind("click", function(){
-					areaCode=$(this).attr('data');
-					//alert(areaCode);
-					if($(this).attr('id')=="area"){
-						var index=$(this).attr('index');
-						//alert(index);
-						$.ajax({
-							type:"GET",
-							url:"<%=cp%>/sigunguCodeAPI?areaCode="+areaCode,
-							dataType:"json",		
-							success:function(data){
-								$("#sigugun"+index).empty();
-								//alert(data);
-								for(i=0;i<data.response.body.items.item.length;i++){
-									$("#sigugun"+index).append('<div id="segugun_info" data="'+data.response.body.items.item[i].code+'">'+data.response.body.items.item[i].name+'<a></div>');
-								}  
-								
-								$("#sigugun"+index+" div").bind("click", function(){
-									sigunguCode = $(this).attr('data');
-									$.ajax({
-										type:"GET",
-										url:"<%=cp%>/clipCount?areaCode="+areaCode+"&sigugunCode="+sigunguCode,
-										dataType:"json",		
-										success:function(data){
-											
-											$("#clipResult").empty();
-											//alert(data);
-											$.each(data, function(index, value) {
-												$("#clipResult").append('<div id="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
-											});  
-											 
-											
-										},
-										error:function(e){
-											alert("1111111111"+e.responseText);
-										}					
-									
-									});
-								});
-								
-							},
-							error:function(e){
-								alert("1111111111"+e.responseText);
-							}
-							
-						});
-						
-					}
-				
-				});
-				
-					
-			},
-			error:function(e){
-				//alert("1111111111"+e.responseText);
-			}
- 			 
- 		 });
-  		
-  		
-  	});
-  </script>
+</form>
+ 
   
   
   

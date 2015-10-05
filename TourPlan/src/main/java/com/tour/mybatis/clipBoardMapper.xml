@@ -12,6 +12,21 @@
 		order by clipCount desc
 	</select>
 	
+	<select id="myclip" parameterType="String" resultType="com.tour.dto.ClipBoardDTO">
+		select * from clipboard where email=#{email}
+	</select>
+	
+	<select id="maxNum" resultType="int">
+	select nvl(max(clipBoardNum),0) from clipBoard
+	</select>
+	
+	<insert id="clipInsert" parameterType="com.tour.dto.ClipBoardDTO">
+	
+	insert into clipBoard(clipBoardNum,email,contentid)
+	values (#{clipBoardNum},#{email},#{contentid})
+	
+	</insert>
+	
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 
 	from post where seq=#{seq}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+
 import com.tour.dto.ClipBoardDTO;
 
 public class ClipBoardDAO {
@@ -22,6 +23,30 @@ public class ClipBoardDAO {
 		
 		return clipCountList;
 
+	}
+	
+	public List<ClipBoardDTO>  myclip(String email){
+		
+		List<ClipBoardDTO> myClipList = sessionTemplate.selectList("com.tour.clipBoard.myclip",email);
+		
+		return myClipList;
+
+	}
+	
+	public int getMaxNum(){
+		
+		int result = 0;
+		
+		result = sessionTemplate.selectOne("com.tour.clipBoard.maxNum");
+		
+		return result;
+		
+	}
+	
+	public void insertData(ClipBoardDTO dto){
+		
+		sessionTemplate.insert("com.tour.clipBoard.clipInsert",dto);
+		
 	}
 	
 }
