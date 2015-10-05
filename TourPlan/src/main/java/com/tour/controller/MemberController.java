@@ -66,7 +66,6 @@ public class MemberController {
 		if (dto == null || (!dto.getPwd().equals(pwd))) {
 			return null;
 		}
-
 		// id, pwd°¡ ÀÏÄ¡
 
 		HttpSession session = req.getSession(true); 

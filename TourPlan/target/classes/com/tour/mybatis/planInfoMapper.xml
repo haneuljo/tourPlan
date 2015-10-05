@@ -9,13 +9,24 @@
 
 	<insert id="planInfoInsert" parameterType="com.tour.dto.PlanInfoDTO">
 		insert into planInfo (planNum,groupNum,content,startDate,endDate,contentid,contenttypeid)
+<<<<<<< HEAD
 		values(#{planNum},#{groupNum},#{content},#{startDate},#{endDate},#{contentid},#{contenttypeid})
+=======
+		values (#{planNum},#{groupNum},#{content},to_date(#{startDate},'yyyy-mm-dd HH24:MI:SS'),to_date(#{endDate},'yyyy-mm-dd HH24:MI:SS'),#{contentid},#{contenttypeid})
+>>>>>>> 6d834985f24960a34f57b8f01b5f04b31497093c
 	</insert>
 	
 	<select id="planInfoMax" resultType="int">
 		select nvl(max(planNum),0) from planInfo 
 	</select>
 	
+<<<<<<< HEAD
+=======
+	<select id="getLists" resultType="com.tour.dto.PlanDTO" parameterType="int">
+		select * from planInfo where groupNum = #{groupNum}
+	</select>
+	
+>>>>>>> 6d834985f24960a34f57b8f01b5f04b31497093c
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 
 	from post where seq=#{seq}

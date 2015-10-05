@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tour.dao.PlanInfoDAO;
+import com.tour.dto.PlanInfoDTO;
 import com.tour.util.JSONResponseUtil;
 
 @Controller("PlanInfoController")
@@ -44,6 +45,32 @@ public class PlanInfoController {
 		JSONResponseUtil util = new JSONResponseUtil();
 		
 		return util.getJSONResponse(res, url);
+	}
+	
+	@RequestMapping("/register")
+	public String register(PlanInfoDTO pdto,HttpServletRequest req,HttpServletResponse res, Integer contentid[],String sday[],String stime[],String eday[],String etime[]) {
+		
+			
+		
+		for(int i=0;i<contentid.length;i++){
+			System.out.println("컨아이디:" + contentid[i]);
+			String start = sday[i] +" " + stime[i];
+			String end = eday[i] + " " + etime[i];
+			System.out.println("시작:" + start );
+			System.out.println("끝:" + end);
+			
+			pdto.setPlanNum(dao.planInfoMax()+1);
+			pdto.setGroupNum(1);
+			pdto.setContent("관광지");
+			pdto.setStartDate(start);
+			pdto.setEndDate(end);
+			pdto.setContentid(contentid[i]);
+			pdto.setContenttypeid(12);
+			
+			dao.planInfoInsert(pdto);
+		}
+			
+		return "plan/planInfo";
 	}
 	
 	

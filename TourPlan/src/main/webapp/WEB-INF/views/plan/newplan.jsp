@@ -66,6 +66,19 @@
 	});
   </script>
   
+  <script type="text/javascript">
+	function register(){
+		
+		var f = document.planForm;
+		
+		f.action = "<%=cp%>/register.action";
+		f.submit();
+	}
+  
+  
+  
+  </script>
+  
 </head>
 
 <body>
@@ -132,13 +145,15 @@
 	</select> -->
 	<button id="btn">검색</button>
 	<div id="map"></div>
-	<div id="result"></div>
+
 	
-	
+<form action="" name="planForm" method="post">	
 	<script>
 	var areaCode;
 	var sigunguCode;
 	var map;
+	
+	
 	function initMap() {
 	
 	  map = new google.maps.Map(document.getElementById('map'), {
@@ -239,10 +254,16 @@
 	
 	});
 	
-	
+	//var jbAry = new Array();
 	 //일정추가부분?
-	 function choice(){
-		 var contentid = $("#contentid").val();
+	var buffer = new Array();
+	var chk = 0;
+	//검색을 할때 empty하도록
+	$("#result").empty();
+	function choice(){
+		 alert($("#contentid").val());
+		 buffer.push($("#contentid").val());
+		
 		// alert("여기는?");
 		// alert(contentid);
 		// alert(areaCode);
@@ -254,18 +275,31 @@
 				data:"areaCode="+areaCode,
 				dataType:"json",		
 				success:function(data){
-					$("#result").empty();
+				
 					if(data.response.body.totalCount==0){
 						$("#result").append('데이터가 없습니다.');
 						
 					}else{
-						for(i=0;i<data.response.body.totalCount;i++){	
-							//alert("아놔"+data.response.body.items.item[i].title);
-							if(data.response.body.items.item[i].contentid==contentid){
-								$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/>'
-								+'<select style="width: 116px;"><option value="0">날짜</option></select>'
-								+'<select style="width: 116px;"><option value="0">시간</option></select><br/>'+data.response.body.items.item[i].title+'</div>');
+						
+						for(j=chk;j<buffer.length;j++){
+							chk=buffer.length;
+							//alert(buffer.length);
+							//alert(j);
+							for(i=0;i<data.response.body.totalCount;i++){	
+								//alert("아놔"+data.response.body.items.item[i].title);
+								 //alert(buffer.length);
+								if(data.response.body.items.item[i].contentid==buffer[j]){
+									
+									$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/><input type="hidden" name="contentid" value="' + buffer[j] +'"/>'
+									+'<select name="sday" style="width: 116px;"><option value="0">시작날짜</option><option value="2015-10-04">2015-10-04</option></select>'
+									+'<select name="stime" style="width: 116px;"><option value="0">시작시간</option><option value="14:00:00">14:00</option></select>&nbsp;&nbsp;&nbsp;&nbsp;'
+									+'<select name="eday" style="width: 116px;"><option value="0">끝날짜</option><option value="2015-10-04">2015-10-04</option></select>'
+									+'<select name="etime" style="width: 116px;"><option value="0">끝시간</option><option value="15:00:00">15:00</option></select><br/>'+data.response.body.items.item[i].title+'</div><br/>');
+									
+									//alert("d" + buffer[j]);
+								}
 							}
+							//alert("두번째"  + buffer[j])
 						}
 					}
 					
@@ -306,8 +340,9 @@
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"
 		async defer></script>
-	
-  
+	<div id="result"></div>
+	<input type="button" value="일정저장" onclick="register();"/>
+  </form>
 </div>
 
 </body>

@@ -77,6 +77,7 @@ public class ClipBoardController {
 		return util.getJSONResponse(response, url);
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping("/clipLike")
 	public String clipLike(ClipBoardDTO dto,HttpServletRequest req, HttpServletResponse response,Integer contentid){
 	
@@ -154,11 +155,19 @@ public class ClipBoardController {
 		return clipList;
 	}
 		
+=======
+	//클립 Map
+	@RequestMapping("/travelMap")
+	public String travelMap(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
+			
+		return "clipBoard/travelMap";
+	}
+>>>>>>> 6d834985f24960a34f57b8f01b5f04b31497093c
 	
 	//clipCount해서 비교
 	@RequestMapping("/clipCount")
 	@ResponseBody
-	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp,Integer areaCode, Integer sigugunCode) throws ParseException, IOException {
+	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp,Integer areaCode, Integer sigugunCode, Integer mapChk) throws ParseException, IOException {
 		
 		System.out.println("areacode : "+areaCode);
 		List<ClipBoardDTO> clipCountList= dao.clipCount();
@@ -183,7 +192,7 @@ public class ClipBoardController {
 			JSONObject entity = (JSONObject) array.get(i);
 			Long contentid = (Long) entity.get("contentid");
 
-			//System.out.println(i + "contentid:" + contentid);
+			System.out.println(i + "contentid:" + contentid);
 		
 			Iterator<ClipBoardDTO> it = clipCountList.iterator();
 			while (it.hasNext()) {
@@ -193,6 +202,14 @@ public class ClipBoardController {
 					
 					dto.setFirstimage((String)entity.get("firstimage"));
 					dto.setTitle((String)entity.get("title"));
+				
+					if(entity.containsKey("mapx")){
+						
+						dto.setMapx(entity.get("mapx"));
+						dto.setMapy(entity.get("mapy"));
+						
+					}
+					dto.setAddr1((String)entity.get("addr1"));
 					//System.out.println("클립 카운트 " + dto.getClipCount());
 					chk=1;
 					clipList.add(dto);
@@ -200,14 +217,24 @@ public class ClipBoardController {
 
 				}
 			}
-			if(chk==0){
-				ClipBoardDTO dto = new ClipBoardDTO();
-				dto.setFirstimage((String)entity.get("firstimage"));
-				dto.setTitle((String)entity.get("title"));
+			if(mapChk==null){
 				
-				dto.setContentid(Integer.parseInt(contentid.toString()));
-				dto.setClipCount(0);
-				clipList.add(dto);
+				if(chk==0){
+					ClipBoardDTO dto = new ClipBoardDTO();
+					dto.setFirstimage((String)entity.get("firstimage"));
+					dto.setTitle((String)entity.get("title"));
+					if(entity.containsKey("mapx")){
+						
+						dto.setMapx(entity.get("mapx"));
+						dto.setMapy(entity.get("mapy"));
+						
+					}
+					dto.setAddr1((String)entity.get("addr1"));
+					dto.setContentid(Integer.parseInt(contentid.toString()));
+					dto.setClipCount(0);
+					clipList.add(dto);
+				}
+
 			}
 			
 		}

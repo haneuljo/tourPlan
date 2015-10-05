@@ -45,9 +45,13 @@
 	<beans:bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+<<<<<<< HEAD
 
 		<beans:property name="url" value="jdbc:oracle:thin:@192.168.100.21:1522:xe"/>
 
+=======
+		<beans:property name="url" value="jdbc:oracle:thin:@192.168.100.22:1521:XE"/>
+>>>>>>> 6d834985f24960a34f57b8f01b5f04b31497093c
 		<beans:property name="username" value="tour"/>
 		<beans:property name="password" value="a123"/>
 	</beans:bean>
