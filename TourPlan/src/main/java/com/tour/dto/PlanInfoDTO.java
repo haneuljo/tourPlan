@@ -5,6 +5,12 @@ public class PlanInfoDTO {
 
 	
 	int planNum, groupNum, contentid, contenttypeid,longTime;
+	public int getLongTime() {
+		return longTime;
+	}
+	public void setLongTime(int longTime) {
+		this.longTime = longTime;
+	}
 	String content, startDate;
 	public int getPlanNum() {
 		return planNum;

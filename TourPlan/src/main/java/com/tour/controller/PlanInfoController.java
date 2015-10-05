@@ -1,11 +1,13 @@
 package com.tour.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.taglibs.standard.lang.jstl.Literal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -86,5 +88,12 @@ public class PlanInfoController {
 		return "plan/myPlan";
 	}
 	
-	
+	public List<HashMap<String, String>> setLists () {
+		
+		HashMap<String, String> hMap;
+		
+		List<HashMap<String, String>> lists = null;
+		
+		return lists;
+	}
 }
