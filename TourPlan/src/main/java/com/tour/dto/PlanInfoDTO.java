@@ -4,14 +4,11 @@ public class PlanInfoDTO {
 	
 
 	
-	int planNum, groupNum, contentid, contenttypeid,longTime;
-	public int getLongTime() {
-		return longTime;
-	}
-	public void setLongTime(int longTime) {
-		this.longTime = longTime;
-	}
-	String content, startDate;
+
+	private int planNum, groupNum, contentid, contenttypeid,longTime;
+	private String content, startDate;
+	
+
 	public int getPlanNum() {
 		return planNum;
 	}
@@ -48,4 +45,14 @@ public class PlanInfoDTO {
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
+
+	public int getLongTime() {
+		return longTime;
+	}
+	public void setLongTime(int longTime) {
+		this.longTime = longTime;
+	}
+
+	
+
 }

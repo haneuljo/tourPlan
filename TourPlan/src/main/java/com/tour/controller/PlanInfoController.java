@@ -58,15 +58,15 @@ public class PlanInfoController {
 		for(int i=0;i<contentid.length;i++){
 			System.out.println("컨아이디:" + contentid[i]);
 			String start = sday[i] +" " + stime[i];
-			String end = eday[i] + " " + etime[i];
+			//String end = eday[i] + " " + etime[i];
 			System.out.println("시작:" + start );
-			System.out.println("끝:" + end);
+			//System.out.println("끝:" + end);
 			
 			pdto.setPlanNum(dao.planInfoMax()+1);
 			pdto.setGroupNum(1);
 			pdto.setContent("관광지");
 			pdto.setStartDate(start);
-			pdto.setEndDate(end);
+			//pdto.setLongTime(end);
 			pdto.setContentid(contentid[i]);
 			pdto.setContenttypeid(12);
 			
