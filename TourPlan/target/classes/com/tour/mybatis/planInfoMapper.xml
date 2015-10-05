@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tour.planInfo">
+
+
+	<insert id="planInfoInsert" parameterType="com.tour.dto.PlanInfoDTO">
+		insert into planInfo (planNum,groupNum,content,startDate,longTime,contentid,contenttypeid)
+		values (#{planNum},#{groupNum},#{content},to_date(#{startDate},'yyyy-mm-dd HH24:MI:SS'),#{longTime},#{contentid},#{contenttypeid})
+	</insert>
+	
+	<select id="planInfoMax" resultType="int">
+		select nvl(max(planNum),0) from planInfo 
+	</select>
+	
+	<select id="getLists" resultType="com.tour.dto.PlanInfoDTO" parameterType="int">
+		select * from planInfo where groupNum = #{groupNum}
+	</select>
+	
+<!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
+	select seq,zipcode,sido,gugun,dong,bunji 
+	from post where seq=#{seq}
+</select> -->
+
+
+</mapper> 
