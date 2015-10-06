@@ -183,6 +183,8 @@ public class ClipBoardController {
 	@RequestMapping("/article.action")
 	public String article(HttpServletRequest req,HttpServletResponse resp, Integer contentid) throws ParseException, IOException {
 		
+		String googleKey="AIzaSyBTwMBl4Q-exqEDLmvyRyYh2U_utWJSErs";
+		
 		HttpSession session = req.getSession();
 		
 		SessionInfo info = (SessionInfo)session.getAttribute("loginInfo");		
@@ -227,6 +229,7 @@ public class ClipBoardController {
         req.setAttribute("adto", adto);
         req.setAttribute("cCount", cCount);
         req.setAttribute("clipchk", clipchk);
+        req.setAttribute("gmapKey", googleKey);
 		
 		return "clipBoard/article";
 		

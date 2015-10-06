@@ -12,7 +12,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="<%=cp%>/resources/css/travelMain.css" type="text/css"/>
-  
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.20&key=AIzaSyBTwMBl4Q-exqEDLmvyRyYh2U_utWJSErs&callback=initMap">
+    </script>
    <style>
   .modal-header, h4, .close {
       background-color: #5cb85c;
@@ -87,6 +88,28 @@
   		f.submit();
 		
 	}
+	
+	function initMap() {
+		
+		var f = document.clip;
+		
+		var x = f.value.mapx;
+		var y = f.value.mapy;
+		
+		  var myLatLng = {lat: 123, lng: 37};
+
+		  var map = new google.maps.Map(document.getElementById('map_canvas'), {
+		    zoom: 16,
+		    center: myLatLng
+		  });
+
+		  var marker = new google.maps.Marker({
+		    position: myLatLng,
+		    map: map,
+		    title: 'title'
+		  });
+		  
+		}
   
   
   </script>
@@ -181,17 +204,19 @@
 	
 </div>
 
-<div style="width: 1000px;">
+<div style="width: 1300px; float: left;">
 	<div align="left" style="padding-left: 100px;">
 	<img alt="" src="${adto.getFirstimage() }">
 	</div>
-	<div style="padding-left: 100px;">
+	<div align="left" style="width:600px; ">
 		${adto.getOverview()} 
 	</div>
 </div>
 
 <div>
- 지도 넣기
+<input type="text" name="mapx" value="${adto.getMapx() }"> 
+<input type="text" name="mapy" value="${adto.getMapy() }">
+ <div id="map_canvas" style="width:640px; height:480px;"></div> 
 
 </div>
 
