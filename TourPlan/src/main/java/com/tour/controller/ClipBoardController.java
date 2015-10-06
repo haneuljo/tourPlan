@@ -149,6 +149,20 @@ public class ClipBoardController {
 		
 		
 	}
+	
+	@RequestMapping("/deletedclip.action")
+	public String deletedclip(HttpServletRequest req, HttpServletResponse res, Integer contentid) {
+
+		HttpSession session = req.getSession();
+
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
+
+		dao.deletedclip(info.getEmail(), contentid);
+
+		req.setAttribute("contentid", contentid);
+
+		return "redirect:/article.action?contentid=" + contentid;
+	}
 
 		
 	@RequestMapping("/myClip")
@@ -337,10 +351,10 @@ public class ClipBoardController {
 	@RequestMapping("/travelMain")
 	public ResponseEntity<String> travelMain(HttpServletRequest req, HttpServletResponse resp, Integer areaCode, Integer sigunguCode, Integer page) throws ParseException, IOException {
 
-		List<ClipBoardDTO> clipList = clipCount(req, resp, areaCode, sigunguCode, 0);
 		//System.out.println(clipList.size());
 		//첫 페이지일때 session에
 		if(page==1){
+			List<ClipBoardDTO> clipList = clipCount(req, resp, areaCode, sigunguCode, 0);
 			jsonUtil.clipPage(clipList, req);
 			
 		}
@@ -349,13 +363,26 @@ public class ClipBoardController {
 		ClipSession clipSession = (ClipSession) session.getAttribute("clipJSON");
 		net.sf.json.JSONObject jsonObj = clipSession.getClipList();
 
-		//System.out.println(jsonObj.toString());
+		System.out.println(jsonObj.toString());
+		
+		JSONParser jsonparser = new JSONParser();
+		JSONObject jsonobject = (JSONObject) jsonparser.parse(jsonObj.toString());
+		JSONObject json = (JSONObject) jsonobject.get("body");
+		JSONArray jsonItems = (JSONArray) json.get("items");
+
+		JSONObject jsonPage = (JSONObject) jsonItems.get(page - 1);
+
+		JSONArray jsonItem = (JSONArray) jsonPage.get("item");
+		
+		
+		System.out.println(jsonItem.toString());
+		
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 
 		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
 		// System.out.println(buffer.toString());
-		return new ResponseEntity<String>(jsonObj.toString(), responseHeaders, HttpStatus.CREATED);
+		return new ResponseEntity<String>(jsonItem.toString(), responseHeaders, HttpStatus.CREATED);
 
 	}
 
