@@ -15,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tour.dao.PlanDAO;
 import com.tour.dao.PlanInfoDAO;
+import com.tour.dto.PlanDTO;
 import com.tour.dto.PlanInfoDTO;
 import com.tour.util.JSONResponseUtil;
 import com.tour.util.SessionInfo;
@@ -29,11 +31,15 @@ public class PlanInfoController {
 	@Qualifier("PlanInfoDAO")
 	PlanInfoDAO dao;
 	
+	@Autowired
+	@Qualifier("PlanDAO")
+	PlanDAO pdao;
+	
 	@RequestMapping("/newplan")
 	public String newplan(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
 		
 		
-		return "plan/newplan";
+		return "plan/selPlan";
 	}
 	
 	@RequestMapping("/choice")
@@ -51,6 +57,7 @@ public class PlanInfoController {
 		return util.getJSONResponse(res, url);
 	}
 	
+	//일정완료
 	@RequestMapping("/register")
 	public String register(PlanInfoDTO pdto,HttpServletRequest req,HttpServletResponse res, Integer contentid[],String sday[],String stime[],String eday[],String etime[]) {
 		
@@ -75,6 +82,33 @@ public class PlanInfoController {
 		}
 			
 		return "plan/planInfo";
+	}
+	
+	@RequestMapping("/planAdd")
+	public String planAdd(PlanDTO pdto,HttpServletRequest req,HttpServletResponse res) {
+	
+		
+		return "plan/planAdd";
+	}
+	
+	//관광일정추가
+	@RequestMapping("/planOk")
+	public String planOk(PlanDTO pdto,String startDate,HttpServletRequest req,HttpServletResponse res) {
+		
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
+		
+		System.out.println(pdto.getTitle());
+		System.out.println(startDate);
+		
+		pdto.setGroupNum(pdao.planMax()+1);
+		pdto.setEmail(info.getEmail());
+		
+		pdao.planInsert(pdto);
+		
+		req.setAttribute("startDate", startDate);
+		
+		return "plan/newplan";
 	}
 	
 	@RequestMapping("/myPlan")                                    //내일정보기
@@ -107,6 +141,12 @@ public class PlanInfoController {
 		session.setAttribute("loginInfo", info);
 	}
 	
+	@RequestMapping("/startPlace")
+	public String startPlace(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
+		
+		
+		return "plan/startPlace";
+	}
 	
 	//dragTest
 	
