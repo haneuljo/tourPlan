@@ -2,9 +2,12 @@ package com.tour.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Comparator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -123,28 +126,24 @@ public class PlanInfoController {
 		lists = info.getInfoList();
 		System.out.println("not null");
 		}
-		
-		Iterator<HashMap<String, Object>> it = lists.iterator();
-		HashMap<String, Object> dto = new HashMap<String, Object>();
-		
-		while(it.hasNext()){
-			
-			dto = (HashMap<String, Object>)it.next();
-			System.out.println(dto.get("planNum"));
-		}
-		
-		
-		
-		
-		lists.add(hMap);
+
+		lists.add(hMap);                                             //리스트에 일정추가
 		
 		info.setInfoList(lists);
 		
-		session.setAttribute("loginInfo", info);
+		session.setAttribute("loginInfo", info);                      //세션에 리스트 담아올림
+		
+		PlanInfoListCompartor planComp = new PlanInfoListCompartor("order");               //정렬
+		Collections.sort(lists,planComp);
+		
+		listchk(lists);                                               //리스트안확인
+		
+		
 	}
 	
-	public void forTest (HttpServletRequest req) {
+	public void forTest (HttpServletRequest req) {                                                      //걍테스팅
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
+		hMap.put("order", 1);
 		hMap.put("planNum", 1);
 		hMap.put("groupNum", 1);
 		hMap.put("contentid", 1);
@@ -155,7 +154,8 @@ public class PlanInfoController {
 		
 		insertInfoLists(hMap, req );
 		
-		HashMap<String, Object> hMap1 = new HashMap<String, Object>();
+		hMap = new HashMap<String, Object>();
+		hMap.put("order", 2);
 		hMap.put("planNum", 2);
 		hMap.put("groupNum", 1);
 		hMap.put("contentid", 2);
@@ -164,9 +164,10 @@ public class PlanInfoController {
 		hMap.put("content", "222");
 		hMap.put("startDate", "2015-10-1 00:00:01");
 		
-		insertInfoLists(hMap1, req );
+		insertInfoLists(hMap, req );
 		
-		HashMap<String, Object> hMap2 = new HashMap<String, Object>();
+		hMap = new HashMap<String, Object>();
+		hMap.put("order", 3);
 		hMap.put("planNum", 3);
 		hMap.put("groupNum", 1);
 		hMap.put("contentid", 3);
@@ -175,8 +176,42 @@ public class PlanInfoController {
 		hMap.put("content", "333");
 		hMap.put("startDate", "2015-10-1 00:00:02");
 		
-		insertInfoLists(hMap2, req );
-		
-		
+		insertInfoLists(hMap, req );
+
 	}
+	
+	public void listchk(List<HashMap<String, Object>> lists){                                                        //리스트내용체크
+
+		Iterator<HashMap<String, Object>> it = lists.iterator();
+		HashMap<String, Object> dto = new HashMap<String, Object>();
+		
+		while(it.hasNext()){                                      //내용체크
+			
+			dto = (HashMap<String, Object>)it.next();
+			System.out.println("pn:"+dto.get("planNum"));
+			System.out.println("gn:"+dto.get("groupNum"));
+			System.out.println("id:"+dto.get("contentid"));
+			System.out.println("type:"+dto.get("contenttypeid"));
+		}
+	}
+
+
+
+	public class PlanInfoListCompartor implements Comparator<HashMap<String, Object>> {                        //list정렬위한 필요클래스
+		
+	    private final String key;
+	    
+	    public PlanInfoListCompartor(String key) {
+	        this.key = key;
+	    }
+
+
+		@Override
+		public int compare(HashMap<String, Object> first, HashMap<String, Object> second) {
+	        int result = ((String) first.get(key)).compareTo((String) second.get(key));
+	        return result;
+	    }
+	}
+	
+	
 }
