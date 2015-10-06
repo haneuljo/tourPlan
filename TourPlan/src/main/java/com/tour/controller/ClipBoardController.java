@@ -94,7 +94,7 @@ public class ClipBoardController {
 		
 		dao.insertData(dto);
 		
-		return "redirect:/article.action";
+		return "redirect:/article.action?contentid="+contentid;
 		
 	}
 	
@@ -175,7 +175,7 @@ public class ClipBoardController {
 		
 		req.setAttribute("contentid", contentid);
 	
-		return "redirect:/article.action";
+		return "redirect:/article.action?contentid=" + contentid;
 	}
 		
 		
@@ -189,10 +189,13 @@ public class ClipBoardController {
 		
 		ArticleDTO adto = new ArticleDTO();
 		System.out.println(contentid);
+		
 		int cCount = dao.getClipCount(contentid);
 		System.out.println("cCount : "+ cCount);
+		
 		int clipchk = dao.getClipChk(info.getEmail(), contentid);
 		System.out.println("clipchk" +clipchk);
+		
 		String url =
 				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?contentId="+contentid+"&defaultYN=Y&addrinfoYN=Y&mapinfoYN=Y&firstImageYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTesting&_type=json&ServiceKey="
 					+tourAPIKey;
@@ -230,7 +233,7 @@ public class ClipBoardController {
 		
 	}
 
-	
+		
 	//clipCount해서 비교
 	@RequestMapping("/clipCount")
 	@ResponseBody

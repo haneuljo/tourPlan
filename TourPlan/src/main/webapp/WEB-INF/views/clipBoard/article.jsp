@@ -143,45 +143,61 @@
   <div class="modal fade" id="myModal" role="dialog">
     
   </div> 
+  
+  <div align="center" style="width: 100%;">
   <form name="Aform" method="post">
-<div align="center" style="width: 1000px;">
-	<div style="float: left;">  	
+<div align="center" style="border-bottom: solid 2px #D5D5D5;">
+	<div style="float: left; width: 500px;">  	
 	 	<div> <h1>${adto.getTitle() }</h1></div>
 	 	<div> ${adto.getAddr1()} ${adto.getAddr2() }</div>
 	 	<div> <span class="glyphicon glyphicon-paperclip"></span> ${cCount} </div>
 	</div>
 	
-	<div>
-		<input type="hidden" value="${clipchk }">
-		<c:choose>
-		<c:when test=" ${clipchk == 1 } ">
-			<div style="color: red; font-size: 20pt;">
+	<div style="width: 500px;">
+		
+		
+		<div style="font-size: 30pt; width: 150px;">	
+		<c:choose>	
+		<c:when test="${clipchk == 0 }">
+			
+			<span id="check" class="glyphicon glyphicon-paperclip" onclick="addclip('${adto.getContentid()}')"></span>
+			
+			
+		</c:when>
+		<c:otherwise>
+		
 			<span style="color: red;" id="checkout" class="glyphicon glyphicon-paperclip" onclick="delclip('${adto.getContentid()}');"></span>
-			</div>
 		
-		</c:when>
-		<c:when test=" ${clipchk == 0 }">
-			<div style="font-size: 20pt;">
-			<span id="check" class="glyphicon glyphicon-paperclip" onclick="addclip('${adto.getcontentid()}')"></span>
-			</div>
-		
-		</c:when>
+		</c:otherwise>
 		</c:choose>
-		<div style="font-size: 20pt;" ><span class="glyphicon glyphicon-bullhorn" ></span></div>
+		</div>
+		
+		
+		<div style="font-size: 30pt; width: 150px; " >
+		<span class="glyphicon glyphicon-bullhorn" ></span>
+		</div>
 	
 	</div>
 	
 </div>
 
 <div style="width: 1000px;">
-	<div>
+	<div align="left" style="padding-left: 100px;">
 	<img alt="" src="${adto.getFirstimage() }">
 	</div>
-	<div>
+	<div style="padding-left: 100px;">
 		${adto.getOverview()} 
 	</div>
 </div>
 
+<div>
+ 지도 넣기
+
+</div>
+
+
+
 </form>
+</div>
 </body>
 </html>
