@@ -103,7 +103,7 @@ public class JSONResponseUtil {
 				
 				pageObj.put("items", clipArr);
 				page++;
-				//clipArray = new JSONArray();
+				itemArray = new JSONArray();
 			}else{
 				itemArray.add(clipJSON);
 			}

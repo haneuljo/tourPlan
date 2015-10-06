@@ -363,7 +363,7 @@ public class ClipBoardController {
 		ClipSession clipSession = (ClipSession) session.getAttribute("clipJSON");
 		net.sf.json.JSONObject jsonObj = clipSession.getClipList();
 
-		System.out.println(jsonObj.toString());
+		//System.out.println(jsonObj.toString());
 		
 		JSONParser jsonparser = new JSONParser();
 		JSONObject jsonobject = (JSONObject) jsonparser.parse(jsonObj.toString());
@@ -371,11 +371,11 @@ public class ClipBoardController {
 		JSONArray jsonItems = (JSONArray) json.get("items");
 
 		JSONObject jsonPage = (JSONObject) jsonItems.get(page - 1);
-
+		//System.out.println(jsonPage.get("page"));
 		JSONArray jsonItem = (JSONArray) jsonPage.get("item");
 		
 		
-		System.out.println(jsonItem.toString());
+		//System.out.println(jsonItem.toString());
 		
 
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -392,8 +392,6 @@ public class ClipBoardController {
 	@RequestMapping("/travelMapClipCount")
 	private List<ClipBoardDTO> travelMap(HttpServletRequest req,HttpServletResponse resp, Integer areaCode, Integer sigunguCode) throws ParseException, IOException{
 		// TODO Auto-generated method stub
-	
-		
 		return clipCount(req, resp, areaCode, sigunguCode, 1);
 	}
 
