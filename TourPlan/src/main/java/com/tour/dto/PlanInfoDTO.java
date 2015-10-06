@@ -2,12 +2,8 @@ package com.tour.dto;
 
 public class PlanInfoDTO {
 	
-
-	
-
 	private int planNum, groupNum, contentid, contenttypeid,longTime;
 	private String content, startDate;
-	
 
 	public int getPlanNum() {
 		return planNum;

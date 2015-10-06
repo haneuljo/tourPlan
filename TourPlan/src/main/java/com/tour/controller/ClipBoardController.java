@@ -47,7 +47,7 @@ public class ClipBoardController {
 		
 		return "clipBoard/travelMain";
 	}
-	
+
 	//지역코드 API
 	@RequestMapping("/areaCodeAPI")
 	@ResponseBody

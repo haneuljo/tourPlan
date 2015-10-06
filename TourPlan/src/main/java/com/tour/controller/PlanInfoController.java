@@ -94,29 +94,15 @@ public class PlanInfoController {
 		return "plan/myPlan";
 	}
 	
-	@RequestMapping("/myPlanTest")                                    //내일정보기
-	public String myPlanTest(HttpServletRequest req) {
-		
-		forTest(req);
-		
-		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
-		
-		List<HashMap<String, Object>> lists= info.getInfoList();
-			
-		req.setAttribute("lists", lists);
-			
-		return "plan/myPlanTest";
-	}
-	
 	
 	//------------------임시저장소관련---------------------
 	
 	
-	public void insertInfoLists (HashMap<String, Object> hMap,HttpServletRequest req) {              //로그인안했을시 에러남
+	public void insertInfoLists (HashMap<String, Object> hMap,HttpServletRequest req) {
 		
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
+
 		List<HashMap<String, Object>> lists;
 		
 		if(info.getInfoList()==null){                                        
@@ -140,7 +126,7 @@ public class PlanInfoController {
 		
 		
 	}
-	
+
 	public void forTest (HttpServletRequest req) {                                                      //걍테스팅
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
 		hMap.put("order", 1);
@@ -179,15 +165,24 @@ public class PlanInfoController {
 		insertInfoLists(hMap, req );
 
 	}
-	
-	public void listchk(List<HashMap<String, Object>> lists){                                                        //리스트내용체크
 
-		Iterator<HashMap<String, Object>> it = lists.iterator();
-		HashMap<String, Object> dto = new HashMap<String, Object>();
+	//dragTest
+	
+	@RequestMapping("/dragTest")
+	public String dragTest(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
+	
+	return "plan/dragTest";
+	}
+
+
+public void listchk(List<HashMap<String, Object>> lists){                                                        //리스트내용체크
+
+	Iterator<HashMap<String, Object>> it = lists.iterator();
+	HashMap<String, Object> dto = new HashMap<String, Object>();
 		
 		while(it.hasNext()){                                      //내용체크
-			
 			dto = (HashMap<String, Object>)it.next();
+			System.out.println("order:"+dto.get("order"));
 			System.out.println("pn:"+dto.get("planNum"));
 			System.out.println("gn:"+dto.get("groupNum"));
 			System.out.println("id:"+dto.get("contentid"));
@@ -198,7 +193,7 @@ public class PlanInfoController {
 
 
 	public class PlanInfoListCompartor implements Comparator<HashMap<String, Object>> {                        //list정렬위한 필요클래스
-		
+
 	    private final String key;
 	    
 	    public PlanInfoListCompartor(String key) {
@@ -212,6 +207,4 @@ public class PlanInfoController {
 	        return result;
 	    }
 	}
-	
-	
 }
