@@ -94,6 +94,21 @@ public class PlanInfoController {
 		return "plan/myPlan";
 	}
 	
+	@RequestMapping("/myPlanTest")                                    //내일정보기
+	public String myPlanTest(HttpServletRequest req) {
+		
+		forTest(req);
+		
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
+		
+		ArrayList<HashMap<String, Object>> lists = info.getInfoList();
+		
+		req.setAttribute("lists", lists);
+			
+		return "plan/myPlanTest";
+	}
+	
 	
 	//------------------임시저장소관련---------------------
 	
@@ -103,7 +118,7 @@ public class PlanInfoController {
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 
-		List<HashMap<String, Object>> lists;
+		ArrayList<HashMap<String, Object>> lists;
 		
 		if(info.getInfoList()==null){                                        
 			lists = new  ArrayList<HashMap<String,Object>>();
@@ -129,7 +144,7 @@ public class PlanInfoController {
 
 	public void forTest (HttpServletRequest req) {                                                      //걍테스팅
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
-		hMap.put("order", 1);
+		hMap.put("order", 4);
 		hMap.put("planNum", 1);
 		hMap.put("groupNum", 1);
 		hMap.put("contentid", 1);
@@ -203,7 +218,7 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 
 		@Override
 		public int compare(HashMap<String, Object> first, HashMap<String, Object> second) {
-	        int result = ((String) first.get(key)).compareTo((String) second.get(key));
+	        int result = ((Integer) first.get(key)).compareTo((Integer) second.get(key));
 	        return result;
 	    }
 	}
