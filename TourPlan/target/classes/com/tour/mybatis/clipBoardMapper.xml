@@ -12,6 +12,32 @@
 		order by clipCount desc
 	</select>
 	
+	<select id="getClipCount" resultType="int">
+		select nvl(count(*),0) from clipBoard 
+		where contentid=#{contentid}
+	</select>
+	
+	<select id="myclip" parameterType="hashMap" resultType="int">
+		select nvl(count(*),0)from clipboard where email=#{email} and contentid=#{contentid}
+	</select>
+	
+	<select id="maxNum" resultType="int">
+	select nvl(max(clipBoardNum),0) from clipBoard
+	</select>
+	
+	<insert id="clipInsert" parameterType="com.tour.dto.ClipBoardDTO">
+	
+	insert into clipBoard(clipBoardNum,email,contentid)
+	values (#{clipBoardNum},#{email},#{contentid})
+	
+	</insert>
+	
+	<delete id="deletedclip" parameterType="hashMap">
+	
+		delete clipboard where email=#{email} and contentid=#{contentid}
+	
+	</delete>
+	
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 
 	from post where seq=#{seq}
