@@ -33,9 +33,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import com.tour.util.SessionInfo;
-import com.tour.util.SessionInfo;
 import net.sf.json.*;
-import com.tour.util.SessionInfo;
 
 @Controller("ClipBoardController")
 public class ClipBoardController {
@@ -45,9 +43,9 @@ public class ClipBoardController {
 	ClipBoardDAO dao;
 
 	@Autowired
-	
-	String tourAPIKey = "GuzaHzXNprs4fLYjtHtDrHm56KNX9GWdRELzkuqPUELlWBjOtuW%2BygZfhgEuZI2ZbU4se3cn2AFfyfQJM%2BhG3Q%3D%3D";JSONResponseUtil jsonUtil;
+	JSONResponseUtil jsonUtil;
 
+	String tourAPIKey = "GuzaHzXNprs4fLYjtHtDrHm56KNX9GWdRELzkuqPUELlWBjOtuW%2BygZfhgEuZI2ZbU4se3cn2AFfyfQJM%2BhG3Q%3D%3D";
 	
 	//여행지 페이지 띄우기
 	@RequestMapping("/travel")
@@ -80,9 +78,6 @@ public class ClipBoardController {
 		return util.getJSONResponse(response, url);
 	}
 
-	// 클립 Map
-	
-
 	@RequestMapping("/clipLike.action")
 	public String clipLike(ClipBoardDTO dto,HttpServletRequest req, HttpServletResponse response,Integer contentid){
 	
@@ -101,8 +96,6 @@ public class ClipBoardController {
 		return "redirect:/article.action?contentid="+contentid;
 		
 	}
-	
-		
 	
 	@RequestMapping("/article.action")
 	public String article(HttpServletRequest req,HttpServletResponse resp, Integer contentid) throws ParseException, IOException {
@@ -224,69 +217,7 @@ public class ClipBoardController {
 		return "clipBoard/travelMap";
 	}
 
-
-		
 	
-<<<<<<< HEAD
-	@RequestMapping("/article.action")
-	public String article(HttpServletRequest req,HttpServletResponse resp, Integer contentid) throws ParseException, IOException {
-		
-		String googleKey="AIzaSyBTwMBl4Q-exqEDLmvyRyYh2U_utWJSErs";
-		
-		HttpSession session = req.getSession();
-		
-		SessionInfo info = (SessionInfo)session.getAttribute("loginInfo");		
-		
-		ArticleDTO adto = new ArticleDTO();
-		System.out.println(contentid);
-		
-		int cCount = dao.getClipCount(contentid);
-		System.out.println("cCount : "+ cCount);
-		
-		int clipchk = dao.getClipChk(info.getEmail(), contentid);
-		System.out.println("clipchk" +clipchk);
-		
-		String url =
-				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?contentId="+contentid+"&defaultYN=Y&addrinfoYN=Y&mapinfoYN=Y&firstImageYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTesting&_type=json&ServiceKey="
-					+tourAPIKey;
-		
-		JSONParser jsonparser = new JSONParser();
-        JSONObject jsonobject = (JSONObject)jsonparser.parse(jsonUtil.getJSONResponseString(resp, url));
-        JSONObject json =  (JSONObject) jsonobject.get("response");
-        JSONObject jsonbody =  (JSONObject) json.get("body");
-        JSONObject jsonitem =  (JSONObject) jsonbody.get("items");
-        JSONObject array = (JSONObject)jsonitem.get("item");
-        
-		
-        adto.setTitle((String) array.get("title"));
-        adto.setAddr1((String) array.get("addr1"));
-        adto.setAddr2((String) array.get("addr2"));
-        System.out.println("Addr2 : "+(String) array.get("addr2"));
-        adto.setContentid(contentid);
-        adto.setFirstimage((String) array.get("firstimage"));
-        adto.setOverview((String) array.get("overview"));
-        
-        	if(array.containsKey("mapx")){
-			
-			adto.setMapx(array.get("mapx"));
-			adto.setMapy(array.get("mapy"));
-			
-        	}
-		
-		
-        req.setAttribute("adto", adto);
-        req.setAttribute("cCount", cCount);
-        req.setAttribute("clipchk", clipchk);
-        req.setAttribute("gmapKey", googleKey);
-		
-		return "clipBoard/article";
-		
-		
-	}
-
-		
-=======
->>>>>>> 0aa247984771b2f432a44b361215dca85add1edf
 	//clipCount해서 비교
 	@RequestMapping("/clipCount")
 	@ResponseBody
