@@ -116,7 +116,7 @@
   
 <div class="container">
   <h3>내용 추가</h3>
-  <input type="button" value="새로운일정" onclick="javascript:location.href='<%=cp%>/newplan.action';">&nbsp;&nbsp;&nbsp;&nbsp;
+  <input type="button" value="새로운일정" onclick="javascript:location.href='<%=cp%>/newplan';">&nbsp;&nbsp;&nbsp;&nbsp;
   <!-- <input type="button" value="나의일정"> -->
   
 </div>

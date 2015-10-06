@@ -11,6 +11,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   
+  <!-- drag JavaScript files -->
+	<script type="text/javascript" src="<%=cp%>/resources/dragJS/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="<%=cp%>/resources/dragJS/jquery-ui-1.8.custom.min.js"></script>
+	
    <style>
   .modal-header, h4, .close {
       background-color: #5cb85c;
@@ -122,12 +126,37 @@
 <!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
   
 <div class="container">
-<c:forEach var="map" items="${lists}">
-<c:forEach var="dto" items="${map}">
-${dto.key},${dto.value}<br/>
-</c:forEach>
-</c:forEach>
-  
+<form action="">
+
+	<div id="example-1-1">
+		<div class="sortable-list">
+
+			<c:forEach var="map" items="${lists}" varStatus="status">
+				<div class="sortable-item">
+					${map}
+					<input type="hidden" name="planNum" value="${map.planNum }">
+					<input type="hidden" name="groupNum" value="${map.groupNum }">
+					<input type="hidden" name="contentid" value="${map.contentid }">
+					<input type="hidden" name="contenttypeid" value="${map.contenttypeid }">
+					<input type="hidden" name="longTime" value="${map.longTime }">
+					<input type="hidden" name="content" value="${map.content }">
+					<input type="hidden" name="startDate" value="${map.startDate }">
+				</div>
+				</c:forEach>
+		</div>
+	</div>
+	
+	<!-- Example jQuery code (JavaScript)  -->
+		<script type="text/javascript">
+		
+		$(document).ready(function(){
+			$('#example-1-1 .sortable-list').sortable();
+			
+		
+		});
+		</script>
+
+ </form>
 </div>
 
 </body>

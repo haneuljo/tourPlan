@@ -8,7 +8,7 @@
 
 	<insert id="planInsert" parameterType="com.tour.dto.PlanDTO">
 		insert into plan (groupNum, email,title,uploadChk)
-		values(#{grounNum},#{email},#{title},0)
+		values(#{groupNum},#{email},#{title},0)
 	</insert>
 	
 	<select id="planMax" resultType="int">
