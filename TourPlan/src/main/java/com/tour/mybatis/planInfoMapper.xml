@@ -8,15 +8,15 @@
 
 
 	<insert id="planInfoInsert" parameterType="com.tour.dto.PlanInfoDTO">
-		insert into planInfo (planNum,groupNum,content,startDate,endDate,contentid,contenttypeid)
-		values (#{planNum},#{groupNum},#{content},to_date(#{startDate},'yyyy-mm-dd HH24:MI:SS'),to_date(#{endDate},'yyyy-mm-dd HH24:MI:SS'),#{contentid},#{contenttypeid})
+		insert into planInfo (planNum,groupNum,content,startDate,longTime,contentid,contenttypeid)
+		values (#{planNum},#{groupNum},#{content},to_date(#{startDate},'yyyy-mm-dd HH24:MI:SS'),#{longTime},#{contentid},#{contenttypeid})
 	</insert>
 	
 	<select id="planInfoMax" resultType="int">
 		select nvl(max(planNum),0) from planInfo 
 	</select>
 	
-	<select id="getLists" resultType="com.tour.dto.PlanDTO" parameterType="int">
+	<select id="getLists" resultType="com.tour.dto.PlanInfoDTO" parameterType="int">
 		select * from planInfo where groupNum = #{groupNum}
 	</select>
 	

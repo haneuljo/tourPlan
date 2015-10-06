@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-import com.tour.dto.PlanDTO;
 import com.tour.dto.PlanInfoDTO;
 
 public class PlanInfoDAO {
@@ -31,10 +30,12 @@ public class PlanInfoDAO {
 	}
 	
 	//일정불러오기
-	public List<PlanDTO> getLists(int groupNum) {
+	public List<PlanInfoDTO> getLists(int groupNum) {
 		
-		List<PlanDTO> lists = sessionTemplate.selectList("com.tour.planInfo.getLists",groupNum);
+		List<PlanInfoDTO> lists = sessionTemplate.selectList("com.tour.planInfo.getLists",groupNum);
 		
 		return lists;
 	}
+	
+
 }

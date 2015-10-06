@@ -7,8 +7,8 @@
 <mapper namespace="com.tour.plan">
 
 	<insert id="planInsert" parameterType="com.tour.dto.PlanDTO">
-		insert into plan (groupNum, email)
-		values(#{grounNum},#{email})
+		insert into plan (groupNum, email,title,uploadChk)
+		values(#{grounNum},#{email},#{title},0)
 	</insert>
 	
 	<select id="planMax" resultType="int">

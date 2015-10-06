@@ -2,7 +2,7 @@ package com.tour.dto;
 
 public class MemberDTO {
 	
-	String email, pwd, name, profileImg;
+	private String email, pwd, name, profileImg;
 
 	public String getEmail() {
 		return email;

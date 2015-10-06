@@ -2,9 +2,9 @@ package com.tour.dto;
 
 public class ClipBoardDTO {
 	
-	int clipBoardNum, contentid, clipCount;
-	String email, firstimage,title, addr1;
-	Object mapx, mapy;
+	private int clipBoardNum, contentid, clipCount;
+	private String email, firstimage,title, addr1;
+	private Object mapx, mapy;
 	
 	public String getAddr1() {
 		return addr1;
