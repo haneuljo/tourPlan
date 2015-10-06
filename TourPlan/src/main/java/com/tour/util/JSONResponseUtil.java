@@ -113,14 +113,13 @@ public class JSONResponseUtil {
 			
 		}
 			
-
 		josnObj.put("body", pageObj);
 		//JSONObject dd = (JSONObject) clipArray.get(2);
 		//System.out.print(dd.get("page"));
 		
 	
 		clipSe.setClipList(josnObj);
-
+		clipSe.setTotalPage(page);
 		session.setAttribute("clipJSON", clipSe);
 		
 	}

@@ -144,12 +144,9 @@
 	</div>
 	<form name="clip" method="post">
 	<div id="clipResult"></div> 
-<<<<<<< HEAD
 
-=======
 	</form>
 	
->>>>>>> branch 'master' of https://github.com/haneuljo/tourPlan
 	<script>
 		var areaCode;
 		var sigunguCode=0;
@@ -215,13 +212,10 @@
 				url:"<%=cp%>/travelMain?areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&page="+page,
 				dataType:"json",		
 				success:function(data){
+					
 					$("#clipResult").empty();
 					//alert(data);
-					var item = data.body.items[page-1].item;
-					$.each(item, function(index, value){
-						$("#clipResult").append('<div class="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
-												
-					});		
+					
 					$.each(data, function(index, value) {
 						$("#clipResult").append('<div class="travel_info" onclick="article('+value.contentid+');"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
 					});  
@@ -229,8 +223,10 @@
 					
 					if(page==1){
 						$(".pagination").empty();
+						//alert('${sessionScope.clipJSON.totalPage}');
 						
-						for(var i=1; i<=data.body.items.length; i++){
+						for(var i=1; i<=10; i++){
+/* 						for(var i=1; i<='${sessionScope.clipJSON.totalPage}'; i++){ */
 							
 							$(".pagination").append('<li><a href="javascript:clipCount('+i+')">'+i+'</a></li>');
 							
@@ -251,7 +247,7 @@
 
 		function article(cd) {
 	 		
-	 		var f= document.clip;
+	 		var f=document.clip;
 			alert(cd);
 	 		f.action = '<%=cp%>/article.action?contentid=' +cd;
 	 		f.submit();
