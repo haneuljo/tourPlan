@@ -131,9 +131,9 @@
 	<div id="example-1-1">
 		<div class="sortable-list">
 
-			<c:forEach var="map" items="${lists}" varStatus="status">
+<%-- 			<c:forEach var="map" items="${lists}" varStatus="status">                                                                    //map으로 바로
 				<div class="sortable-item">
-					${map}
+					contentid
 					<input type="hidden" name="planNum" value="${map.planNum }">
 					<input type="hidden" name="groupNum" value="${map.groupNum }">
 					<input type="hidden" name="contentid" value="${map.contentid }">
@@ -142,7 +142,15 @@
 					<input type="hidden" name="content" value="${map.content }">
 					<input type="hidden" name="startDate" value="${map.startDate }">
 				</div>
-				</c:forEach>
+			</c:forEach> --%>
+			
+			<c:forEach var="adto" items="${alists}"> 
+			<div class="sortable-item">
+				 	<div> <h1>${adto.title() }</h1></div>
+	 				<div> ${adto.addr1} ${adto.addr2 }</div>
+	 				<img alt="" src="${adto.firstimage }">
+			</div>
+			</c:forEach>
 		</div>
 	</div>
 	

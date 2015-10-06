@@ -91,7 +91,7 @@
     </div>
     <div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="<%=cp%>/">Home</a></li>
+        <li class="active"><a href="#">Home</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Page 1-1</a></li>
@@ -115,7 +115,7 @@
 	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이페이지<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	            <li><a href="#">Page 1-1</a></li>
-	            <li><a href="<%=cp%>/planInfo">여행일정</a></li>
+	            <li><a href="<%=cp%>/planInfo.action">여행일정</a></li>
 	            <li><a href="<%=cp%>/">회원정보수정</a></li>
 	            <li><a href="<%=cp%>logout.action">로그아웃</a></li>
 	          </ul>
@@ -157,8 +157,8 @@
 	function initMap() {
 	
 	  map = new google.maps.Map(document.getElementById('map'), {
-	    zoom: 11,
-	    center: {lat: 37.5, lng: 126.98}  
+	    zoom: 12,
+	    center: {lat: 37.5, lng: 127.037}  
 	  });
 	  
 	  $.ajax({
@@ -340,7 +340,7 @@
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"
 		async defer></script>
-	<div id="result"><input type="button" value="출발선택"/> </div>
+	<div id="result"></div>
 	<input type="button" value="일정저장" onclick="register();"/>
   </form>
 </div>

@@ -7,12 +7,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Comparator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tour.dao.PlanDAO;
 import com.tour.dao.PlanInfoDAO;
+import com.tour.dto.ArticleDTO;
 import com.tour.dto.PlanDTO;
 import com.tour.dto.PlanInfoDTO;
 import com.tour.util.JSONResponseUtil;
@@ -39,6 +44,9 @@ public class PlanInfoController {
 	@Autowired
 	@Qualifier("PlanDAO")
 	PlanDAO pdao;
+	
+	@Autowired
+	JSONResponseUtil jsonUtil;
 	
 	@RequestMapping("/newplan")
 	public String newplan(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
@@ -129,7 +137,7 @@ public class PlanInfoController {
 	}
 	
 	@RequestMapping("/myPlanTest")                                    //내일정보기
-	public String myPlanTest(HttpServletRequest req) {
+	public String myPlanTest(HttpServletRequest req, HttpServletResponse res) throws ParseException, IOException {
 		
 		forTest(req);
 		
@@ -139,6 +147,22 @@ public class PlanInfoController {
 		ArrayList<HashMap<String, Object>> lists = info.getInfoList();
 		
 		req.setAttribute("lists", lists);
+
+		ListIterator<HashMap<String, Object>> it = lists.listIterator();
+		HashMap<String, Object> hMap = new HashMap<String, Object>();
+		ArticleDTO adto = new ArticleDTO();
+		List<ArticleDTO> alists = new ArrayList<ArticleDTO>();
+		
+		while(it.hasNext()){
+			
+			hMap = it.next();
+			Integer contentid = (Integer) hMap.get("contentid");
+			adto = getADTOfromContentID(req, res, contentid);
+			alists.add(adto);
+		}					
+		
+		req.setAttribute("alists", alists);
+		
 		
 		return "plan/myPlanTest";
 	}
@@ -329,5 +353,40 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 		   } 
 		}
 		  return i;
+	}
+	
+	public ArticleDTO getADTOfromContentID(HttpServletRequest req,HttpServletResponse res,Integer contentid) throws ParseException, IOException {                                       //하늘이 article.action수정해서 contentid  -> api정보반환만듬 adto로반환
+		
+		ArticleDTO adto = new ArticleDTO();
+		System.out.println(contentid);
+		
+		String url =
+				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?contentId="+contentid+"&defaultYN=Y&addrinfoYN=Y&mapinfoYN=Y&firstImageYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTesting&_type=json&ServiceKey="
+					+tourAPIKey;
+		
+		JSONParser jsonparser = new JSONParser();
+        JSONObject jsonobject = (JSONObject)jsonparser.parse(jsonUtil.getJSONResponseString(res, url));
+        JSONObject json =  (JSONObject) jsonobject.get("response");
+        JSONObject jsonbody =  (JSONObject) json.get("body");
+        JSONObject jsonitem =  (JSONObject) jsonbody.get("items");
+        JSONObject array = (JSONObject)jsonitem.get("item");
+        
+		
+        adto.setTitle((String) array.get("title"));
+        adto.setAddr1((String) array.get("addr1"));
+        adto.setAddr2((String) array.get("addr2"));
+        System.out.println("Addr2 : "+(String) array.get("addr2"));
+        adto.setContentid(contentid);
+        adto.setFirstimage((String) array.get("firstimage"));
+        adto.setOverview((String) array.get("overview"));
+        
+        	if(array.containsKey("mapx")){
+			
+			adto.setMapx(array.get("mapx"));
+			adto.setMapy(array.get("mapy"));
+			
+        	}
+		
+		return adto;
 	}
 }
