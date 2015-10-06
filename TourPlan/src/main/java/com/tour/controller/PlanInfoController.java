@@ -216,7 +216,7 @@ public class PlanInfoController {
 		hMap.put("order", 4);
 		hMap.put("planNum", 1);
 		hMap.put("groupNum", 1);
-		hMap.put("contentid", 1);
+		hMap.put("contentid", 397664);
 		hMap.put("contenttypeid", 1);
 		hMap.put("longTime",60);
 		hMap.put("content", "111");
@@ -228,7 +228,7 @@ public class PlanInfoController {
 		hMap.put("order", 2);
 		hMap.put("planNum", 2);
 		hMap.put("groupNum", 1);
-		hMap.put("contentid", 2);
+		hMap.put("contentid", 1331760);
 		hMap.put("contenttypeid", 2);
 		hMap.put("longTime",60);
 		hMap.put("content", "222");
@@ -240,7 +240,7 @@ public class PlanInfoController {
 		hMap.put("order", 3);
 		hMap.put("planNum", 3);
 		hMap.put("groupNum", 1);
-		hMap.put("contentid", 3);
+		hMap.put("contentid", 1883038);
 		hMap.put("contenttypeid", 3);
 		hMap.put("longTime",60);
 		hMap.put("content", "333");

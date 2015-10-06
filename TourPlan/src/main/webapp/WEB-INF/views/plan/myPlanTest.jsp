@@ -146,7 +146,7 @@
 			
 			<c:forEach var="adto" items="${alists}"> 
 			<div class="sortable-item">
-				 	<div> <h1>${adto.title() }</h1></div>
+				 	<div> <h1>${adto.title}</h1></div>
 	 				<div> ${adto.addr1} ${adto.addr2 }</div>
 	 				<img alt="" src="${adto.firstimage }">
 			</div>
