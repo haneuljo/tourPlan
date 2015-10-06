@@ -1,15 +1,15 @@
 package com.tour.controller;
 
-<<<<<<< HEAD
+
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-=======
+
 
 import javax.servlet.http.HttpServletRequest;
->>>>>>> 6d834985f24960a34f57b8f01b5f04b31497093c
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,12 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tour.dao.PlanDAO;
-<<<<<<< HEAD
+
 import com.tour.dto.MemberDTO;
 import com.tour.util.JSONResponseUtil;
 import com.tour.util.SessionInfo;
-=======
->>>>>>> 6d834985f24960a34f57b8f01b5f04b31497093c
+
 
 @Controller("PlanController")
 public class PlanController {
@@ -39,7 +38,7 @@ public class PlanController {
 		return "plan/planInfo";
 	}
 	
-<<<<<<< HEAD
+
 	String tourAPIKey = "sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D";
 	
 
@@ -106,9 +105,7 @@ public class PlanController {
 			JSONResponseUtil util = new JSONResponseUtil();
 			return util.getJSONResponse(response, url);
 		}
-=======
 
->>>>>>> 6d834985f24960a34f57b8f01b5f04b31497093c
 	
 	
 }

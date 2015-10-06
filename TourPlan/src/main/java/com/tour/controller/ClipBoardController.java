@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import com.tour.dao.ClipBoardDAO;
+import com.tour.dto.ArticleDTO;
 import com.tour.dto.ClipBoardDTO;
 
 import com.tour.util.JSONResponseUtil;
@@ -77,8 +78,8 @@ public class ClipBoardController {
 		return util.getJSONResponse(response, url);
 	}
 	
-<<<<<<< HEAD
-	@RequestMapping("/clipLike")
+
+	@RequestMapping("/clipLike.action")
 	public String clipLike(ClipBoardDTO dto,HttpServletRequest req, HttpServletResponse response,Integer contentid){
 	
 		HttpSession session = req.getSession();
@@ -93,7 +94,7 @@ public class ClipBoardController {
 		
 		dao.insertData(dto);
 		
-		return "clipBoard/travelMain";
+		return "redirect:/article.action";
 		
 	}
 	
@@ -107,10 +108,10 @@ public class ClipBoardController {
 		
 		
 		System.out.println("areacode : "+areaCode);
-		List<ClipBoardDTO> myClipList= dao.myclip(info.getEmail());
+		//List<ClipBoardDTO> myClipList= dao.myclip(info.getEmail());
 		List<ClipBoardDTO> clipList= new ArrayList<ClipBoardDTO>();
 		
-		System.out.println("DB clipCount" + myClipList.size());
+		//System.out.println("DB clipCount" + myClipList.size());
 		String url =
 				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=20&pageNo=1&_type=json&ServiceKey="
 					+tourAPIKey;
@@ -124,16 +125,16 @@ public class ClipBoardController {
         
         System.out.println(array.size());
 		
-		for (int i = 0; i < array.size(); i++) {
+		/*for (int i = 0; i < array.size(); i++) {
 			int chk=0;
 			JSONObject entity = (JSONObject) array.get(i);
 			Long contentid = (Long) entity.get("contentid");
 
 			//System.out.println(i + "contentid:" + contentid);
 		
-			Iterator<ClipBoardDTO> it = myClipList.iterator();
-			while (it.hasNext()) {
-				ClipBoardDTO dto = it.next();
+			//Iterator<ClipBoardDTO> it = myClipList.iterator();
+			//while (it.hasNext()) {
+			//	ClipBoardDTO dto = it.next();
 				//System.out.println("여기까지?");
 				if (contentid == dto.getContentid()) {
 					
@@ -151,18 +152,84 @@ public class ClipBoardController {
 				
 		
 		System.out.println(clipList.size());
-		
+		*/
 		return clipList;
 	}
 		
-=======
+
 	//클립 Map
 	@RequestMapping("/travelMap")
 	public String travelMap(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
 			
 		return "clipBoard/travelMap";
 	}
->>>>>>> 6d834985f24960a34f57b8f01b5f04b31497093c
+	
+	@RequestMapping("/deletedclip.action")
+	public String deletedclip(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
+		
+		HttpSession session = req.getSession();
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("loginInfo");	
+		
+		dao.deletedclip(info.getEmail(), contentid);
+		
+		req.setAttribute("contentid", contentid);
+	
+		return "redirect:/article.action";
+	}
+		
+		
+	
+	@RequestMapping("/article.action")
+	public String article(HttpServletRequest req,HttpServletResponse resp, Integer contentid) throws ParseException, IOException {
+		
+		HttpSession session = req.getSession();
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("loginInfo");		
+		
+		ArticleDTO adto = new ArticleDTO();
+		System.out.println(contentid);
+		int cCount = dao.getClipCount(contentid);
+		System.out.println("cCount : "+ cCount);
+		int clipchk = dao.getClipChk(info.getEmail(), contentid);
+		System.out.println("clipchk" +clipchk);
+		String url =
+				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?contentId="+contentid+"&defaultYN=Y&addrinfoYN=Y&mapinfoYN=Y&firstImageYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTesting&_type=json&ServiceKey="
+					+tourAPIKey;
+		
+		JSONParser jsonparser = new JSONParser();
+        JSONObject jsonobject = (JSONObject)jsonparser.parse(jsonUtil.getJSONResponseString(resp, url));
+        JSONObject json =  (JSONObject) jsonobject.get("response");
+        JSONObject jsonbody =  (JSONObject) json.get("body");
+        JSONObject jsonitem =  (JSONObject) jsonbody.get("items");
+        JSONObject array = (JSONObject)jsonitem.get("item");
+        
+		
+        adto.setTitle((String) array.get("title"));
+        adto.setAddr1((String) array.get("addr1"));
+        adto.setAddr2((String) array.get("addr2"));
+        System.out.println("Addr2 : "+(String) array.get("addr2"));
+        adto.setContentid(contentid);
+        adto.setFirstimage((String) array.get("firstimage"));
+        adto.setOverview((String) array.get("overview"));
+        
+        	if(array.containsKey("mapx")){
+			
+			adto.setMapx(array.get("mapx"));
+			adto.setMapy(array.get("mapy"));
+			
+        	}
+		
+		
+        req.setAttribute("adto", adto);
+        req.setAttribute("cCount", cCount);
+        req.setAttribute("clipchk", clipchk);
+		
+		return "clipBoard/article";
+		
+		
+	}
+
 	
 	//clipCount해서 비교
 	@RequestMapping("/clipCount")

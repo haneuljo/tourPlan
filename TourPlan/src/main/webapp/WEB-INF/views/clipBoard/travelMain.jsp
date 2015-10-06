@@ -111,7 +111,7 @@
 											$("#clipResult").empty();
 											//alert(data);
 											$.each(data, function(index, value) {
-												$("#clipResult").append('<div id="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'<span class="glyphicon glyphicon-heart" onclick="cliplike('+value.contentid+')"></span></div>');
+												$("#clipResult").append('<div id="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'" onclick="article('+value.contentid+');"/><br/>클립: '+value.clipCount+' : '+value.title+'<span class="glyphicon glyphicon-heart" onclick="cliplike('+value.contentid+')"></span></div>');
 											
 	
 													
@@ -163,6 +163,17 @@
  		
  		
 	} 	 
+ 	
+ 	
+	function article(cd) {
+ 		
+ 		var f= document.clip;
+		alert(cd);
+ 		f.action = '<%=cp%>/article.action?contentid=' +cd;
+ 		f.submit();
+ 		
+ 		
+	} 	
   </script>
   
 </head>
@@ -214,40 +225,6 @@
   </div>
 </nav>
 
-<script>
-	
-	$(document).ready(function(){
-	
-		$("#myclip").click(function(){
-			alert("myclip");
-			$.ajax({
-				
-				type:"POST",
-				//url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json",
-				url:"<%=cp%>/myClip",
-				//data:"areaCode="+areaCode+"&sigunguCode="+sigunguCode,
-				dataType:"json",		
-				success:function(data){
-					$("#clipresult").empty();
-					if(data.response.body.totalCount==0){
-						$("#clipresult").append('데이터가 없습니다.');
-						
-					}else{
-						for(i=0;i<data.response.body.totalCount;i++){	
-							$("#clipresult").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/><br/>'+data.response.body.items.item[i].title+'</div>');
-							
-						}
-					}
-				
-			},
-			
-		});
-	
-	});
-});
-	
-
-</script>
 
 
 <!-- Modal -->
@@ -260,7 +237,7 @@
 <form action="" name="clip" method="post">
   <div id="areaContainer"></div>
   <div id="clipResult">
-  	
+  
   </div>  
 </form>
  

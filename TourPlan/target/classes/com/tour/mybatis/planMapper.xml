@@ -15,10 +15,7 @@
 		select nvl(max(groupNum),0) from plan 
 	</select>
 	
-<<<<<<< HEAD
-=======
 	
->>>>>>> 6d834985f24960a34f57b8f01b5f04b31497093c
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 
 	from post where seq=#{seq}
