@@ -64,6 +64,8 @@
 	        
 	    });
 	});
+	
+	 
   </script>
   
   <script type="text/javascript">
@@ -135,7 +137,7 @@
 <!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
   
 <div class="container">
-  <h3>내용 추가</h3>
+  <h3>여행지선택${startDate}</h3>
   지역 :
 	<select id="selectArea" style="width: 116px;">
 		<option value="0">선택</option>
@@ -144,8 +146,9 @@
 		<option value="0">선택</option>
 	</select> -->
 	<button id="btn">검색</button>
+	<button id="startsel">출발지선택</button>
 	<div id="map"></div>
-
+	
 	
 <form action="" name="planForm" method="post">	
 	<script>
@@ -291,10 +294,7 @@
 								if(data.response.body.items.item[i].contentid==buffer[j]){
 									
 									$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/><input type="hidden" name="contentid" value="' + buffer[j] +'"/>'
-									+'<select name="sday" style="width: 116px;"><option value="0">시작날짜</option><option value="2015-10-04">2015-10-04</option></select>'
-									+'<select name="stime" style="width: 116px;"><option value="0">시작시간</option><option value="14:00:00">14:00</option></select>&nbsp;&nbsp;&nbsp;&nbsp;'
-									+'<select name="eday" style="width: 116px;"><option value="0">끝날짜</option><option value="2015-10-04">2015-10-04</option></select>'
-									+'<select name="etime" style="width: 116px;"><option value="0">끝시간</option><option value="15:00:00">15:00</option></select><br/>'+data.response.body.items.item[i].title+'</div><br/>');
+									+'<br/>'+data.response.body.items.item[i].title+'</div><br/>');
 									
 									//alert("d" + buffer[j]);
 								}
@@ -340,7 +340,28 @@
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"
 		async defer></script>
-	<div id="result"><input type="button" value="출발선택"/> </div>
+		
+	<script>
+	$("#startsel").click(function(){
+    	$.ajax({
+			type:"GET",
+			url:"<%=cp%>/startPlace?startDate=" + '${startDate}',
+			dataType:"html",		
+			success:function(data){
+				$("#myModal").html(data);
+				//alert(data);
+				$("#myModal").modal();
+			},
+			error:function(e){
+				alert("1111111111"+e.responseText);
+			}
+			
+		});
+        
+    });
+	</script>
+	
+	<div id="result"></div>
 	<input type="button" value="일정저장" onclick="register();"/>
   </form>
 </div>

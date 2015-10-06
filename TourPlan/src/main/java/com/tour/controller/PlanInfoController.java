@@ -24,6 +24,7 @@ import com.tour.dao.PlanDAO;
 import com.tour.dao.PlanInfoDAO;
 import com.tour.dto.PlanDTO;
 import com.tour.dto.PlanInfoDTO;
+import com.tour.util.GroupSession;
 import com.tour.util.JSONResponseUtil;
 import com.tour.util.SessionInfo;
 
@@ -62,29 +63,64 @@ public class PlanInfoController {
 		return util.getJSONResponse(res, url);
 	}
 	
+	@RequestMapping("/startPut")
+	public String startPut(PlanInfoDTO pdto,int durTime,int hour,int min,String address1,String address2,HttpServletRequest req,HttpServletResponse res, Integer contentid) {
+		
+		HttpSession session = req.getSession();
+		GroupSession gp = (GroupSession) session.getAttribute("groupNum");
+		
+		String startDate = pdto.getStartDate() + " " + hour + ":" + min + ":00";
+		
+		pdto.setPlanNum(dao.planInfoMax()+1);
+		pdto.setGroupNum(gp.getGroupNum());
+		pdto.setContent(address1);
+		pdto.setStartDate(startDate);
+		pdto.setLongTime(0);
+
+		dao.planInfoInsert(pdto);
+		
+		pdto.setPlanNum(dao.planInfoMax()+1);
+		pdto.setGroupNum(gp.getGroupNum());
+		pdto.setContent(address2);
+		pdto.setStartDate(startDate);
+		pdto.setLongTime(durTime);
+		
+		dao.planInfoInsert(pdto);
+		
+		System.out.println(pdto.getStartDate());
+		System.out.println(durTime);
+		System.out.println(hour);
+		System.out.println(min);
+		System.out.println(address1);
+		System.out.println(address2);
+		//System.out.println(durTime);
+		//System.out.println(durTime);
+		//req.setAttribute("durTime", durTime);
+		
+		return "plan/newplan";
+	}
+	
 	//일정완료
 	@RequestMapping("/register")
 	public String register(PlanInfoDTO pdto,HttpServletRequest req,HttpServletResponse res, Integer contentid[],String sday[],String stime[],String eday[],String etime[]) {
 		
 			
 		
-		for(int i=0;i<contentid.length;i++){
-			System.out.println("컨아이디:" + contentid[i]);
-			String start = sday[i] +" " + stime[i];
+			//System.out.println("컨아이디:" + contentid[i]);
+			//String start = sday[i] +" " + stime[i];
 			//String end = eday[i] + " " + etime[i];
-			System.out.println("시작:" + start );
+		//	System.out.println("시작:" + start );
 			//System.out.println("끝:" + end);
 			
 			pdto.setPlanNum(dao.planInfoMax()+1);
 			pdto.setGroupNum(1);
 			pdto.setContent("관광지");
-			pdto.setStartDate(start);
+		//	pdto.setStartDate(start);
 			//pdto.setLongTime(end);
-			pdto.setContentid(contentid[i]);
+		//	pdto.setContentid(contentid[i]);
 			pdto.setContenttypeid(12);
 			
 			dao.planInfoInsert(pdto);
-		}
 			
 		return "plan/planInfo";
 	}
@@ -96,6 +132,16 @@ public class PlanInfoController {
 		return "plan/planAdd";
 	}
 	
+	
+	@RequestMapping("/startPlace")
+	public String startPlace(String startDate,HttpServletRequest req,HttpServletResponse res) {
+		
+		req.setAttribute("startDate", startDate);
+		
+		return "plan/startPlace";
+	}
+
+	
 	//관광일정추가
 	@RequestMapping("/planOk")
 	public String planOk(PlanDTO pdto,String startDate,HttpServletRequest req,HttpServletResponse res) {
@@ -103,14 +149,19 @@ public class PlanInfoController {
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
 		
+		
 		System.out.println(pdto.getTitle());
 		System.out.println(startDate);
+		GroupSession gp = new GroupSession();
 		
-		pdto.setGroupNum(pdao.planMax()+1);
+		
+		pdto.setGroupNum(gp.getGroupNum()+1);
 		pdto.setEmail(info.getEmail());
 		
-		pdao.planInsert(pdto);
-		
+		gp.setGroupNum(pdto.getGroupNum());
+		gp.setStartDate(startDate);
+		//pdao.planInsert(pdto);
+		session.setAttribute("groupNum", gp);
 		req.setAttribute("startDate", startDate);
 		
 		return "plan/newplan";
@@ -179,13 +230,6 @@ public class PlanInfoController {
 		
 	}
 	
-	@RequestMapping("/startPlace")
-	public String startPlace(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
-		
-		
-		return "plan/startPlace";
-	}
-	
 
 	public void forTest (HttpServletRequest req) {                                                      //걍테스팅
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
@@ -231,7 +275,7 @@ public class PlanInfoController {
 	@RequestMapping("/dragTest")
 	public String dragTest(HttpServletRequest req,HttpServletResponse res, Integer contentid) {             //하늘이가준거 드래그앤 드랍.. 근데 사라짐?;
 	
-	return "plan/dragTest";
+		return "plan/dragTest";
 	}
 
 
