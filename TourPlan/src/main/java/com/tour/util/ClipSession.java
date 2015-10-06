@@ -1,21 +1,21 @@
 package com.tour.util;
 
-import java.util.List;
 
-import com.tour.dto.ClipBoardDTO;
+import net.sf.json.JSONObject;
 
 public class ClipSession {
 	
-	public List<ClipBoardDTO> clipList;
-	public int i;
+	private JSONObject clipList;
 
-	public List<ClipBoardDTO> getClipList() {
+	public JSONObject getClipList() {
 		return clipList;
 	}
 
-	public void setClipList(List<ClipBoardDTO> clipList) {
+	public void setClipList(JSONObject clipList) {
 		this.clipList = clipList;
 	}
+
+	
 	
 	
 

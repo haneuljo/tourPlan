@@ -230,7 +230,7 @@
 	
 		$.ajax({
 			type:"GET",
-			url:"<%=cp%>/clipCount?areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&mapChk=1",
+			url:"<%=cp%>/travelMapClipCount?areaCode="+areaCode+"&sigunguCode="+sigunguCode,
 			dataType:"json",		
 			success:function(data){
 				
