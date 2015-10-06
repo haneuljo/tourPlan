@@ -26,11 +26,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tour.dao.ClipBoardDAO;
 import com.tour.dto.ArticleDTO;
 import com.tour.dto.ClipBoardDTO;
-<<<<<<< HEAD
 
-=======
 import com.tour.util.ClipSession;
->>>>>>> 615efede1bcb3008af70ded5f03f9f3c44df4860
+
 import com.tour.util.JSONResponseUtil;
 import com.tour.util.SessionInfo;
 

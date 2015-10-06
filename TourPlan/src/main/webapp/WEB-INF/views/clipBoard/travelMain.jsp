@@ -61,16 +61,6 @@
 	    });
 	});
   </script>
-<<<<<<< HEAD
-   <script>
- 	 $(document).ready(function(){
- 		 var areaCode;
- 		 var sigunguCode;
- 		 var cliplike;
- 		 
- 		 $.ajax({
- 			type:"GET",
-=======
   
 </head>
 
@@ -150,13 +140,15 @@
 		<div id="jeju" class ="area area16">제주도</div>
 		<div id="sigungu2" class="sigungu"></div>
 	</div>
+	<form name="clip" method="post">
 	<div id="clipResult"></div> 
+	</form>
+	
 	<script>
 		var areaCode;
 		var sigunguCode=0;
 		$.ajax({
 	 		type:"GET",
->>>>>>> 615efede1bcb3008af70ded5f03f9f3c44df4860
 			url:"<%=cp%>/areaCodeAPI",
 			dataType:"json",		
 			success:function(data){
@@ -169,62 +161,7 @@
 						count++;
 					}
 				}
-<<<<<<< HEAD
-				$("#areaContainer div:has(span)").bind("click", function(){
-					areaCode=$(this).attr('data');
-					//alert(areaCode);
-					if($(this).attr('id')=="area"){
-						var index=$(this).attr('index');
-						//alert(index);
-						$.ajax({
-							type:"GET",
-							url:"<%=cp%>/sigunguCodeAPI?areaCode="+areaCode,
-							dataType:"json",		
-							success:function(data){
-								$("#sigugun"+index).empty();
-								//alert(data);
-								for(i=0;i<data.response.body.items.item.length;i++){
-									$("#sigugun"+index).append('<div id="segugun_info" data="'+data.response.body.items.item[i].code+'">'+data.response.body.items.item[i].name+'<a></div>');
-								}  
-								
-								
-								$("#sigugun"+index+" div").bind("click", function(){
-									sigunguCode = $(this).attr('data');
-									$.ajax({
-										type:"GET",
-										url:"<%=cp%>/clipCount?areaCode="+areaCode+"&sigugunCode="+sigunguCode,
-										dataType:"json",		
-										success:function(data){
-											
-											$("#clipResult").empty();
-											//alert(data);
-											$.each(data, function(index, value) {
-												$("#clipResult").append('<div id="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'" onclick="article('+value.contentid+');"/><br/>클립: '+value.clipCount+' : '+value.title+'<span class="glyphicon glyphicon-heart" onclick="cliplike('+value.contentid+')"></span></div>');
-											
-	
-													
-												
-												
-											}); 
-											
-											
-											 
-											
-										},
-										error:function(e){
-											alert("1111111111"+e.responseText);
-										}					
-									
-									});
-								});
-								
-						
-								
-							},
-							error:function(e){
-								alert("1111111111"+e.responseText);
-							}
-=======
+
 			},
 				error:function(e){
 					//alert("1111111111"+e.responseText);
@@ -251,7 +188,6 @@
 						
 						$("#sigungu"+index).show();
 						$("#sigungu"+index+" div").bind("click", function(){
->>>>>>> 615efede1bcb3008af70ded5f03f9f3c44df4860
 							
 							sigunguCode = $(this).attr('data');
 							//alert(sigunguCode);
@@ -263,102 +199,6 @@
 			}else{
 				clipCount();
 			}
-<<<<<<< HEAD
- 			 
- 		 });
-  		
-  		
-  	});
- 	 
- 	function cliplike(cd) {
- 		
- 		var f= document.clip;
-		alert(cd);
- 		f.action = '<%=cp%>/clipLike?contentid=' +cd;
- 		f.submit();
- 		
- 		
-	} 	 
- 	
- 	
-	function article(cd) {
- 		
- 		var f= document.clip;
-		alert(cd);
- 		f.action = '<%=cp%>/article.action?contentid=' +cd;
- 		f.submit();
- 		
- 		
-	} 	
-  </script>
-  
-</head>
-
-<body>
-
-<!-- ---- 모든 jsp 일단 복사 ---- -->
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
-    </div>
-    <div>
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Page 1-1</a></li>
-            <li><a href="#">Page 1-2</a></li>
-            <li><a href="#">Page 1-3</a></li>
-          </ul>
-        </li>
-        <li><a href="<%=cp%>/travel">여행지</a></li>
-        <li><a href="<%=cp%>/planInfo.action">여행일정</a></li>
-        <li><a href="#">Page 3</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-      
-      	<c:choose>
-      	
-      	 <c:when test="${empty sessionScope.loginInfo.email }">
-      	
-        <li id="sign"><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li id="login"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </c:when>
-	        <c:otherwise>
-	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이페이지<span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li id="myclip"><a href="">My Clip</a></li>
-	            <li><a href="#">Page 1-2</a></li>
-	            <li><a href="<%=cp%>/">회원정보수정</a></li>
-	            <li><a href="<%=cp%>logout.action">로그아웃</a></li>
-	          </ul>
-	       </li>
-	       </c:otherwise>
-       </c:choose>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-
-
-<!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    
-  </div> 
-<!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
-  
-<div class="container">
-<form action="" name="clip" method="post">
-  <div id="areaContainer"></div>
-  <div id="clipResult">
-  
-  </div>  
-</form>
- 
-  
-=======
 			
 		});
 		
@@ -373,7 +213,7 @@
 					$("#clipResult").empty();
 					//alert(data);
 					$.each(data, function(index, value) {
-						$("#clipResult").append('<div class="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
+						$("#clipResult").append('<div class="travel_info" onclick="article('+value.contentid+');"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
 					});  
 					 
 					
@@ -385,10 +225,19 @@
 			});
 			
 		}
+		
+		function article(cd) {
+	 		
+	 		var f= document.clip;
+			alert(cd);
+	 		f.action = '<%=cp%>/article.action?contentid=' +cd;
+	 		f.submit();
+	 		
+	 		
+		} 	
 	
 	</script> 
->>>>>>> 615efede1bcb3008af70ded5f03f9f3c44df4860
-  
+ 
   
 </div>
 
