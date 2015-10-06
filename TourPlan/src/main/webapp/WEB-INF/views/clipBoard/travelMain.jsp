@@ -140,7 +140,10 @@
 		<div id="jeju" class ="area area16">제주도</div>
 		<div id="sigungu2" class="sigungu"></div>
 	</div>
+	<form name="clip" method="post">
 	<div id="clipResult"></div> 
+	</form>
+	
 	<script>
 		var areaCode;
 		var sigunguCode=0;
@@ -158,6 +161,7 @@
 						count++;
 					}
 				}
+
 			},
 				error:function(e){
 					//alert("1111111111"+e.responseText);
@@ -209,7 +213,7 @@
 					$("#clipResult").empty();
 					//alert(data);
 					$.each(data, function(index, value) {
-						$("#clipResult").append('<div class="travel_info"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
+						$("#clipResult").append('<div class="travel_info" onclick="article('+value.contentid+');"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
 					});  
 					 
 					
@@ -221,9 +225,19 @@
 			});
 			
 		}
+		
+		function article(cd) {
+	 		
+	 		var f= document.clip;
+			alert(cd);
+	 		f.action = '<%=cp%>/article.action?contentid=' +cd;
+	 		f.submit();
+	 		
+	 		
+		} 	
 	
 	</script> 
-  
+ 
   
 </div>
 
