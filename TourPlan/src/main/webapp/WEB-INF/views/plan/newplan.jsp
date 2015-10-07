@@ -11,6 +11,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   
+    <!-- drag JavaScript files -->
+	<script type="text/javascript" src="<%=cp%>/resources/dragJS/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="<%=cp%>/resources/dragJS/jquery-ui-1.8.custom.min.js"></script>
+  
    <style>
   .modal-header, h4, .close {
       background-color: #5cb85c;
@@ -27,7 +31,7 @@
 	padding:0;
 	}
 	html,body{height:100%;}
-	#map{height: 100%;}
+	#map{height: 100%; width: 900px;}
   </style>
   <script>
 	$(document).ready(function(){
@@ -147,7 +151,7 @@
 	</select> -->
 	<button id="btn">검색</button>
 	<button id="startsel">출발지선택</button>
-	<div id="map"></div>
+	<div id="map" style="float: right;"></div>
 	
 	
 <form action="" name="planForm" method="post">	
@@ -262,15 +266,28 @@
 	var buffer = new Array();
 	var chk = 0;
 	//검색을 할때 empty하도록
-	$("#result").empty();
+	/* var info_index = 0; */
+	/* $("#result").empty(); */
 	function choice(){
 		 alert($("#contentid").val());
 		 buffer.push($("#contentid").val());
-		
+		 $.ajax({
+				type:"POST",
+				url:"<%=cp%>/choice",
+				data:"contentid=" + $("#contentid").val(),
+				success:function(args){
+					$("#result").html(args);
+					alert(args);
+				},
+				error:function(e){
+					alert(e.responseText);
+				}
+		 });
+				
 		// alert("여기는?");
 		// alert(contentid);
 		// alert(areaCode);
-			$.ajax({
+<%-- 			$.ajax({
 				type:"POST",
 				//url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&numOfRows=10&_type=json",
 				url:"<%=cp%>/choice",
@@ -292,10 +309,10 @@
 								//alert("아놔"+data.response.body.items.item[i].title);
 								 //alert(buffer.length);
 								if(data.response.body.items.item[i].contentid==buffer[j]){
-									
-									$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/><input type="hidden" name="contentid" value="' + buffer[j] +'"/>'
-									+'<select id="longTime"><option value="0">소요시간</option><option value="30">30분</option><option value="60">1시간</option><option value="90">1시간30분</option><option value="120">2시간</option><option value="150">2시간30분</option><option value="180">3시간</option><option value="210">3시간30분</option><option value="240">4시간</option></select><br/>'+data.response.body.items.item[i].title+'</div><br/>');
-									
+									alert("info_index:" +info_index);
+									$("#result").append('<div id="sortable_item-'+info_index+'"><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/><input type="hidden" name="contentid" value="' + buffer[j] +'"/>'
+									+'<select id="longTime"><option value="0">소요시간</option><option value="30">30분</option><option value="60">1시간</option><option value="90">1시간30분</option><option value="120">2시간</option><option value="150">2시간30분</option><option value="180">3시간</option><option value="210">3시간30분</option><option value="240">4시간</option></select><br/>'+data.response.body.items.item[i].title+'</div>');
+									info_index++;
 									//alert("d" + buffer[j]);
 								}
 							}
@@ -307,7 +324,7 @@
 				},error:function(e){
 					alert("1111111111"+e.responseText);
 				}
-			});
+			}); --%>
 	 }
 	 
 	// marker is clicked, the info window will open with the secret message
@@ -343,6 +360,8 @@
 		
 	<script>
 	$("#startsel").click(function(){
+
+		
     	$.ajax({
 			type:"GET",
 			url:"<%=cp%>/startPlace?startDate=" + '${startDate}',
@@ -361,7 +380,40 @@
     });
 	</script>
 	
-	<div id="result"></div>
+		<!-- Example jQuery code (JavaScript) 드래그앤 드랍적용 -->
+		<script type="text/javascript">
+		$(document).ready(function(){
+				 $.ajax({
+						type:"POST",
+						url:"<%=cp%>/myPlanTest",
+						success:function(args){
+							$("#result").html(args);
+						},
+						error:function(e){
+							alert(e.responseText);
+						}
+				 });
+
+			
+			
+			$('#result').sortable({
+			    axis: 'y',
+			    update: function (event, ui) {
+			        var data = $(this).sortable('serialize');
+			        alert(data);
+		 	        $.ajax({
+		 	        	
+			            data: data,
+			            dataType:"json",
+			            type: 'POST',
+			            url: '<%=cp%>/orderUpdate'
+			        }); 
+			    }
+			});
+		});
+		</script>
+	
+	<div id="result" style="float: left;width: 500px;"></div>
 	<input type="button" value="일정저장" onclick="register();"/>
   </form>
 </div>

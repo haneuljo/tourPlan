@@ -57,10 +57,35 @@ public class PlanInfoController {
 	}
 	
 	@RequestMapping("/choice")
-	@ResponseBody
-	public ResponseEntity<String> choice(HttpServletRequest req,HttpServletResponse res, Integer contentid,Integer areaCode) throws IOException{
+/*	@ResponseBody*/
+	public String choice(HttpServletRequest req,HttpServletResponse res, Integer contentid) throws IOException, ParseException{          //Integer areaCode 삭제함.
 		
-		System.out.println(areaCode);
+		System.out.println(contentid);
+		
+		ArticleDTO adto = new ArticleDTO();
+		HashMap<String, Object> hMap = new HashMap<String, Object>();
+		
+		adto = getADTOfromContentID(req, res, contentid);
+		
+		hMap.put("firstimage",adto.getFirstimage());
+		hMap.put("addr1",adto.getAddr1());
+		hMap.put("addr2",adto.getAddr2());
+		hMap.put("title",adto.getTitle());
+		hMap.put("mapx",adto.getMapx());
+		hMap.put("mapy",adto.getMapy());
+		
+		insertInfoLists(hMap, req );
+		
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
+
+		ArrayList<HashMap<String, Object>> lists;
+		
+		lists = info.getInfoList();
+		
+		req.setAttribute("lists", lists);
+
+/*		System.out.println(areaCode);
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList ?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&numOfRows=30&ServiceKey="
 				+ tourAPIKey
 				+ "&areaCode="+areaCode;
@@ -68,7 +93,13 @@ public class PlanInfoController {
 		
 		JSONResponseUtil util = new JSONResponseUtil();
 		
-		return util.getJSONResponse(res, url);
+		return util.getJSONResponse(res, url);*/
+		
+		
+		
+		
+		
+		return "redirect:/myPlanTest";
 	}
 	
 	@RequestMapping("/startPut")
@@ -164,7 +195,7 @@ public class PlanInfoController {
 		
 		
 		pdto.setGroupNum(gp.getGroupNum()+1);
-		pdto.setEmail(info.getEmail());
+		//pdto.setEmail(info.getEmail());
 		
 		gp.setGroupNum(pdto.getGroupNum());
 		gp.setStartDate(startDate);
@@ -206,14 +237,15 @@ public class PlanInfoController {
 	
 	//------------------임시저장소관련---------------------
 	
-	
 	public void insertInfoLists (HashMap<String, Object> hMap,HttpServletRequest req) {                   //일정테이블 하나 받아서 리스트에 추가 (로그인예외처리 필요) 
 		
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 
 		ArrayList<HashMap<String, Object>> lists;
-		
+		if(info==null){
+			System.out.println("info is nulll");
+		}
 		if(info.getInfoList()==null){                                        
 			lists = new  ArrayList<HashMap<String,Object>>();               //리스트 추가한적없으면 객체 새로하나 만듬.
 			System.out.println("infolist is null");
@@ -314,18 +346,18 @@ public class PlanInfoController {
 	}
 
 
-public void listchk(List<HashMap<String, Object>> lists){                                                        //리스트내용체크
-	if(lists!=null){
-		Iterator<HashMap<String, Object>> it = lists.iterator();
-		HashMap<String, Object> dto = new HashMap<String, Object>();
-			
-			while(it.hasNext()){                                      //내용체크
-				dto = (HashMap<String, Object>)it.next();
-				System.out.println(dto);
-			}
-	}else {
-		System.out.println("lists is null");
-	}
+	public void listchk(List<HashMap<String, Object>> lists){                                                        //리스트내용체크
+		if(lists!=null){
+			Iterator<HashMap<String, Object>> it = lists.iterator();
+			HashMap<String, Object> dto = new HashMap<String, Object>();
+				
+				while(it.hasNext()){                                      //내용체크
+					dto = (HashMap<String, Object>)it.next();
+					System.out.println(dto);
+				}
+		}else {
+			System.out.println("lists is null");
+		}
 	}
 
 
