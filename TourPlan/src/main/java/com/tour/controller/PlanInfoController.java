@@ -29,6 +29,7 @@ import com.tour.dao.PlanInfoDAO;
 import com.tour.dto.ArticleDTO;
 import com.tour.dto.PlanDTO;
 import com.tour.dto.PlanInfoDTO;
+import com.tour.util.GroupSession;
 import com.tour.util.JSONResponseUtil;
 import com.tour.util.SessionInfo;
 
@@ -70,29 +71,64 @@ public class PlanInfoController {
 		return util.getJSONResponse(res, url);
 	}
 	
+	@RequestMapping("/startPut")
+	public String startPut(PlanInfoDTO pdto,int durTime,int hour,int min,String address1,String address2,HttpServletRequest req,HttpServletResponse res, Integer contentid) {
+		
+		HttpSession session = req.getSession();
+		GroupSession gp = (GroupSession) session.getAttribute("groupNum");
+		
+		String startDate = pdto.getStartDate() + " " + hour + ":" + min + ":00";
+		
+		pdto.setPlanNum(dao.planInfoMax()+1);
+		pdto.setGroupNum(gp.getGroupNum());
+		pdto.setContent(address1);
+		pdto.setStartDate(startDate);
+		pdto.setLongTime(0);
+
+		dao.planInfoInsert(pdto);
+		
+		pdto.setPlanNum(dao.planInfoMax()+1);
+		pdto.setGroupNum(gp.getGroupNum());
+		pdto.setContent(address2);
+		pdto.setStartDate(startDate);
+		pdto.setLongTime(durTime);
+		
+		dao.planInfoInsert(pdto);
+		
+		System.out.println(pdto.getStartDate());
+		System.out.println(durTime);
+		System.out.println(hour);
+		System.out.println(min);
+		System.out.println(address1);
+		System.out.println(address2);
+		//System.out.println(durTime);
+		//System.out.println(durTime);
+		//req.setAttribute("durTime", durTime);
+		
+		return "plan/newplan";
+	}
+	
 	//일정완료
 	@RequestMapping("/register")
 	public String register(PlanInfoDTO pdto,HttpServletRequest req,HttpServletResponse res, Integer contentid[],String sday[],String stime[],String eday[],String etime[]) {
 		
 			
 		
-		for(int i=0;i<contentid.length;i++){
-			System.out.println("컨아이디:" + contentid[i]);
-			String start = sday[i] +" " + stime[i];
+			//System.out.println("컨아이디:" + contentid[i]);
+			//String start = sday[i] +" " + stime[i];
 			//String end = eday[i] + " " + etime[i];
-			System.out.println("시작:" + start );
+		//	System.out.println("시작:" + start );
 			//System.out.println("끝:" + end);
 			
 			pdto.setPlanNum(dao.planInfoMax()+1);
 			pdto.setGroupNum(1);
 			pdto.setContent("관광지");
-			pdto.setStartDate(start);
+		//	pdto.setStartDate(start);
 			//pdto.setLongTime(end);
-			pdto.setContentid(contentid[i]);
+		//	pdto.setContentid(contentid[i]);
 			pdto.setContenttypeid(12);
 			
 			dao.planInfoInsert(pdto);
-		}
 			
 		return "plan/planInfo";
 	}
@@ -104,6 +140,16 @@ public class PlanInfoController {
 		return "plan/planAdd";
 	}
 	
+	
+	@RequestMapping("/startPlace")
+	public String startPlace(String startDate,HttpServletRequest req,HttpServletResponse res) {
+		
+		req.setAttribute("startDate", startDate);
+		
+		return "plan/startPlace";
+	}
+
+	
 	//관광일정추가
 	@RequestMapping("/planOk")
 	public String planOk(PlanDTO pdto,String startDate,HttpServletRequest req,HttpServletResponse res) {
@@ -111,14 +157,19 @@ public class PlanInfoController {
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
 		
+		
 		System.out.println(pdto.getTitle());
 		System.out.println(startDate);
+		GroupSession gp = new GroupSession();
 		
-		pdto.setGroupNum(pdao.planMax()+1);
+		
+		pdto.setGroupNum(gp.getGroupNum()+1);
 		pdto.setEmail(info.getEmail());
 		
-		pdao.planInsert(pdto);
-		
+		gp.setGroupNum(pdto.getGroupNum());
+		gp.setStartDate(startDate);
+		//pdao.planInsert(pdto);
+		session.setAttribute("groupNum", gp);
 		req.setAttribute("startDate", startDate);
 		
 		return "plan/newplan";
@@ -139,6 +190,8 @@ public class PlanInfoController {
 	@RequestMapping("/myPlanTest")                                    //내일정보기
 	public String myPlanTest(HttpServletRequest req, HttpServletResponse res) throws ParseException, IOException {
 		
+		forTest(req);
+		
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 		
@@ -146,7 +199,7 @@ public class PlanInfoController {
 		
 		req.setAttribute("lists", lists);
 
-		/*ListIterator<HashMap<String, Object>> it = lists.listIterator();                                처리위치가 이상한거같아서 수정
+		ListIterator<HashMap<String, Object>> it = lists.listIterator();
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
 		ArticleDTO adto = new ArticleDTO();
 		List<ArticleDTO> alists = new ArrayList<ArticleDTO>();
@@ -159,7 +212,7 @@ public class PlanInfoController {
 			alists.add(adto);
 		}					
 		
-		req.setAttribute("alists", alists);*/
+		req.setAttribute("alists", alists);
 		
 		
 		return "plan/myPlanTest";
@@ -201,19 +254,10 @@ public class PlanInfoController {
 		
 	}
 	
-	@RequestMapping("/startPlace")
-	public String startPlace(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
-		
-		
-		return "plan/startPlace";
-	}
-	
-	@RequestMapping("/forTest")
-	public String forTest (HttpServletRequest req, HttpServletResponse res) throws ParseException, IOException {                                                      //걍테스팅용 임시 세션리스트 insert
-		
-		ArticleDTO adto = new ArticleDTO();
-		
+
+	public void forTest (HttpServletRequest req) {                                                      //걍테스팅
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
+		hMap.put("order", 4);
 		hMap.put("planNum", 1);
 		hMap.put("groupNum", 1);
 		hMap.put("contentid", 397664);
@@ -221,17 +265,11 @@ public class PlanInfoController {
 		hMap.put("longTime",60);
 		hMap.put("content", "111");
 		hMap.put("startDate", "2015-10-1 00:00:00");
-		adto = getADTOfromContentID(req, res, 397664);
-		hMap.put("firstimage", adto.getFirstimage());
-		hMap.put("addr1", adto.getAddr1());
-		hMap.put("addr2", adto.getAddr2());
-		hMap.put("title", adto.getTitle());
-		hMap.put("mapx", adto.getMapx());
-		hMap.put("mapy", adto.getMapy());
 		
 		insertInfoLists(hMap, req );
 		
 		hMap = new HashMap<String, Object>();
+		hMap.put("order", 2);
 		hMap.put("planNum", 2);
 		hMap.put("groupNum", 1);
 		hMap.put("contentid", 1331760);
@@ -239,17 +277,11 @@ public class PlanInfoController {
 		hMap.put("longTime",60);
 		hMap.put("content", "222");
 		hMap.put("startDate", "2015-10-1 00:00:01");
-		adto = getADTOfromContentID(req, res, 1331760);
-		hMap.put("firstimage", adto.getFirstimage());
-		hMap.put("addr1", adto.getAddr1());
-		hMap.put("addr2", adto.getAddr2());
-		hMap.put("title", adto.getTitle());
-		hMap.put("mapx", adto.getMapx());
-		hMap.put("mapy", adto.getMapy());
 		
 		insertInfoLists(hMap, req );
 		
 		hMap = new HashMap<String, Object>();
+		hMap.put("order", 3);
 		hMap.put("planNum", 3);
 		hMap.put("groupNum", 1);
 		hMap.put("contentid", 1883038);
@@ -257,25 +289,17 @@ public class PlanInfoController {
 		hMap.put("longTime",60);
 		hMap.put("content", "333");
 		hMap.put("startDate", "2015-10-1 00:00:02");
-		adto = getADTOfromContentID(req, res, 1883038);
-		hMap.put("firstimage", adto.getFirstimage());
-		hMap.put("addr1", adto.getAddr1());
-		hMap.put("addr2", adto.getAddr2());
-		hMap.put("title", adto.getTitle());
-		hMap.put("mapx", adto.getMapx());
-		hMap.put("mapy", adto.getMapy());
 		
 		insertInfoLists(hMap, req );
-		return "redirect:/myPlanTest";
 
 	}
 
 	//dragTest
 	
 	@RequestMapping("/dragTest")
-	public String dragTest(HttpServletRequest req,HttpServletResponse res, Integer contentid) {             //하늘이가준거 드래그앤 드랍
+	public String dragTest(HttpServletRequest req,HttpServletResponse res, Integer contentid) {             //하늘이가준거 드래그앤 드랍.. 근데 사라짐?;
 	
-	return "plan/dragTest";
+		return "plan/dragTest";
 	}
 
 
@@ -340,8 +364,7 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 		
 	}
 	
-	@RequestMapping("/deleteTemp")
-	public String deleteInfoLists (HttpServletRequest req, HttpServletResponse res, int index) {               //임시저장리스트 삭제 메소드
+	public void deleteInfoLists (HttpServletRequest req, PlanInfoDTO dto) {               //임시저장리스트 삭제 메소드
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 
@@ -352,14 +375,14 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 			System.out.println("infolist is null");
 		}else{
 		lists = info.getInfoList();
-		System.out.println("not null and index:"+index);
+		System.out.println("not null");
 		
-		//int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //오브젝트니까 String contentid로 검색될까                   테스트 필요		
+		int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //오브젝트니까 String contentid로 검색될까                   테스트 필요
+		
 		lists.remove(index);
 		
 		session.setAttribute("loginInfo", info);                      //세션에 리스트 담아올림
 		}
-		return "redirect:/myPlanTest";
 	}
 	
 	int getPlanInfoMapIndex(ArrayList<HashMap<String, Object>> lists, String key,Object value){         //값으로 검색해서 index반환 없을시 -1반환 값이 여러개인것으로 검색하면 마지막것만 나옴
@@ -409,12 +432,5 @@ public void listchk(List<HashMap<String, Object>> lists){                       
         	}
 		
 		return adto;
-	}
-	
-	@RequestMapping("/orderUpdate")
-	@ResponseBody
-	public void orderUpdate (HttpServletRequest req, HttpServletResponse res, Object sortable_item[]) {               //임시저장리스트 삭제 메소드
-		JSONParser jsonparser = new JSONParser();
-		JSONObject jsonobject = (JSONObject)jsonparser.parse()
 	}
 }
