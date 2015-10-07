@@ -196,21 +196,6 @@ public class PlanInfoController {
 		ArrayList<HashMap<String, Object>> lists = info.getInfoList();
 		
 		req.setAttribute("lists", lists);
-
-		ListIterator<HashMap<String, Object>> it = lists.listIterator();
-		HashMap<String, Object> hMap = new HashMap<String, Object>();
-		ArticleDTO adto = new ArticleDTO();
-		List<ArticleDTO> alists = new ArrayList<ArticleDTO>();
-		
-		while(it.hasNext()){
-			
-			hMap = it.next();
-			Integer contentid = (Integer) hMap.get("contentid");
-			adto = getADTOfromContentID(req, res, contentid);
-			alists.add(adto);
-		}					
-		
-		req.setAttribute("alists", alists);
 		
 		
 		return "plan/myPlanTest";
