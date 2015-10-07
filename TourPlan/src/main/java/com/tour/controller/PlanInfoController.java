@@ -197,6 +197,8 @@ public class PlanInfoController {
 		
 		req.setAttribute("lists", lists);
 		
+		listchk(lists);
+		
 		
 		return "plan/myPlanTest";
 	}
@@ -313,14 +315,17 @@ public class PlanInfoController {
 
 
 public void listchk(List<HashMap<String, Object>> lists){                                                        //리스트내용체크
-
-	Iterator<HashMap<String, Object>> it = lists.iterator();
-	HashMap<String, Object> dto = new HashMap<String, Object>();
-		
-		while(it.hasNext()){                                      //내용체크
-			dto = (HashMap<String, Object>)it.next();
-			System.out.println(dto);
-		}
+	if(lists!=null){
+		Iterator<HashMap<String, Object>> it = lists.iterator();
+		HashMap<String, Object> dto = new HashMap<String, Object>();
+			
+			while(it.hasNext()){                                      //내용체크
+				dto = (HashMap<String, Object>)it.next();
+				System.out.println(dto);
+			}
+	}else {
+		System.out.println("lists is null");
+	}
 	}
 
 
@@ -341,7 +346,45 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 	    }
 	}
 	
-	public void updatetInfoLists (HttpServletRequest req, PlanInfoDTO dto) {               //임시저장리스트 수정 메소드
+	public void updatetInfoLists (HttpServletRequest req, String[] index) {               //임시저장리스트 수정 메소드 인덱스로 순서바꿈용
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
+
+		ArrayList<HashMap<String, Object>> lists;
+		
+		if(info.getInfoList()==null){                                        
+			lists = new  ArrayList<HashMap<String,Object>>();               //리스트 추가한적없으면 객체 새로하나 만듬.
+			System.out.println("infolist is null");
+		}else{
+		lists = info.getInfoList();
+		}
+		
+		ArrayList<HashMap<String, Object>> lists2 = new ArrayList<HashMap<String,Object>>();
+		
+		
+		System.out.println("not null");
+		
+		for(int i = 0;i<index.length;i++) {
+			
+			int index2 = Integer.parseInt(index[i]);
+			System.out.println(index[i]+"->"+i);
+			HashMap<String, Object> hMap = lists.get(index2);
+			System.out.println(hMap);
+			
+			System.out.println(hMap);
+			lists2.add(hMap);	
+		}
+		info.setInfoList(lists2);
+		
+		listchk(lists);        
+		
+		session.setAttribute("loginInfo", info);                      //세션에 리스트 담아올림
+		
+		
+		
+	}
+	
+/*	public void updatetInfoLists (HttpServletRequest req, Integer index) {               //임시저장리스트 수정 메소드 수정전
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 
@@ -353,6 +396,8 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 		}else{
 		lists = info.getInfoList();
 		System.out.println("not null");
+		
+		HashMap<String, Object> hMap = lists.get(index)
 		
 		int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //오브젝트니까 형변환이 없어도 검색되겠지                   테스트 필요
 		
@@ -371,7 +416,7 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 		
 		}
 		
-	}
+	}*/
 	
 	@RequestMapping("/deleteTemp")
 	public String deleteInfoLists (HttpServletRequest req, PlanInfoDTO dto, int index) {               //임시저장리스트 삭제 메소드
@@ -448,7 +493,11 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 	
 	 @RequestMapping("/orderUpdate")
 	   public void orderUpdate(HttpServletRequest req,HttpServletResponse res, String[] sortable_item) {             //하늘이가준거 드래그앤 드랍.. 근데 사라짐?;
-	      
+	   
+		 for(String value : sortable_item){
+		 System.out.println(value);
+		 }
+		 updatetInfoLists(req, sortable_item);
 	      System.out.println(sortable_item.length);
 
 	   }

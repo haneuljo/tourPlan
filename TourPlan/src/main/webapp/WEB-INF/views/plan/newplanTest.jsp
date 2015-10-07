@@ -214,7 +214,7 @@
 					for(i=0;i<data.response.body.items.item.length;i++){	
 						var obj = data.response.body.items.item[i];
 						//var contentid = data.response.body.items.item[i].contentid;
-						secretMessages[i]='<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/>&nbsp;&nbsp;<input type="hidden" id="contentid" name="contentid" value="'+data.response.body.items.item[i].contentid+'"/><input type="button" value="일정에 추가" id="sel" onclick="choice();"/> <br/>'+data.response.body.items.item[i].title+'</div>';
+						secretMessages[i]='<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/>&nbsp;&nbsp;<input type="hidden" id="contentid" name="contentid" value="'+data.response.body.items.item[i].contentid+'"/><input type="button" value="일정에 추가" id="sel"/> <br/>'+data.response.body.items.item[i].title+'</div>';
 						
 						if(keyFind(obj, 'mapx')){
 							//alert(i+"주소좌표변환필요");
@@ -256,7 +256,96 @@
 		});
 	
 	});
+	var address1='${address2}';
+	var address2;
+
+	var directionsDisplay = new google.maps.DirectionsRenderer;
+	var directionsService = new google.maps.DirectionsService;
 	
+	var geocoder = new google.maps.Geocoder();
+
+	var durTime
+function calculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2) {            //대중교통길찾기
+	  directionsService.route({
+		  
+	    origin: address1,
+	    destination: address2,
+	/*     transitOptions:{
+	    	departureTime:new Date(1337675679473),
+	    }, */
+	    travelMode: google.maps.TravelMode.TRANSIT
+	    
+	  }, function(response, status) {
+		  
+	    if (status === google.maps.DirectionsStatus.OK) {
+	    	
+	    	
+	      directionsDisplay.setDirections(response);
+	      alert(response.routes[0].legs[0].duration.value);
+	      durTime = response.routes[0].legs[0].duration.value;
+
+	      
+	    } else {
+	      window.alert('Directions request failed due to ' + status);
+	    }
+	  });
+}
+	
+	$("#sel").click(function(){
+		var contentid = $("#contentid").value();
+		$.ajax({
+			type:"GET",
+			//url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&numOfRows=10&_type=json",
+			url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&contentid="+contentid+ "&defaultYN=Y&MobileOS=ETC&MobileApp=AppTesting &_type=json",
+			dataType:"json",		
+			success:function(data){
+				if(data.response.body.items.item.length==0){
+					alert("데이터가 없습니다.");
+				}else{ 
+					//var contentid = data.response.body.items.item[i].contentid;
+					//var secretMessages = new Array(data.response.body.totalCount);
+					var mapy=data.response.body.items.item.mapy;
+					var mapx=data.response.body.items.item.mapx;
+					var itemsXY = new google.maps.LatLng(mapy,mapx);
+					
+					calculateAndDisplayRoute(directionsService, directionsDisplay, address1, itemsXY);
+					alert(durTime);
+					//교통거리
+						if(keyFind(obj, 'mapx')){
+							//alert(i+"주소좌표변환필요");
+							$.ajax({
+								type:"GET",
+								url:"http://maps.googleapis.com/maps/api/geocode/json?address="+obj.addr1+"&language=ko&sensor=false",
+								dataType:"json",		
+								async:false,
+								success:function(data){
+									mapx=data.results[0].geometry.location.lng;
+									mapy=data.results[0].geometry.location.lat;
+									
+								
+								},error:function(e){	alert("1111111111"+e.responseText);
+								}
+							});
+						} else{
+							mapy=obj.mapy;
+							mapx=obj.mapx;
+							
+						}  
+						
+						//alert(i + " : " + mapy);
+						
+						    
+					}
+					
+					
+				}  
+		
+			},error:function(e){
+				alert("1111111111"+e.responseText);
+			}
+		});
+	
+	});
 	//var jbAry = new Array();
 	 //일정추가부분?
 	var buffer = new Array();
