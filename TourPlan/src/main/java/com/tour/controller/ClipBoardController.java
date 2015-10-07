@@ -166,61 +166,52 @@ public class ClipBoardController {
 
 		
 	@RequestMapping("/myClip")
-	@ResponseBody
-	public List<ClipBoardDTO> myClip(HttpServletRequest req, HttpServletResponse resp,Integer areaCode, Integer sigugunCode) throws ParseException, IOException {
+	public String myClip(HttpServletRequest req, HttpServletResponse resp) throws ParseException, IOException {
 		
 		HttpSession session = req.getSession();
 		
 		SessionInfo info = (SessionInfo)session.getAttribute("loginInfo");
 		
 		
-		System.out.println("areacode : "+areaCode);
-		//List<ClipBoardDTO> myClipList= dao.myclip(info.getEmail());
+		System.out.println(dao.myClipCount(info.getEmail()));
+		int myClipCount = dao.myClipCount(info.getEmail());
+		
+		List<ClipBoardDTO> myClipList= dao.myclipList(info.getEmail());
 		List<ClipBoardDTO> clipList= new ArrayList<ClipBoardDTO>();
 		
-		//System.out.println("DB clipCount" + myClipList.size());
-		String url =
-				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=20&pageNo=1&_type=json&ServiceKey="
-					+tourAPIKey;
-		System.out.println(url);
-		JSONParser jsonparser = new JSONParser();
-        JSONObject jsonobject = (JSONObject)jsonparser.parse(jsonUtil.getJSONResponseString(resp, url));
-        JSONObject json =  (JSONObject) jsonobject.get("response");
-        JSONObject jsonbody =  (JSONObject) json.get("body");
-        JSONObject jsonitem =  (JSONObject) jsonbody.get("items");
-        JSONArray array = (JSONArray)jsonitem.get("item");
-        
-        System.out.println(array.size());
 		
-		/*for (int i = 0; i < array.size(); i++) {
-			int chk=0;
-			JSONObject entity = (JSONObject) array.get(i);
-			Long contentid = (Long) entity.get("contentid");
-
-			//System.out.println(i + "contentid:" + contentid);
-		
-			//Iterator<ClipBoardDTO> it = myClipList.iterator();
-			//while (it.hasNext()) {
-			//	ClipBoardDTO dto = it.next();
-				//System.out.println("여기까지?");
-				if (contentid == dto.getContentid()) {
-					
-					dto.setFirstimage((String)entity.get("firstimage"));
-					dto.setTitle((String)entity.get("title"));
-					//System.out.println("클립 카운트 " + dto.getClipCount());
-					chk=1;
-					clipList.add(dto);
-					break;
-
-				}
+			Iterator<ClipBoardDTO> it = myClipList.iterator();
+			while (it.hasNext()) {
+				ClipBoardDTO dto = it.next();
+				System.out.println(dto.getContentid());
+				
+				String url =
+						"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?contentId="+dto.getContentid()+"&defaultYN=Y&addrinfoYN=Y&mapinfoYN=Y&firstImageYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTesting&_type=json&ServiceKey="
+							+tourAPIKey;
+				
+				JSONParser jsonparser = new JSONParser();
+		        JSONObject jsonobject = (JSONObject)jsonparser.parse(jsonUtil.getJSONResponseString(resp, url));
+		        JSONObject json =  (JSONObject) jsonobject.get("response");
+		        JSONObject jsonbody =  (JSONObject) json.get("body");
+		        JSONObject jsonitem =  (JSONObject) jsonbody.get("items");
+		        JSONObject array = (JSONObject)jsonitem.get("item");
+		        
+		        dto.setFirstimage((String)array.get("firstimage"));
+		        dto.setTitle((String)array.get("title"));
+		        
+		        clipList.add(dto);
+				
 			}
 			
-		}
+		
+		
+		req.setAttribute("myClipCount", myClipCount);
+		req.setAttribute("clipList", clipList);
 				
 		
 		System.out.println(clipList.size());
-		*/
-		return clipList;
+		
+		return "clipBoard/myclip";
 	}
 		
 
