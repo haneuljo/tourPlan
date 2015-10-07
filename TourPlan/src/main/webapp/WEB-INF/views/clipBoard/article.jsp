@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%	String cp = request.getContextPath(); %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>TourPlan</title>
@@ -12,7 +12,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="<%=cp%>/resources/css/travelMain.css" type="text/css"/>
-  
   
    <style>
   .modal-header, h4, .close {
@@ -64,6 +63,7 @@
 	});
   </script>
   
+<<<<<<< HEAD
   <script >
   	
   	/* $(document).ready(function(){
@@ -116,6 +116,8 @@
   
   
   </script>
+=======
+>>>>>>> 4141bc16a83f6580a01e121e05aab4e615bd8fcd
 </head>
 <body>
 
@@ -170,7 +172,56 @@
     
   </div> 
   
+<<<<<<< HEAD
   <div style="width: 1300px	;">
+=======
+  
+  <script>
+  
+   var map;
+	
+	function initMap() {
+	  
+	  var x = Number($("#mapx").val());
+	  var y = Number($("#mapy").val());
+	  var myLatLng = {lat: x, lng: y};
+	  map = new google.maps.Map(document.getElementById('map_canvas'), {
+	    zoom: 16,
+	    center: myLatLng
+	  });
+	  
+	  var marker = new google.maps.Marker({
+		  position: myLatLng,
+		  map: map,
+		  title: 'title'
+		  });
+		  
+	}
+
+  	function delclip(cd) {
+  		
+  		var f = document.Aform;
+  		
+  		f.action = "<%=cp%>/deletedclip.action?contentid=" + cd;
+  		f.submit();
+		
+	}
+  	
+	function addclip(cd) {
+  		
+  		var f = document.Aform;
+  		
+  		f.action = "<%=cp%>/clipLike.action?contentid=" + cd;
+  		f.submit();
+		
+	}
+	
+	
+  </script>
+  
+  
+  <div align="center" style="width: 100%;">
+>>>>>>> 4141bc16a83f6580a01e121e05aab4e615bd8fcd
   <form name="Aform" method="post">
 <div align="center" style="border-bottom: solid 2px #D5D5D5;">
 	<div style="float: left; width: 500px;">  	
@@ -180,8 +231,11 @@
 	</div>
 	
 	<div style="width: 500px;">
+<<<<<<< HEAD
 		<input type="text" name="mapx" value="${adto.getMapx() }"> 
 	<input type="text" name="mapy" value="${adto.getMapy() }">
+=======
+>>>>>>> 4141bc16a83f6580a01e121e05aab4e615bd8fcd
 		
 		
 		<div style="font-size: 30pt; width: 150px;">	
@@ -198,6 +252,7 @@
 		
 		</c:otherwise>
 		</c:choose>
+<<<<<<< HEAD
 		</div>
 		
 		
@@ -212,6 +267,8 @@
 	<div style="width: 700px; float: left;">
 		<div align="left" style="padding-left: 100px;">
 		<img alt="" src="${adto.getFirstimage() }">
+=======
+>>>>>>> 4141bc16a83f6580a01e121e05aab4e615bd8fcd
 		</div>
 		<div align="left" style="padding-left: 100px;">
 			<div style="width: 600px;"> ${adto.getOverview()}</div> 
@@ -227,8 +284,26 @@
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&callback=initMap"></script> 
 </div>
 
+<<<<<<< HEAD
 </form>
 </div>
 </body>
 
+=======
+<div>
+<input type="text" name="mapx" id="mapx" value="${adto.getMapx() }"> 
+<input type="text" name="mapy" id="mapy" value="${adto.getMapy() }">
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"
+		async defer></script>
+ <div id="map_canvas" style="width:640px; height:480px;"></div> 
+
+</div>
+
+
+
+</form>
+</div>
+</body>
+>>>>>>> 4141bc16a83f6580a01e121e05aab4e615bd8fcd
 </html>
