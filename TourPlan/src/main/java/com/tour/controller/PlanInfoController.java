@@ -226,6 +226,8 @@ public class PlanInfoController {
 		hMap.put("addr1", adto.getAddr1());
 		hMap.put("addr2", adto.getAddr2());
 		hMap.put("title", adto.getTitle());
+		hMap.put("mapx", adto.getMapx());
+		hMap.put("mapy", adto.getMapy());
 		
 		insertInfoLists(hMap, req );
 		
@@ -242,6 +244,8 @@ public class PlanInfoController {
 		hMap.put("addr1", adto.getAddr1());
 		hMap.put("addr2", adto.getAddr2());
 		hMap.put("title", adto.getTitle());
+		hMap.put("mapx", adto.getMapx());
+		hMap.put("mapy", adto.getMapy());
 		
 		insertInfoLists(hMap, req );
 		
@@ -258,6 +262,8 @@ public class PlanInfoController {
 		hMap.put("addr1", adto.getAddr1());
 		hMap.put("addr2", adto.getAddr2());
 		hMap.put("title", adto.getTitle());
+		hMap.put("mapx", adto.getMapx());
+		hMap.put("mapy", adto.getMapy());
 		
 		insertInfoLists(hMap, req );
 		return "redirect:/myPlanTest";
@@ -406,6 +412,9 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 	}
 	
 	@RequestMapping("/orderUpdate")
-	public void orderUpdate (HttpServletRequest req, HttpServletResponse res) {               //임시저장리스트 삭제 메소드
+	@ResponseBody
+	public void orderUpdate (HttpServletRequest req, HttpServletResponse res, Object sortable_item[]) {               //임시저장리스트 삭제 메소드
+		JSONParser jsonparser = new JSONParser();
+		JSONObject jsonobject = (JSONObject)jsonparser.parse()
 	}
 }
