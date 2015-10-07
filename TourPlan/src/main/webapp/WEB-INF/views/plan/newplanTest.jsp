@@ -291,113 +291,33 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, address1
 	  });
 }
 	
-	$("#sel").click(function(){
-		var contentid = $("#contentid").value();
-		$.ajax({
-			type:"GET",
-			//url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&numOfRows=10&_type=json",
-			url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&contentid="+contentid+ "&defaultYN=Y&MobileOS=ETC&MobileApp=AppTesting &_type=json",
-			dataType:"json",		
-			success:function(data){
-				if(data.response.body.items.item.length==0){
-					alert("데이터가 없습니다.");
-				}else{ 
-					//var contentid = data.response.body.items.item[i].contentid;
-					//var secretMessages = new Array(data.response.body.totalCount);
-					var mapy=data.response.body.items.item.mapy;
-					var mapx=data.response.body.items.item.mapx;
-					var itemsXY = new google.maps.LatLng(mapy,mapx);
-					
-					calculateAndDisplayRoute(directionsService, directionsDisplay, address1, itemsXY);
-					alert(durTime);
-					//교통거리
-						if(keyFind(obj, 'mapx')){
-							//alert(i+"주소좌표변환필요");
-							$.ajax({
-								type:"GET",
-								url:"http://maps.googleapis.com/maps/api/geocode/json?address="+obj.addr1+"&language=ko&sensor=false",
-								dataType:"json",		
-								async:false,
-								success:function(data){
-									mapx=data.results[0].geometry.location.lng;
-									mapy=data.results[0].geometry.location.lat;
-									
-								
-								},error:function(e){	alert("1111111111"+e.responseText);
-								}
-							});
-						} else{
-							mapy=obj.mapy;
-							mapx=obj.mapx;
-							
-						}  
-						
-						//alert(i + " : " + mapy);
-						
-						    
-					}
-					
-					
-				}  
-		
-			},error:function(e){
-				alert("1111111111"+e.responseText);
-			}
-		});
-	
-	});
-	//var jbAry = new Array();
-	 //일정추가부분?
-	var buffer = new Array();
-	var chk = 0;
-	//검색을 할때 empty하도록
-	$("#result").empty();
-	function choice(){
-		 alert($("#contentid").val());
-		 buffer.push($("#contentid").val());
-		
-		// alert("여기는?");
-		// alert(contentid);
-		// alert(areaCode);
-			$.ajax({
-				type:"POST",
-				//url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&numOfRows=10&_type=json",
-				url:"<%=cp%>/choice",
-				//data:"contentid=" + contentid,
-				data:"areaCode="+areaCode,
-				dataType:"json",		
-				success:function(data){
-				
-					if(data.response.body.totalCount==0){
-						$("#result").append('데이터가 없습니다.');
-						
-					}else{
-						
-						for(j=chk;j<buffer.length;j++){
-							chk=buffer.length;
-							//alert(buffer.length);
-							//alert(j);
-							for(i=0;i<data.response.body.totalCount;i++){	
-								//alert("아놔"+data.response.body.items.item[i].title);
-								 //alert(buffer.length);
-								if(data.response.body.items.item[i].contentid==buffer[j]){
-									
-									$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/><input type="hidden" name="contentid" value="' + buffer[j] +'"/>'
-									+'<select id="longTime"><option value="0">소요시간</option><option value="30">30분</option><option value="60">1시간</option><option value="90">1시간30분</option><option value="120">2시간</option><option value="150">2시간30분</option><option value="180">3시간</option><option value="210">3시간30분</option><option value="240">4시간</option></select><br/>'+data.response.body.items.item[i].title+'</div><br/>');
-									
-									//alert("d" + buffer[j]);
-								}
-							}
-							//alert("두번째"  + buffer[j])
-						}
-					}
-					
-			
-				},error:function(e){
-					alert("1111111111"+e.responseText);
-				}
-			});
-	 }
+	 var buffer = new Array();
+	   var chk = 0;
+	   //검색을 할때 empty하도록
+	   /* var info_index = 0; */
+	   /* $("#result").empty(); */
+	   function choice(){
+	       alert($("#contentid").val());
+	       buffer.push($("#contentid").val());
+	       $.ajax({
+	            type:"POST",
+	            //url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&numOfRows=10&_type=json",
+	            url:"<%=cp%>/choice",
+	            data:"contentid=" + $("#contentid").val(),
+	            success:function(args){
+	               $("#result").html(args);
+	               alert(args);
+	            },
+	            error:function(e){
+	               alert(e.responseText);
+	            }
+	       });
+	            
+	      // alert("여기는?");
+	      // alert(contentid);
+	      // alert(areaCode);
+
+	    }
 	 
 	// marker is clicked, the info window will open with the secret message
 	function attachSecretMessage(marker, secretMessage) {

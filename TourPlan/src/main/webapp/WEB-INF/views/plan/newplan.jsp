@@ -76,8 +76,7 @@
 		f.action = "<%=cp%>/register.action";
 		f.submit();
 	}
-  
-  
+
   
   </script>
   
@@ -155,10 +154,16 @@
 	var areaCode;
 	var sigunguCode;
 	var map;
-	
-	
+	var directionsDisplay
+	var directionsService
+	var geocoder
 	function initMap() {
 	
+		directionsDisplay = new google.maps.DirectionsRenderer;
+		directionsService = new google.maps.DirectionsService;
+		
+		geocoder = new google.maps.Geocoder();
+		
 	  map = new google.maps.Map(document.getElementById('map'), {
 	    zoom: 12,
 	    center: {lat: 37.5, lng: 127.037}  
@@ -214,8 +219,10 @@
 					for(i=0;i<data.response.body.items.item.length;i++){	
 						var obj = data.response.body.items.item[i];
 						//var contentid = data.response.body.items.item[i].contentid;
-						secretMessages[i]='<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/>&nbsp;&nbsp;<input type="hidden" id="contentid" name="contentid" value="'+data.response.body.items.item[i].contentid+'"/><input type="button" value="일정에 추가" id="sel" onclick="choice();"/> <br/>'+data.response.body.items.item[i].title+'</div>';
-						
+						//alert(data.response.body.items.item[i].contentid);
+						secretMessages[i]='<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/>&nbsp;&nbsp;<input type="hidden" id="contentid" name="contentid" value="'+data.response.body.items.item[i].contentid+'"/>'
+						+'<input type="hidden" id="mapy" name="mapy" value="'+data.response.body.items.item[i].mapy+'"/><input type="hidden" id="mapx" name="mapx" value="'+data.response.body.items.item[i].mapx+'"/><input type="button" value="일정에 추가" id="sel" onclick="choice();"/> <br/>'+data.response.body.items.item[i].title+'</div>';
+
 						if(keyFind(obj, 'mapx')){
 							//alert(i+"주소좌표변환필요");
 							$.ajax({
@@ -257,12 +264,80 @@
 	
 	});
 	
+	var address1="${address2}";
+	var address2;
+
+	
+
+	var durTime
+function calculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2) {            //대중교통길찾기
+	  directionsService.route({
+		  
+	    origin: address1,
+	    destination: address2,
+	/*     transitOptions:{
+	    	departureTime:new Date(1337675679473),
+	    }, */
+	    travelMode: google.maps.TravelMode.TRANSIT
+	    
+	  }, function(response, status) {
+		  
+	    if (status === google.maps.DirectionsStatus.OK) {
+	    	
+	    	
+	      directionsDisplay.setDirections(response);
+	     // alert("소요2:"+response.routes[0].legs[0].duration.value);
+	      durTime = response.routes[0].legs[0].duration.value;
+	      //choice();
+	      
+	    } else {
+	      window.alert('Directions request failed due to ' + status);
+	    }
+	  });
+}
+	
+	// var buffer = new Array();
+	 //  var chk = 0;
+	   function choice(){
+	      // alert($("#contentid").val());
+	      // buffer.push($("#contentid").val());
+	       $.ajax({
+	            type:"POST",
+	            url:"<%=cp%>/choice",
+	            data:"contentid=" + $("#contentid").val()+"&durTime="+durTime+"&endTime="+'${endTime}',
+	            success:function(args){
+	               $("#result").html(args);
+	               alert(args);
+	            },
+	            error:function(e){
+	               alert(e.responseText);
+	            }
+	       });
+	            
+	    }
+<%-- 	function choice(){
+		var contentid = $("#contentid").val();
+
+		$.ajax({
+			type:"GET",
+			url:"<%=cp%>/choice?durTime="+durTime+"&endTime="+'${endTime}'+"&contentid=" + contentid,
+			success:function(data){
+				
+			},
+			error:function(e){
+				alert("1111111111"+e.responseText);
+			}
+			
+		});
+	}
+	 --%>
+	
 	//var jbAry = new Array();
 	 //일정추가부분?
 	var buffer = new Array();
 	var chk = 0;
 	//검색을 할때 empty하도록
-	$("#result").empty();
+	<%-- $("#result").empty();
 	function choice(){
 		 alert($("#contentid").val());
 		 buffer.push($("#contentid").val());
@@ -308,7 +383,7 @@
 					alert("1111111111"+e.responseText);
 				}
 			});
-	 }
+	 } --%>
 	 
 	// marker is clicked, the info window will open with the secret message
 	function attachSecretMessage(marker, secretMessage) {
@@ -318,6 +393,10 @@
 
 	  marker.addListener('click', function() {
 	    infowindow.open(marker.get('map'), marker);
+		var mapx= $("#mapx").val();
+		var mapy= $("#mapy").val();
+		var itemsXY = new google.maps.LatLng(mapy,mapx);
+		calculateAndDisplayRoute(directionsService, directionsDisplay, address1, itemsXY);
 	  });
 	  
 	}
