@@ -95,6 +95,8 @@ public class PlanInfoController {
 		
 		dao.planInfoInsert(pdto);
 		
+		
+		
 		System.out.println(pdto.getStartDate());
 		System.out.println(durTime);
 		System.out.println(hour);
