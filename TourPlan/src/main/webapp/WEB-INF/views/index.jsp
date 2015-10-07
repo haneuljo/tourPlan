@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%	String cp = request.getContextPath(); %>
+<%	String cp = request.getContextPath(); 
+%>
 <!DOCTYPE>
 <html>
 <head>
@@ -71,7 +72,7 @@
     </div>
     <div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li class="active"><a href="<%=cp%>/">Home</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Page 1-1</a></li>
@@ -80,7 +81,7 @@
           </ul>
         </li>
         <li><a href="<%=cp%>/travel">여행지</a></li>
-        <li><a href="<%=cp%>/planInfo.action">여행일정</a></li>
+        <li><a href="<%=cp%>/planInfo">여행일정</a></li>
         <li><a href="#">Page 3</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -117,9 +118,6 @@
   
 <div class="container">
   <h3>내용 추가</h3>
-  
-  
-  
 </div>
 
 </body>
