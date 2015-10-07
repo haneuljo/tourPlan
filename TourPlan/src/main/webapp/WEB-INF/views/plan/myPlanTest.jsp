@@ -126,14 +126,23 @@
 <!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
   
 <div class="container">
+<button type="button" class="btn btn-primary" onclick="location='<%=cp%>/forTest'">ForTest</button>
 <form action="">
 
 	<div id="example-1-1">
-		<div class="sortable-list">
+		<div class="sortable-list" style="width: 620;">
 
-<%-- 			<c:forEach var="map" items="${lists}" varStatus="status">                                                                    //map으로 바로
-				<div class="sortable-item">
-					contentid
+ 			<c:forEach var="map" items="${lists}" varStatus="status">
+				<div id="sortable_item-${status.index}" style="border: solid 1px;">
+					<div style="height: 120;width: 600" class="sortable-item">
+					<div style="float: left;"><img style="width:100px; height:100px" alt="" src="${map.firstimage }"></div>
+				 	<div> <h3>${map.title}//index:${status.index}</h3></div>
+	 				<div> ${map.addr1} ${map.addr2 }</div>
+	 				<div class="btn-group">
+					   <button type="button" class="btn btn-primary">수정</button>
+					   <button type="button" class="btn btn-primary" onclick="location='<%=cp%>/deleteTemp?index=${status.index}'">삭제</button>
+					</div>
+					</div>
 					<input type="hidden" name="planNum" value="${map.planNum }">
 					<input type="hidden" name="groupNum" value="${map.groupNum }">
 					<input type="hidden" name="contentid" value="${map.contentid }">
@@ -142,15 +151,15 @@
 					<input type="hidden" name="content" value="${map.content }">
 					<input type="hidden" name="startDate" value="${map.startDate }">
 				</div>
-			</c:forEach> --%>
-			
-			<c:forEach var="adto" items="${alists}"> 
-			<div class="sortable-item">
-				 	<div> <h1>${adto.title}</h1></div>
-	 				<div> ${adto.addr1} ${adto.addr2 }</div>
-	 				<img alt="" src="${adto.firstimage }">
-			</div>
 			</c:forEach>
+			
+<%-- 			<c:forEach var="adto" items="${alists}" varStatus="i"> 
+			<div style="height: 120;width: 600" class="sortable-item">
+			<div style="float: left;"><img style="width:100px; height:100px" alt="" src="${adto.firstimage }"></div>
+				 	<div> <h3>${adto.title}</h3></div>
+	 				<div> ${adto.addr1} ${adto.addr2 }</div>
+			</div>
+			</c:forEach> --%>
 		</div>
 	</div>
 	
@@ -158,9 +167,18 @@
 		<script type="text/javascript">
 		
 		$(document).ready(function(){
-			$('#example-1-1 .sortable-list').sortable();
-			
-		
+			$('#example-1-1 .sortable-list').sortable({
+			    axis: 'y',
+			    update: function (event, ui) {
+			        var data = $(this).sortable('serialize');
+					alert(data);
+		 	        $.ajax({
+			            data: data,
+			            type: 'POST',
+			            url: '<%=cp%>/orderUpdate'
+			        }); 
+			    }
+			});
 		});
 		</script>
 
