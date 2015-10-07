@@ -190,8 +190,6 @@ public class PlanInfoController {
 	@RequestMapping("/myPlanTest")                                    //내일정보기
 	public String myPlanTest(HttpServletRequest req, HttpServletResponse res) throws ParseException, IOException {
 		
-		forTest(req);
-		
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 		
