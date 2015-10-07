@@ -197,7 +197,7 @@ public class PlanInfoController {
 		
 		req.setAttribute("lists", lists);
 
-		ListIterator<HashMap<String, Object>> it = lists.listIterator();
+/*		ListIterator<HashMap<String, Object>> it = lists.listIterator();
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
 		ArticleDTO adto = new ArticleDTO();
 		List<ArticleDTO> alists = new ArrayList<ArticleDTO>();
@@ -210,7 +210,7 @@ public class PlanInfoController {
 			alists.add(adto);
 		}					
 		
-		req.setAttribute("alists", alists);
+		req.setAttribute("alists", alists);*/
 		
 		
 		return "plan/myPlanTest";
