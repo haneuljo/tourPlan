@@ -285,7 +285,7 @@ public class PlanInfoController {
 		hMap.put("longTime",60);
 		hMap.put("content", "222");
 		hMap.put("startDate", "2015-10-1 00:00:01");
-		adto = getADTOfromContentID(req, res, 397664);
+		adto = getADTOfromContentID(req, res, 1331760);
 		hMap.put("firstimage",adto.getFirstimage());
 		hMap.put("addr1",adto.getAddr1());
 		hMap.put("addr2",adto.getAddr2());
@@ -304,7 +304,7 @@ public class PlanInfoController {
 		hMap.put("longTime",60);
 		hMap.put("content", "333");
 		hMap.put("startDate", "2015-10-1 00:00:02");
-		adto = getADTOfromContentID(req, res, 397664);
+		adto = getADTOfromContentID(req, res, 1883038);
 		hMap.put("firstimage",adto.getFirstimage());
 		hMap.put("addr1",adto.getAddr1());
 		hMap.put("addr2",adto.getAddr2());
