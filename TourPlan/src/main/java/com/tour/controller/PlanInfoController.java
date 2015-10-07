@@ -255,7 +255,10 @@ public class PlanInfoController {
 	}
 	
 
-	public void forTest (HttpServletRequest req) {                                                      //걍테스팅
+	@RequestMapping("/forTest")
+	public String forTest (HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {                                                      //걍테스팅
+		
+		ArticleDTO adto = new ArticleDTO();
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
 		hMap.put("order", 4);
 		hMap.put("planNum", 1);
@@ -265,6 +268,14 @@ public class PlanInfoController {
 		hMap.put("longTime",60);
 		hMap.put("content", "111");
 		hMap.put("startDate", "2015-10-1 00:00:00");
+		adto = getADTOfromContentID(req, res, 397664);
+		hMap.put("firstimage",adto.getFirstimage());
+		hMap.put("addr1",adto.getAddr1());
+		hMap.put("addr2",adto.getAddr2());
+		hMap.put("title",adto.getTitle());
+		hMap.put("mapx",adto.getMapx());
+		hMap.put("mapy",adto.getMapy());
+		
 		
 		insertInfoLists(hMap, req );
 		
@@ -277,6 +288,13 @@ public class PlanInfoController {
 		hMap.put("longTime",60);
 		hMap.put("content", "222");
 		hMap.put("startDate", "2015-10-1 00:00:01");
+		adto = getADTOfromContentID(req, res, 1331760);
+		hMap.put("firstimage",adto.getFirstimage());
+		hMap.put("addr1",adto.getAddr1());
+		hMap.put("addr2",adto.getAddr2());
+		hMap.put("title",adto.getTitle());
+		hMap.put("mapx",adto.getMapx());
+		hMap.put("mapy",adto.getMapy());
 		
 		insertInfoLists(hMap, req );
 		
@@ -289,9 +307,17 @@ public class PlanInfoController {
 		hMap.put("longTime",60);
 		hMap.put("content", "333");
 		hMap.put("startDate", "2015-10-1 00:00:02");
+		adto = getADTOfromContentID(req, res, 1883038);
+		hMap.put("firstimage",adto.getFirstimage());
+		hMap.put("addr1",adto.getAddr1());
+		hMap.put("addr2",adto.getAddr2());
+		hMap.put("title",adto.getTitle());
+		hMap.put("mapx",adto.getMapx());
+		hMap.put("mapy",adto.getMapy());
 		
 		insertInfoLists(hMap, req );
-
+		
+		return "redirect:/myPlanTest";
 	}
 
 	//dragTest
@@ -332,8 +358,6 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 	    }
 	}
 	
-	
-	
 	public void updatetInfoLists (HttpServletRequest req, PlanInfoDTO dto) {               //임시저장리스트 수정 메소드
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
@@ -366,7 +390,8 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 		
 	}
 	
-	public void deleteInfoLists (HttpServletRequest req, PlanInfoDTO dto) {               //임시저장리스트 삭제 메소드
+	@RequestMapping("/deleteTemp")
+	public String deleteInfoLists (HttpServletRequest req, PlanInfoDTO dto, int index) {               //임시저장리스트 삭제 메소드
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 
@@ -374,17 +399,19 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 		
 		if(info.getInfoList()==null){                                        
 			lists = new  ArrayList<HashMap<String,Object>>();               //리스트 추가한적없으면 객체 새로하나 만듬.
-			System.out.println("infolist is null");
+			System.out.println("infolist is null and index:"+index);
 		}else{
 		lists = info.getInfoList();
 		System.out.println("not null");
 		
-		int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //오브젝트니까 String contentid로 검색될까                   테스트 필요
+		//int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //오브젝트니까 String contentid로 검색될까                   테스트 필요
 		
 		lists.remove(index);
 		
 		session.setAttribute("loginInfo", info);                      //세션에 리스트 담아올림
 		}
+		
+		return "redirect:/myPlanTest";
 	}
 	
 	int getPlanInfoMapIndex(ArrayList<HashMap<String, Object>> lists, String key,Object value){         //값으로 검색해서 index반환 없을시 -1반환 값이 여러개인것으로 검색하면 마지막것만 나옴
