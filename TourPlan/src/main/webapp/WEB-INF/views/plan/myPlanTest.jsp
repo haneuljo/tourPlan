@@ -178,7 +178,7 @@
 			        var data = $(this).sortable('serialize');
 					alert(data);
 		 	        $.ajax({
-			            data: text,
+			            data: "data="+data,
 			            dataType:"json",
 			            type: 'POST',
 			            url: '<%=cp%>/orderUpdate'
