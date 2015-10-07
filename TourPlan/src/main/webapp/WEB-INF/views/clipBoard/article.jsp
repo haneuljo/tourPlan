@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%	String cp = request.getContextPath(); %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>TourPlan</title>
@@ -12,7 +12,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="<%=cp%>/resources/css/travelMain.css" type="text/css"/>
-  
   
    <style>
   .modal-header, h4, .close {
@@ -64,55 +63,6 @@
 	});
   </script>
   
-  <script >
-  	
-  	/* $(document).ready(function(){
-  		
-  		
-  	} */
-  	
-  	function delclip(cd) {
-  		
-  		var f = document.Aform;
-  		
-  		f.action = "<%=cp%>/deletedclip.action?contentid=" + cd;
-  		f.submit();
-		
-	}
-  	
-	function addclip(cd) {
-  		
-  		var f = document.Aform;
-  		
-  		f.action = "<%=cp%>/clipLike.action?contentid=" + cd;
-  		f.submit();
-		
-	}
-	
-	function initMap() {
-		
-		/* var f = document.clip;
-		
-		var x = f.value.mapx;
-		var y = f.value.mapy;
-		 */
-		  var myLatLng = {lat: 126.987, lng: 37.57 };
-
-		  var map = new google.maps.Map(document.getElementById('map_canvas'), {
-		    zoom: 10,
-		    center: myLatLng
-		  });
-
-		  var marker = new google.maps.Marker({
-		    position: myLatLng,
-		    map: map,
-		    title: 'title'
-		  });
-		  
-		}
-  
-  
-  </script>
 </head>
 <body>
 
@@ -167,6 +117,51 @@
     
   </div> 
   
+  
+  <script>
+  
+   var map;
+	
+	function initMap() {
+	  
+	  var x = Number($("#mapx").val());
+	  var y = Number($("#mapy").val());
+	  var myLatLng = {lat: x, lng: y};
+	  map = new google.maps.Map(document.getElementById('map_canvas'), {
+	    zoom: 16,
+	    center: myLatLng
+	  });
+	  
+	  var marker = new google.maps.Marker({
+		  position: myLatLng,
+		  map: map,
+		  title: 'title'
+		  });
+		  
+	}
+
+  	function delclip(cd) {
+  		
+  		var f = document.Aform;
+  		
+  		f.action = "<%=cp%>/deletedclip.action?contentid=" + cd;
+  		f.submit();
+		
+	}
+  	
+	function addclip(cd) {
+  		
+  		var f = document.Aform;
+  		
+  		f.action = "<%=cp%>/clipLike.action?contentid=" + cd;
+  		f.submit();
+		
+	}
+	
+	
+  </script>
+  
+  
   <div align="center" style="width: 100%;">
   <form name="Aform" method="post">
 <div align="center" style="border-bottom: solid 2px #D5D5D5;">
@@ -214,17 +209,18 @@
 </div>
 
 <div>
-<input type="text" name="mapx" value="${adto.getMapx() }"> 
-<input type="text" name="mapy" value="${adto.getMapy() }">
- <div id="map_canvas" style="width:440px; height:360px;"></div> 
+<input type="text" name="mapx" id="mapx" value="${adto.getMapx() }"> 
+<input type="text" name="mapy" id="mapy" value="${adto.getMapy() }">
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"
+		async defer></script>
+ <div id="map_canvas" style="width:640px; height:480px;"></div> 
 
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.20&key=AIzaSyBTwMBl4Q-exqEDLmvyRyYh2U_utWJSErs&callback=initMap"></script>
 
 
 </form>
 </div>
 </body>
-
 </html>
