@@ -332,6 +332,8 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 	    }
 	}
 	
+	
+	
 	public void updatetInfoLists (HttpServletRequest req, PlanInfoDTO dto) {               //임시저장리스트 수정 메소드
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
@@ -433,4 +435,13 @@ public void listchk(List<HashMap<String, Object>> lists){                       
 		
 		return adto;
 	}
+	
+	 @RequestMapping("/orderUpdate")
+	   public void orderUpdate(HttpServletRequest req,HttpServletResponse res, String[] sortable_item) {             //하늘이가준거 드래그앤 드랍.. 근데 사라짐?;
+	      
+	      System.out.println(sortable_item.length);
+
+	   }
 }
+
+
