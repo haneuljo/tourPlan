@@ -26,6 +26,14 @@ public class ClipBoardDAO {
 
 	}
 	
+	public List<ClipBoardDTO>  myclipList(String email){
+		
+		List<ClipBoardDTO> myclipList = sessionTemplate.selectList("com.tour.clipBoard.myclipList",email);
+		
+		return myclipList;
+
+	}
+	
 	
 	
 	public int getMaxNum(){
@@ -43,6 +51,16 @@ public class ClipBoardDAO {
 		int result = 0;
 		
 		result = sessionTemplate.selectOne("com.tour.clipBoard.getClipCount", contentid);
+		
+		return result;
+		
+	}
+	
+	public int myClipCount(String email){
+		
+		int result = 0;
+		
+		result = sessionTemplate.selectOne("com.tour.clipBoard.myClipCount", email);
 		
 		return result;
 		

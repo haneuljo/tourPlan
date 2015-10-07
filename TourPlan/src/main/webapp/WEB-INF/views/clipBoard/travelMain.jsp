@@ -98,7 +98,7 @@
 	        <c:otherwise>
 	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이페이지<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#">Page 1-1</a></li>
+	            <li><a href="<%=cp%>/myClip">My ClipList</a></li>
 	            <li><a href="#">Page 1-2</a></li>
 	            <li><a href="<%=cp%>/">회원정보수정</a></li>
 	            <li><a href="<%=cp%>logout.action">로그아웃</a></li>
@@ -248,7 +248,7 @@
 		function article(cd) {
 	 		
 	 		var f=document.clip;
-			alert(cd);
+			
 	 		f.action = '<%=cp%>/article.action?contentid=' +cd;
 	 		f.submit();
 	 		

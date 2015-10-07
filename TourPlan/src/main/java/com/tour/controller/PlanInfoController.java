@@ -68,7 +68,7 @@ public class PlanInfoController {
 		HttpSession session = req.getSession();
 		GroupSession gp = (GroupSession) session.getAttribute("groupDate");
 
-	
+
 		if (time > 3600) {
 			hour = time / 3600;
 			tran = time % 3600;
@@ -163,8 +163,6 @@ public class PlanInfoController {
 
 		dao.planInfoInsert(pdto);
 
-
-
 		System.out.println(pdto.getStartDate());
 		System.out.println(durTime);
 		System.out.println(hour);
@@ -177,6 +175,7 @@ public class PlanInfoController {
 		//req.setAttribute("durTime", durTime);
 		req.setAttribute("endTime", endTime);
 		req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
+
 		return "plan/newplan";
 	}
 
@@ -269,6 +268,7 @@ public class PlanInfoController {
 
 		req.setAttribute("lists", lists);
 
+		listchk(lists);
 
 		return "plan/myPlanTest";
 	}
@@ -384,14 +384,18 @@ public class PlanInfoController {
 	}
 
 
+
 	public void listchk(List<HashMap<String, Object>> lists){                                                        //리스트내용체크
+		if(lists!=null){
+			Iterator<HashMap<String, Object>> it = lists.iterator();
+			HashMap<String, Object> dto = new HashMap<String, Object>();
 
-		Iterator<HashMap<String, Object>> it = lists.iterator();
-		HashMap<String, Object> dto = new HashMap<String, Object>();
-
-		while(it.hasNext()){                                      //내용체크
-			dto = (HashMap<String, Object>)it.next();
-			System.out.println(dto);
+			while(it.hasNext()){                                      //내용체크
+				dto = (HashMap<String, Object>)it.next();
+				System.out.println(dto);
+			}
+		}else {
+			System.out.println("lists is null");
 		}
 	}
 
@@ -413,7 +417,7 @@ public class PlanInfoController {
 		}
 	}
 
-	public void updatetInfoLists (HttpServletRequest req, PlanInfoDTO dto) {               //임시저장리스트 수정 메소드
+	public void updatetInfoLists (HttpServletRequest req, String[] index) {               //임시저장리스트 수정 메소드 인덱스로 순서바꿈용
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 
@@ -423,6 +427,46 @@ public class PlanInfoController {
 			lists = new  ArrayList<HashMap<String,Object>>();               //리스트 추가한적없으면 객체 새로하나 만듬.
 			System.out.println("infolist is null");
 		}else{
+			lists = info.getInfoList();
+		}
+
+		ArrayList<HashMap<String, Object>> lists2 = new ArrayList<HashMap<String,Object>>();
+
+
+		System.out.println("not null");
+
+		for(int i = 0;i<index.length;i++) {
+
+			int index2 = Integer.parseInt(index[i]);
+			System.out.println(index[i]+"->"+i);
+			HashMap<String, Object> hMap = lists.get(index2);
+			System.out.println(hMap);
+
+			System.out.println(hMap);
+			lists2.add(hMap);	
+		}
+		info.setInfoList(lists2);
+
+		listchk(lists);        
+
+		session.setAttribute("loginInfo", info);                      //세션에 리스트 담아올림
+
+
+
+	}
+
+	/*	public void updatetInfoLists (HttpServletRequest req, Integer index) {               //임시저장리스트 수정 메소드 수정전
+>>>>>>> 211f19208412f8b26c3618667448b32c6cd7d425
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
+
+		ArrayList<HashMap<String, Object>> lists;
+
+		if(info.getInfoList()==null){                                        
+			lists = new  ArrayList<HashMap<String,Object>>();               //리스트 추가한적없으면 객체 새로하나 만듬.
+			System.out.println("infolist is null");
+		}else{
+<<<<<<< HEAD
 			lists = info.getInfoList();
 			System.out.println("not null");
 
@@ -444,6 +488,31 @@ public class PlanInfoController {
 		}
 
 	}
+
+=======
+		lists = info.getInfoList();
+		System.out.println("not null");
+
+		HashMap<String, Object> hMap = lists.get(index)
+
+		int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //오브젝트니까 형변환이 없어도 검색되겠지                   테스트 필요
+
+		HashMap<String, Object> hMap =lists.get(index);
+		hMap.put("planNum", dto.getPlanNum());
+		hMap.put("groupNum", dto.getGroupNum());
+		hMap.put("contentid", dto.getContentid());
+		hMap.put("contenttypeid", dto.getContenttypeid());
+		hMap.put("longTime",dto.getLongTime());
+		hMap.put("content", dto.getContent());
+		hMap.put("startDate", dto.getStartDate());
+
+		lists.set(index, hMap);
+
+		session.setAttribute("loginInfo", info);                      //세션에 리스트 담아올림
+
+		}
+
+	}*/
 
 	@RequestMapping("/deleteTemp")
 	public String deleteInfoLists (HttpServletRequest req, PlanInfoDTO dto, int index) {               //임시저장리스트 삭제 메소드
@@ -521,6 +590,10 @@ public class PlanInfoController {
 	@RequestMapping("/orderUpdate")
 	public void orderUpdate(HttpServletRequest req,HttpServletResponse res, String[] sortable_item) {             //하늘이가준거 드래그앤 드랍.. 근데 사라짐?;
 
+		for(String value : sortable_item){
+			System.out.println(value);
+		}
+		updatetInfoLists(req, sortable_item);
 		System.out.println(sortable_item.length);
 
 	}
