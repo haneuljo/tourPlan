@@ -63,7 +63,7 @@
 	});
   </script>
   
-<<<<<<< HEAD
+
   <script >
   	
   	/* $(document).ready(function(){
@@ -96,10 +96,10 @@
 		var x = f.mapx.value;
 		var y = f.mapy.value;
 		 
-		  var myCenter=new google.maps.LatLng(x,y);
+		  var myCenter=new google.maps.LatLng(y,x);
 		  
 		  var mapOptions = {
-				  zoom: 10,
+				  zoom: 16,
 				  center: myCenter,
 				  mapTypeId: google.maps.MapTypeId.SATELLITE
 				};
@@ -116,8 +116,7 @@
   
   
   </script>
-=======
->>>>>>> 4141bc16a83f6580a01e121e05aab4e615bd8fcd
+
 </head>
 <body>
 
@@ -172,73 +171,23 @@
     
   </div> 
   
-<<<<<<< HEAD
-  <div style="width: 1300px	;">
-=======
-  
-  <script>
-  
-   var map;
-	
-	function initMap() {
-	  
-	  var x = Number($("#mapx").val());
-	  var y = Number($("#mapy").val());
-	  var myLatLng = {lat: x, lng: y};
-	  map = new google.maps.Map(document.getElementById('map_canvas'), {
-	    zoom: 16,
-	    center: myLatLng
-	  });
-	  
-	  var marker = new google.maps.Marker({
-		  position: myLatLng,
-		  map: map,
-		  title: 'title'
-		  });
-		  
-	}
 
-  	function delclip(cd) {
-  		
-  		var f = document.Aform;
-  		
-  		f.action = "<%=cp%>/deletedclip.action?contentid=" + cd;
-  		f.submit();
-		
-	}
-  	
-	function addclip(cd) {
-  		
-  		var f = document.Aform;
-  		
-  		f.action = "<%=cp%>/clipLike.action?contentid=" + cd;
-  		f.submit();
-		
-	}
-	
-	
-  </script>
-  
-  
-  <div align="center" style="width: 100%;">
->>>>>>> 4141bc16a83f6580a01e121e05aab4e615bd8fcd
+  <div style="width: 1300px	;">
+
   <form name="Aform" method="post">
 <div align="center" style="border-bottom: solid 2px #D5D5D5;">
-	<div style="float: left; width: 500px;">  	
+	<div style="float: left; margin-left: 100px;">  	
 	 	<div> <h1>${adto.getTitle() }</h1></div>
 	 	<div> ${adto.getAddr1()} ${adto.getAddr2() }</div>
 	 	<div> <span class="glyphicon glyphicon-paperclip"></span> ${cCount} </div>
 	</div>
 	
-	<div style="width: 500px;">
-<<<<<<< HEAD
-		<input type="text" name="mapx" value="${adto.getMapx() }"> 
-	<input type="text" name="mapy" value="${adto.getMapy() }">
-=======
->>>>>>> 4141bc16a83f6580a01e121e05aab4e615bd8fcd
+	<div align="right" style="height: 109px; width: 500px; padding-top: 40px; padding-left: 220px;">
+
+		<input type="hidden" name="mapx" value="${adto.getMapx() }"> 
+		<input type="hidden" name="mapy" value="${adto.getMapy() }">
 		
-		
-		<div style="font-size: 30pt; width: 150px;">	
+		<div style="font-size: 30pt; width: 150px; float: left;">	
 		<c:choose>	
 		<c:when test="${clipchk == 0 }">
 			
@@ -252,7 +201,7 @@
 		
 		</c:otherwise>
 		</c:choose>
-<<<<<<< HEAD
+
 		</div>
 		
 		
@@ -267,8 +216,7 @@
 	<div style="width: 700px; float: left;">
 		<div align="left" style="padding-left: 100px;">
 		<img alt="" src="${adto.getFirstimage() }">
-=======
->>>>>>> 4141bc16a83f6580a01e121e05aab4e615bd8fcd
+
 		</div>
 		<div align="left" style="padding-left: 100px;">
 			<div style="width: 600px;"> ${adto.getOverview()}</div> 
@@ -277,33 +225,15 @@
 	
 	<div>
 	
-	 <div id="map_canvas" style="width:440px; height:360px;"></div> 
+	 <div id="map_canvas" style="width:380px; height:300px;"></div> 
 	
 	</div>
 		
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&callback=initMap"></script> 
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"></script> 
 </div>
 
-<<<<<<< HEAD
 </form>
 </div>
 </body>
 
-=======
-<div>
-<input type="text" name="mapx" id="mapx" value="${adto.getMapx() }"> 
-<input type="text" name="mapy" id="mapy" value="${adto.getMapy() }">
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"
-		async defer></script>
- <div id="map_canvas" style="width:640px; height:480px;"></div> 
-
-</div>
-
-
-
-</form>
-</div>
-</body>
->>>>>>> 4141bc16a83f6580a01e121e05aab4e615bd8fcd
 </html>
