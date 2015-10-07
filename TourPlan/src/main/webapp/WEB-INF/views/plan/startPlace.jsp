@@ -34,7 +34,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, address1
 	    origin: address1,
 	    destination: address2,
 	/*     transitOptions:{
-	    	departureTime:,
+	    	departureTime:new Date(1337675679473),
 	    }, */
 	    travelMode: google.maps.TravelMode.TRANSIT
 	    

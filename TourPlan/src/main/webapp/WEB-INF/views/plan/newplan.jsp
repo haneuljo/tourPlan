@@ -273,7 +273,7 @@
 			$.ajax({
 				type:"POST",
 				//url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&numOfRows=10&_type=json",
-				url:"<%=cp%>/choice.action",
+				url:"<%=cp%>/choice",
 				//data:"contentid=" + contentid,
 				data:"areaCode="+areaCode,
 				dataType:"json",		
@@ -294,7 +294,7 @@
 								if(data.response.body.items.item[i].contentid==buffer[j]){
 									
 									$("#result").append('<div><img style="width:200px; height:150px;"src="'+data.response.body.items.item[i].firstimage+'"/><input type="hidden" name="contentid" value="' + buffer[j] +'"/>'
-									+'<br/>'+data.response.body.items.item[i].title+'</div><br/>');
+									+'<select id="longTime"><option value="0">소요시간</option><option value="30">30분</option><option value="60">1시간</option><option value="90">1시간30분</option><option value="120">2시간</option><option value="150">2시간30분</option><option value="180">3시간</option><option value="210">3시간30분</option><option value="240">4시간</option></select><br/>'+data.response.body.items.item[i].title+'</div><br/>');
 									
 									//alert("d" + buffer[j]);
 								}

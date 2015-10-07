@@ -104,7 +104,7 @@ public class PlanInfoController {
 		//System.out.println(durTime);
 		//System.out.println(durTime);
 		//req.setAttribute("durTime", durTime);
-		
+		req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
 		return "plan/newplan";
 	}
 	
