@@ -12,7 +12,7 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
    <!-- drag JavaScript files -->
 <script type="text/javascript" src="<%=cp%>/resources/dragJS/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="<%=cp%>/resources/dragJS/query-ui-1.8.custom.min.js"></script>
+<script type="text/javascript" src="<%=cp%>/resources/dragJS/jquery-ui-1.8.custom.min.js"></script>
  
    <style>
   .modal-header, h4, .close {

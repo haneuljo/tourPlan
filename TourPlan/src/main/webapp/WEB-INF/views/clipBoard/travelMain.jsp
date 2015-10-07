@@ -119,6 +119,8 @@
 <!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
   
 <div class="container">
+ 
+
 	<div id="areaContainer">
 		<div id="seoul" class ="area area0">서울</div>
 		<div id="incheon" class ="area area1">인천</div>
@@ -142,6 +144,7 @@
 	</div>
 	<form name="clip" method="post">
 	<div id="clipResult"></div> 
+
 	</form>
 	
 	<script>
@@ -191,52 +194,72 @@
 							
 							sigunguCode = $(this).attr('data');
 							//alert(sigunguCode);
-							clipCount();
+							clipCount(1);
 						});
 							
 					},	error:function(e){alert("1111111111"+e.responseText);}
 				});		
 			}else{
-				clipCount();
+				clipCount(1);
 			}
 			
 		});
 		
 		
-		function clipCount(){
+		function clipCount(page){
 			$.ajax({
 				type:"GET",
-				url:"<%=cp%>/clipCount?areaCode="+areaCode+"&sigunguCode="+sigunguCode,
+				url:"<%=cp%>/travelMain?areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&page="+page,
 				dataType:"json",		
 				success:function(data){
 					
 					$("#clipResult").empty();
 					//alert(data);
+					
 					$.each(data, function(index, value) {
 						$("#clipResult").append('<div class="travel_info" onclick="article('+value.contentid+');"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
 					});  
 					 
 					
+					if(page==1){
+						$(".pagination").empty();
+						//alert('${sessionScope.clipJSON.totalPage}');
+						
+						for(var i=1; i<=10; i++){
+/* 						for(var i=1; i<='${sessionScope.clipJSON.totalPage}'; i++){ */
+							
+							$(".pagination").append('<li><a href="javascript:clipCount('+i+')">'+i+'</a></li>');
+							
+						}
+						
+						
+					}
+	
 				},
-				error:function(e){
-					alert("1111111111"+e.responseText);
-				}					
+				error:function(request,status,error){
+			        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			       }			
 			
 			});
 			
 		}
 		
+
 		function article(cd) {
 	 		
-	 		var f= document.clip;
+	 		var f=document.clip;
 			alert(cd);
 	 		f.action = '<%=cp%>/article.action?contentid=' +cd;
 	 		f.submit();
 	 		
-	 		
 		} 	
 	
 	</script> 
+  
+  	<div id="page">
+  		<ul class="pagination">
+  		</ul>
+  	</div>
  
   
 </div>

@@ -16,13 +16,19 @@
    width: 25%;
    text-align: center;
 }
+#clipResult{
+   float: left;
+   width: 100%;
+   padding-left:5%;
+   padding-left:5%;
+}
 .sigungu{
    float: left;
    width: 90%;
    padding-left:5%;
    padding-left:5%;
 }
-.segungu_info {
+.sigungu_info {
    float: left;
    width: 12%;
    height:40px;
