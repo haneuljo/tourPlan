@@ -176,9 +176,10 @@
 			    axis: 'y',
 			    update: function (event, ui) {
 			        var data = $(this).sortable('serialize');
-					alert(data);
+			        alert(data);
 		 	        $.ajax({
-			            data: "data="+data,
+		 	        	
+			            data: data,
 			            dataType:"json",
 			            type: 'POST',
 			            url: '<%=cp%>/orderUpdate'
