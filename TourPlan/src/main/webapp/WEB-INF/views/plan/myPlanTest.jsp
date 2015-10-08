@@ -23,11 +23,11 @@
 					</div>
 					<input type="hidden" name="planNum" value="${map.planNum }">
 					<input type="hidden" name="groupNum" value="${map.groupNum }">
-					<input type="hidden" name="contentid" value="${map.contentid }">
-					<input type="hidden" name="contenttypeid" value="${map.contenttypeid }">
-					<input type="hidden" name="longTime" value="${map.longTime }">
-					<input type="hidden" name="content" value="${map.content }">
-					<input type="hidden" name="startDate" value="${map.startDate }">
+					<input type=""text"" name="contentid" value="${map.contentid }contentid">
+					<input type=""text"" name="contenttypeid" value="${map.contenttypeid }contenttypeid">
+					<input type=""text"" name="longTime" value="${map.longTime }longtime">
+					<input type=""text"" name="content" value="${map.content }content">
+					<input type=""text"" name="startDate" value="${map.startDate }startDate">
 				</div>
 
 			</c:forEach>

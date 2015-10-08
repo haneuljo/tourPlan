@@ -59,7 +59,7 @@ public class PlanInfoController {
 
 
 	@RequestMapping("/choice")
-	public String choice(int durTime,int endTime,int contentid,HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {
+	public String choice(int durTime,int endTime,Long contentid,HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {
 
 		int time=endTime+durTime; //관광지 출발시간
 		int tran, min=0;
@@ -116,7 +116,7 @@ public class PlanInfoController {
 		PlanInfoDTO adto = new PlanInfoDTO();
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
 
-		adto = getPlanInfoDTOfromContentID(req, res, contentid);
+		adto = getPlanInfoDTOfromContentID(req, res, contentid,stratDate);
 
 		hMap.put("firstimage",adto.getFirstimage());
 		hMap.put("addr1",adto.getAddr1());
@@ -330,7 +330,7 @@ public class PlanInfoController {
 	}
 
 
-	@RequestMapping("/forTest")
+/*	@RequestMapping("/forTest")
 	public String forTest (HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {                                                      //걍테스팅
 
 		PlanInfoDTO adto = new PlanInfoDTO();
@@ -393,7 +393,7 @@ public class PlanInfoController {
 		insertInfoLists(hMap, req );
 
 		return "redirect:/myPlanTest";
-	}
+	}*/
 
 	//dragTest
 
@@ -572,7 +572,7 @@ public class PlanInfoController {
 		return i;
 	}
 
-	public PlanInfoDTO getPlanInfoDTOfromContentID(HttpServletRequest req,HttpServletResponse res,Integer contentid) throws ParseException, IOException {                                       //하늘이 article.action수정해서 contentid  -> api정보반환만듬 adto로반환
+	public PlanInfoDTO getPlanInfoDTOfromContentID(HttpServletRequest req,HttpServletResponse res,Long contentid,String startDate) throws ParseException, IOException {                                       //하늘이 article.action수정해서 contentid  -> api정보반환만듬 adto로반환
 
 		PlanInfoDTO adto = new PlanInfoDTO();
 		System.out.println(contentid);
@@ -596,6 +596,8 @@ public class PlanInfoController {
 		adto.setContentid(contentid);
 		adto.setFirstimage((String) array.get("firstimage"));
 		adto.setOverview((String) array.get("overview"));
+		System.out.println(array.get("contenttypeid"));
+		adto.setContenttypeid((Long) array.get("contenttypeid"));
 
 		if(array.containsKey("mapx")){
 
