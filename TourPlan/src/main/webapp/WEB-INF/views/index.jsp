@@ -118,6 +118,20 @@
   
 <div class="container">
   <h3>내용 추가</h3>
+  
+  <div class="container">
+	<div class="day">
+		day1
+	</div>
+	<div class="day">
+		day2
+	</div>
+	<div class="day">
+		day3
+	</div>
+	<button>일정추가</button>
+
+</div>
 </div>
 
 </body>

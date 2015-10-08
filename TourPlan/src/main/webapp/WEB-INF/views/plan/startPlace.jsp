@@ -82,7 +82,7 @@ function startPut(){
               </c:forEach>
               </select>시
                 <select name="min">
-              <c:forEach var="i" begin="0" end="60" step="10">
+              <c:forEach var="i" begin="0" end="50" step="10">
               	<option value="${i}">${i}</option>
               </c:forEach>
               </select>분
