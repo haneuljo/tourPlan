@@ -172,6 +172,9 @@ public class ClipBoardController {
 		
 		SessionInfo info = (SessionInfo)session.getAttribute("loginInfo");
 		
+		//String email=info.getEmail();
+		
+		System.out.println("email : " + info.getEmail());
 		
 		System.out.println(dao.myClipCount(info.getEmail()));
 		int myClipCount = dao.myClipCount(info.getEmail());

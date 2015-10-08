@@ -151,10 +151,10 @@
 	        <c:otherwise>
 	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이페이지<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li id="myclip"><a href="">My Clip</a></li>
-	            <li><a href="#">Page 1-2</a></li>
+	            <li><a href="<%=cp%>/myClip">My ClipList</a></li>
+	            <li><a href="<%=cp%>/planInfo.action">여행일정</a></li>
 	            <li><a href="<%=cp%>/">회원정보수정</a></li>
-	            <li><a href="<%=cp%>logout.action">로그아웃</a></li>
+	            <li><a href="<%=cp%>/logout.action">로그아웃</a></li>
 	          </ul>
 	       </li>
 	       </c:otherwise>
@@ -230,6 +230,12 @@
 	</div>
 		
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"></script> 
+</div>
+
+<div> <!-- 리뷰 -->
+
+	<div id="review"></div>
+
 </div>
 
 </form>

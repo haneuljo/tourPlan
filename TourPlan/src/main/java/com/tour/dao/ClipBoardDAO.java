@@ -62,6 +62,9 @@ public class ClipBoardDAO {
 		
 		result = sessionTemplate.selectOne("com.tour.clipBoard.myClipCount", email);
 		
+		
+		System.out.println(result);
+		
 		return result;
 		
 	}

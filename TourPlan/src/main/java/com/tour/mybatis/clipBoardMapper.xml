@@ -13,13 +13,11 @@
 	</select>
 	
 	<select id="getClipCount" resultType="int">
-		select nvl(count(*),0) from clipBoard 
-		where contentid=#{contentid}
+		select nvl(count(*),0) from clipBoard where contentid=#{contentid}
 	</select>
 	
 	<select id="myClipCount" resultType="int" parameterType="String">
-		select nvl(count(*),0) from clipBoard 
-		where email=#{email}
+		select nvl(count(*),0) from clipBoard where email=#{email}
 	</select>
 	
 	<select id="myclip" parameterType="hashMap" resultType="int">

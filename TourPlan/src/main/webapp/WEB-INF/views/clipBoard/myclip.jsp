@@ -99,10 +99,10 @@
 	        <c:otherwise>
 	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이페이지<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#">Page 1-1</a></li>
-	            <li><a href="#">Page 1-2</a></li>
+	            <li><a href="<%=cp%>/myClip">My ClipList</a></li>
+	            <li><a href="<%=cp%>/planInfo.action">여행일정</a></li>
 	            <li><a href="<%=cp%>/">회원정보수정</a></li>
-	            <li><a href="<%=cp%>logout.action">로그아웃</a></li>
+	            <li><a href="<%=cp%>/logout.action">로그아웃</a></li>
 	          </ul>
 	       </li>
 	       </c:otherwise>
@@ -122,21 +122,21 @@
 <div>
 
 	<div>
+	
 		<c:if test="${myClipCount != 0 }">
-		<c:forEach var="dto" items="${myclipList }">
-			<div>
-				${dto.firstimage }
-			</div>
-			<div>
-				${dto.title }
-			</div>
-		
-		</c:forEach>
-		</c:if>
-		
-		<c:if test="${myClipCount ==0 }">
-			클립한 내용이 없습니다.
-		</c:if>
+      <c:forEach var="dto" items="${clipList }">
+         <div>
+         <a style="text-decoration: none" href="<%=cp%>/article.action?contentid=${dto.contentid}" >      
+            <img alt="" src="${dto.firstimage}"></a>         
+         </div>
+         <div>
+         <a style="text-decoration: none" href="<%=cp%>/article.action?contentid=${dto.contentid}" >
+            ${dto.title}
+         </a>
+         </div>
+      
+      </c:forEach>
+      </c:if>
 	
 	
 	
