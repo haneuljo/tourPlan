@@ -3,8 +3,10 @@ package com.tour.dto;
 public class PlanInfoDTO {
 	
 	private int planNum, groupNum, contentid, contenttypeid,longTime;
-	private String content, startDate;
-
+	private String content, startDate,title,addr1,addr2,firstimage,overview;
+	Object mapx, mapy;
+	
+	
 	public int getPlanNum() {
 		return planNum;
 	}
@@ -19,6 +21,48 @@ public class PlanInfoDTO {
 	}
 	public int getContentid() {
 		return contentid;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getAddr1() {
+		return addr1;
+	}
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+	public String getAddr2() {
+		return addr2;
+	}
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
+	}
+	public String getFirstimage() {
+		return firstimage;
+	}
+	public void setFirstimage(String firstimage) {
+		this.firstimage = firstimage;
+	}
+	public String getOverview() {
+		return overview;
+	}
+	public void setOverview(String overview) {
+		this.overview = overview;
+	}
+	public Object getMapx() {
+		return mapx;
+	}
+	public void setMapx(Object mapx) {
+		this.mapx = mapx;
+	}
+	public Object getMapy() {
+		return mapy;
+	}
+	public void setMapy(Object mapy) {
+		this.mapy = mapy;
 	}
 	public void setContentid(int contentid) {
 		this.contentid = contentid;

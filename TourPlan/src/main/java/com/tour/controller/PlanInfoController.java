@@ -95,10 +95,10 @@ public class PlanInfoController {
 		//System.out.println(contentid);
 
 
-		ArticleDTO adto = new ArticleDTO();
+		PlanInfoDTO adto = new PlanInfoDTO();
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
 
-		adto = getADTOfromContentID(req, res, contentid);
+		adto = getPlanInfoDTOfromContentID(req, res, contentid);
 
 		hMap.put("firstimage",adto.getFirstimage());
 		hMap.put("addr1",adto.getAddr1());
@@ -181,9 +181,9 @@ public class PlanInfoController {
 
 	//일정완료
 	@RequestMapping("/register")
-	public String register(PlanInfoDTO pdto,HttpServletRequest req,HttpServletResponse res, Integer contentid[],String sday[],String stime[],String eday[],String etime[]) {
+	public String register(HttpServletRequest req,HttpServletResponse res, Integer[] contentid, Integer[] contenttypeid,String[] sday,String[] stime,String[] eday,String[] etime,Integer[] longTime) {
 
-
+		PlanInfoDTO pdto = new PlanInfoDTO();
 
 		//System.out.println("컨아이디:" + contentid[i]);
 		//String start = sday[i] +" " + stime[i];
@@ -191,6 +191,8 @@ public class PlanInfoController {
 		//	System.out.println("시작:" + start );
 		//System.out.println("끝:" + end);
 
+		
+		
 		pdto.setPlanNum(dao.planInfoMax()+1);
 		pdto.setGroupNum(1);
 		pdto.setContent("관광지");
@@ -313,7 +315,7 @@ public class PlanInfoController {
 	@RequestMapping("/forTest")
 	public String forTest (HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {                                                      //걍테스팅
 
-		ArticleDTO adto = new ArticleDTO();
+		PlanInfoDTO adto = new PlanInfoDTO();
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
 		hMap.put("order", 4);
 		hMap.put("planNum", 1);
@@ -323,7 +325,7 @@ public class PlanInfoController {
 		hMap.put("longTime",60);
 		hMap.put("content", "111");
 		hMap.put("startDate", "2015-10-1 00:00:00");
-		adto = getADTOfromContentID(req, res, 397664);
+		adto = getPlanInfoDTOfromContentID(req, res, 397664);
 		hMap.put("firstimage",adto.getFirstimage());
 		hMap.put("addr1",adto.getAddr1());
 		hMap.put("addr2",adto.getAddr2());
@@ -343,7 +345,7 @@ public class PlanInfoController {
 		hMap.put("longTime",60);
 		hMap.put("content", "222");
 		hMap.put("startDate", "2015-10-1 00:00:01");
-		adto = getADTOfromContentID(req, res, 1331760);
+		adto = getPlanInfoDTOfromContentID(req, res, 1331760);
 		hMap.put("firstimage",adto.getFirstimage());
 		hMap.put("addr1",adto.getAddr1());
 		hMap.put("addr2",adto.getAddr2());
@@ -362,7 +364,7 @@ public class PlanInfoController {
 		hMap.put("longTime",60);
 		hMap.put("content", "333");
 		hMap.put("startDate", "2015-10-1 00:00:02");
-		adto = getADTOfromContentID(req, res, 1883038);
+		adto = getPlanInfoDTOfromContentID(req, res, 1883038);
 		hMap.put("firstimage",adto.getFirstimage());
 		hMap.put("addr1",adto.getAddr1());
 		hMap.put("addr2",adto.getAddr2());
@@ -552,9 +554,9 @@ public class PlanInfoController {
 		return i;
 	}
 
-	public ArticleDTO getADTOfromContentID(HttpServletRequest req,HttpServletResponse res,Integer contentid) throws ParseException, IOException {                                       //하늘이 article.action수정해서 contentid  -> api정보반환만듬 adto로반환
+	public PlanInfoDTO getPlanInfoDTOfromContentID(HttpServletRequest req,HttpServletResponse res,Integer contentid) throws ParseException, IOException {                                       //하늘이 article.action수정해서 contentid  -> api정보반환만듬 adto로반환
 
-		ArticleDTO adto = new ArticleDTO();
+		PlanInfoDTO adto = new PlanInfoDTO();
 		System.out.println(contentid);
 
 		String url =
