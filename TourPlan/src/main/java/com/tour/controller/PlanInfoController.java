@@ -49,12 +49,12 @@ public class PlanInfoController {
 	@Autowired
 	JSONResponseUtil jsonUtil;
 
-	@RequestMapping("/newplan")
+/*	@RequestMapping("/newplan")
 	public String newplan(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
 
 
 		return "plan/selPlan";
-	}
+	}*/
 
 
 
