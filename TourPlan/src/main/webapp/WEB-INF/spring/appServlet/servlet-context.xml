@@ -19,9 +19,25 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="2" />
 	</beans:bean>
 	
 	<context:component-scan base-package="com.tour.controller" />
+	
+	
+		<!-- tilesView -->
+	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"></beans:property>
+		<beans:property name="order" value="1" />
+	</beans:bean> 
+	 
+	<beans:bean id="tileConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name="definitions">
+		<beans:list>
+		<beans:value>/WEB-INF/views/tiles/tiles.xml</beans:value>
+		</beans:list>
+		</beans:property>
+	</beans:bean>
 	
 	<!-- JSON사용 -->
 	<beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">

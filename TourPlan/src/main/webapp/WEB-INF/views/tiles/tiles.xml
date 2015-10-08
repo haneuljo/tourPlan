@@ -1,0 +1,139 @@
+<!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+      "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+  
+<tiles-definitions>
+<!--<start id="tile_template"/>-->
+   <definition name="template" 
+               template="/WEB-INF/views/tiles/tiles-layout/layout.jsp">
+     <put-attribute name="header" 
+                    value="/WEB-INF/views/tiles/tiles-layout/header.jsp" />
+     <put-attribute name="footer" 
+                    value="/WEB-INF/views/tiles/tiles-layout/footer.jsp" />
+   </definition>
+<!--<end id="tile_template"/>-->
+
+   <definition name="idea" 
+               template="/WEB-INF/views/tiles/invent-layout/layout.jsp">
+     <put-attribute name="header" 
+                    value="/WEB-INF/views/tiles/invent-layout/header.jsp" />
+     <put-attribute name="footer" 
+                    value="/WEB-INF/views/tiles/invent-layout/footer.jsp" />
+   </definition>
+   
+   
+   
+   <!-- group 관련 leftMenu추가 -->
+   <definition name="group" 
+               template="/WEB-INF/views/tiles/invent-layout/groupLayout.jsp">
+     <put-attribute name="header" 
+                    value="/WEB-INF/views/tiles/invent-layout/header.jsp" />
+ 	 <put-attribute name="leftMenu" 
+                    value="/WEB-INF/views/tiles/invent-layout/leftMenu.jsp" />
+     <put-attribute name="footer" 
+                    value="/WEB-INF/views/tiles/invent-layout/footer.jsp" />
+   </definition>
+   
+   
+ 
+<!--<타일즈 적용할 JSP설정/>-->
+   <definition name="productWrite" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/productWrite.jsp" />
+   </definition>
+  <definition name="shop" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/shop.jsp" /> 
+   </definition>
+   <definition name="basket" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/shop/basket.jsp" />
+   </definition>
+   <definition name="shopordercancel" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/shop/shopordercancel.jsp" />
+   </definition>
+   <definition name="myPage" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/shopMyPage.jsp" />
+   </definition>
+   <definition name="purchase" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/shop/purchase.jsp" />
+   </definition>
+   <definition name="category" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/shop/category.jsp" />
+   </definition>
+   <definition name="idea_category" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/shop/idea_category.jsp" />
+   </definition>
+   <definition name="shop_article" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/shop/shop_article.jsp" />
+   </definition>
+   <definition name="shopOrderList" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/shopOrderList.jsp" />
+   </definition>
+   <definition name="login" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
+   </definition>
+   <definition name="shop/golist" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/shop/golist.jsp" />
+   </definition>
+   
+	
+   
+   
+
+    <definition name="board/created" extends="idea">
+     <put-attribute name="content" value="/WEB-INF/views/board/created.jsp" />
+   </definition>
+   <definition name="ideamain" extends="idea">
+     <put-attribute name="content" value="/WEB-INF/views/invent/ideamain.jsp" />
+   </definition>
+   <definition name="ideaArticle" extends="idea">
+     <put-attribute name="content" value="/WEB-INF/views/invent/ideaArticle.jsp" />
+   </definition>
+   <definition name="board/ideaArticle" extends="idea">
+     <put-attribute name="content" value="/WEB-INF/views/board/ideaArticle.jsp" />
+   </definition>
+   <definition name="memberList" extends="idea">
+     <put-attribute name="content" value="/WEB-INF/views/invent/memberList.jsp" />
+   </definition>
+      <definition name="board/list" extends="idea">
+     <put-attribute name="content" value="/WEB-INF/views/board/list.jsp" />
+   </definition>
+    <definition name="invent/complArticle" extends="idea">
+     <put-attribute name="content" value="/WEB-INF/views/invent/complArticle.jsp" />
+   </definition>
+   
+   
+   
+   <!-- group -->
+   <definition name="invent" extends="group">
+     <put-attribute name="content" value="/WEB-INF/views/invent/invent.jsp" />
+   </definition>
+   <definition name="board/list_sketch" extends="group">
+     <put-attribute name="content" value="/WEB-INF/views/board/list.jsp" />
+   </definition>
+   <definition name="board/list_idea" extends="group">
+     <put-attribute name="content" value="/WEB-INF/views/board/list.jsp" />
+   </definition>
+   <definition name="board/list_3d" extends="group">
+     <put-attribute name="content" value="/WEB-INF/views/board/list.jsp" />
+   </definition>
+   <definition name="invent/completed" extends="idea">
+     <put-attribute name="content" value="/WEB-INF/views/invent/completed.jsp" />
+   </definition>
+   <definition name="contributionInfo" extends="group">
+     <put-attribute name="content" value="/WEB-INF/views/board/contributionInfo.jsp" />
+   </definition>
+   <definition name="invent/created" extends="idea">
+     <put-attribute name="content" value="/WEB-INF/views/invent/compCreated.jsp" />
+   </definition>
+   
+   
+   
+   
+	<!--<definition-name:컨트롤러에서 반환한 String값과 일치시켜야함.
+	servlet-context에 적용시켜놓은 viewResolver가 가져옴
+	
+	put-attribute name:jsp에 적용할 attribute name, layout.jsp의 해당insertAttribute에적용됨
+	
+	extends: 적용시킬 타일즈 정의의 네임을 적어놓아야함.
+	>-->
+
+</tiles-definitions>
