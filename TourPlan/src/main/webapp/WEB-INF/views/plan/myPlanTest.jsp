@@ -18,7 +18,7 @@
 	 				<div> ${map.addr1} ${map.addr2 }</div>
 	 				<div class="btn-group">
 					   <button type="button" class="btn btn-primary">수정//${map.mapx}</button>
-					   <button id="deleteTemp" type="button" class="btn btn-primary" onclick="deleteTemp('${status.index}')">삭제</button>
+					   <button id="deleteTemp" type="button" class="btn btn-primary deleteTemp" data="${status.index}">삭제</button>
 					</div>
 					</div>
 					<input type="hidden" name="planNum" value="${map.planNum }">
@@ -47,8 +47,34 @@
 
 	
 	<!-- Example jQuery code (JavaScript)  -->
+		
 		<script type="text/javascript">
+
 		$(document).ready(function(){                                                                    //드래그앤 드랍 및 순서 업데이트
+			
+			
+			$(".deleteTemp").click(function(){
+				var del_index = $(this).attr("data");
+				//alert(del_index);
+		    	$.ajax({
+		            type:"POST",
+					url:"<%=cp%>/deleteTemp",
+					data:"index="+del_index,	
+					success:function(args){
+				           $("#result").html(args);
+					},
+			        error:function(e){
+			            alert(e.responseText);
+			         }
+					
+				});
+				
+			});
+
+		        
+			
+		
+		
 			$('#example-1-1 .sortable-list').sortable({
 			    axis: 'y',
 			    update: function (event, ui) {
@@ -65,20 +91,4 @@
 			});
 		});
 		
-		$("#deleteTemp").click(function(del_index){                                                                    //임시리스트 삭제버튼
-			alert(del_index);
-	    	$.ajax({
-	            type:"POST",
-				url:"<%=cp%>/deleteTemp",
-				data:"index="+del_index,	
-				success:function(args){
-			           $("#result").html(args);
-				},
-		        error:function(e){
-		            alert(e.responseText);
-		         }
-				
-			});
-	        
-	    });
 		</script>

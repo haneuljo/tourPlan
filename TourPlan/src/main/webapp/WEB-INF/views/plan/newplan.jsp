@@ -447,6 +447,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, address1
 
 	</script>
 	
+	
+	
 	<div id="result"></div>
 	<input type="button" value="일정저장" onclick="register();"/>
   </form>
