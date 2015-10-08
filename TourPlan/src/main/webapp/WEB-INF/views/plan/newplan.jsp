@@ -29,7 +29,8 @@
 	padding:0;
 	}
 	html,body{height:100%;}
-	#map{height: 100%;}
+	#map{height: 100%;
+	width:400px;}
   </style>
   <script>
 	$(document).ready(function(){
@@ -138,20 +139,38 @@
 <!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
   
 <div class="container">
-  <h3>여행지선택${startDate}</h3>
-  지역 :
+
+	<div style="border:1px solid; float:left">
+		
+		day1<br>
+		${startDate}
+	</div>
+	<div style="border:1px solid; float:left">일정이 들어갈 부분
+	
+		<div id="result"></div>
+	</div>
+	<div style="border:1px solid; float:left">
+		지역 :
+		<button id="startsel">출발지선택</button>
 	<select id="selectArea" style="width: 116px;">
 		<option value="0">선택</option>
 	</select>
-	<!-- <select id="selectSubArea" style="width: 116px;">
-		<option value="0">선택</option>
-	</select> -->
-	<button id="btn">검색</button>
-	<button id="startsel">출발지선택</button>
-	<div id="map"></div>
+		<button id="btn">검색</button>
+			
+	</div>
+	<div style="border:1px solid; float:left">
 	
+		<div id="map"></div>	
+	
+	</div>
+	
+	
+	
+	<input type="button" value="일정저장" onclick="register();"/>
 	
 <form action="" name="planForm" method="post">	
+	
+	
 	<script>
 	var areaCode;
 	var sigunguCode;
@@ -449,8 +468,6 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, address1
 	
 	
 	
-	<div id="result"></div>
-	<input type="button" value="일정저장" onclick="register();"/>
   </form>
 </div>
 
