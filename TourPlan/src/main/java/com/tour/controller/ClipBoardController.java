@@ -51,7 +51,7 @@ public class ClipBoardController {
 	@RequestMapping("/travel")
 	public String travel(HttpServletRequest req, HttpServletResponse res, Integer contentid) {
 
-		return "clipBoard/travelMain";
+		return "travelMain";
 	}
 
 	// 지역코드 API
@@ -61,9 +61,7 @@ public class ClipBoardController {
 
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&numOfRows=17&ServiceKey="
 				+ tourAPIKey;
-
-		JSONResponseUtil util = new JSONResponseUtil();
-		return util.getJSONResponse(response, url);
+		return jsonUtil.getJSONResponse(response, url);
 	}
 
 	// 시구군 코드 API
@@ -74,11 +72,10 @@ public class ClipBoardController {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&numOfRows=30&ServiceKey="
 				+ tourAPIKey + "&areaCode=" + areaCode;
 
-		JSONResponseUtil util = new JSONResponseUtil();
-		return util.getJSONResponse(response, url);
+		return jsonUtil.getJSONResponse(response, url);
 	}
 
-	@RequestMapping("/clipLike.action")
+	@RequestMapping("/clipLike")
 	public String clipLike(ClipBoardDTO dto,HttpServletRequest req, HttpServletResponse response,Integer contentid){
 	
 		HttpSession session = req.getSession();
@@ -93,11 +90,11 @@ public class ClipBoardController {
 		
 		dao.insertData(dto);
 		
-		return "redirect:/article.action?contentid="+contentid;
+		return "redirect:/clipArticle?contentid="+contentid;
 		
 	}
 	
-	@RequestMapping("/article.action")
+	@RequestMapping("/clipArticle")
 	public String article(HttpServletRequest req,HttpServletResponse resp, Integer contentid) throws ParseException, IOException {
 		
 		HttpSession session = req.getSession();
@@ -145,12 +142,12 @@ public class ClipBoardController {
         req.setAttribute("cCount", cCount);
         req.setAttribute("clipchk", clipchk);
 		
-		return "clipBoard/article";
+		return "clipArticle";
 		
 		
 	}
 	
-	@RequestMapping("/deletedclip.action")
+	@RequestMapping("/deletedClip")
 	public String deletedclip(HttpServletRequest req, HttpServletResponse res, Integer contentid) {
 
 		HttpSession session = req.getSession();
@@ -161,7 +158,7 @@ public class ClipBoardController {
 
 		req.setAttribute("contentid", contentid);
 
-		return "redirect:/article.action?contentid=" + contentid;
+		return "redirect:/clipArticle?contentid=" + contentid;
 	}
 
 		
@@ -214,7 +211,7 @@ public class ClipBoardController {
 		
 		System.out.println(clipList.size());
 		
-		return "clipBoard/myclip";
+		return "myClip";
 	}
 		
 

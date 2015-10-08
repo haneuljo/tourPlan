@@ -2,12 +2,9 @@ package com.tour.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Comparator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,14 +16,10 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.tour.dao.PlanDAO;
 import com.tour.dao.PlanInfoDAO;
-import com.tour.dto.ArticleDTO;
 import com.tour.dto.PlanDTO;
 import com.tour.dto.PlanInfoDTO;
 import com.tour.util.GroupSession;
@@ -48,15 +41,6 @@ public class PlanInfoController {
 
 	@Autowired
 	JSONResponseUtil jsonUtil;
-
-/*	@RequestMapping("/newplan")
-	public String newplan(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
-
-
-		return "plan/selPlan";
-	}*/
-
-
 
 	@RequestMapping("/choice")
 	public String choice(int durTime,int endTime,Long contentid,HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {
@@ -194,7 +178,7 @@ public class PlanInfoController {
 		req.setAttribute("endTime", endTime);
 		req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
 
-		return "plan/newplan";
+		return "newPlan";
 	}
 
 	//일정완료
@@ -221,17 +205,17 @@ public class PlanInfoController {
 
 		dao.planInfoInsert(pdto);
 
-		return "plan/planInfo";
+		return "planInfo";
 	}
-
+	
+	//모달
 	@RequestMapping("/planAdd")
 	public String planAdd(PlanDTO pdto,HttpServletRequest req,HttpServletResponse res) {
-
 
 		return "plan/planAdd";
 	}
 
-
+	//모달
 	@RequestMapping("/startPlace")
 	public String startPlace(String startDate,HttpServletRequest req,HttpServletResponse res) {
 
@@ -263,7 +247,7 @@ public class PlanInfoController {
 		session.setAttribute("groupDate", gp);
 		req.setAttribute("startDate", startDate);
 
-		return "plan/newplan";
+		return "newPlan";
 	}
 
 	@RequestMapping("/myPlan")                                    //내일정보기
@@ -275,7 +259,7 @@ public class PlanInfoController {
 
 		req.setAttribute("lists", lists);
 
-		return "plan/myPlan";
+		return "myPlan";
 	}
 
 	@RequestMapping("/myPlanTest")                                    //내일정보기
@@ -290,7 +274,7 @@ public class PlanInfoController {
 
 		listchk(lists);
 
-		return "plan/myPlanTest";
+		return "myPlanTest";
 	}
 
 
@@ -394,14 +378,6 @@ public class PlanInfoController {
 
 		return "redirect:/myPlanTest";
 	}*/
-
-	//dragTest
-
-	@RequestMapping("/dragTest")
-	public String dragTest(HttpServletRequest req,HttpServletResponse res, Integer contentid) {             //하늘이가준거 드래그앤 드랍.. 근데 사라짐?;
-
-		return "plan/dragTest";
-	}
 
 
 

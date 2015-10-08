@@ -39,7 +39,6 @@ public class MemberController {
 	@RequestMapping("/signModal")
 	public String signModal() {
 		
-		
 		return "member/sign";
 	}
 	
@@ -82,7 +81,7 @@ public class MemberController {
 	}
 	
 	//·Î±×¾Æ¿ô
-	@RequestMapping(value = "/logout.action")
+	@RequestMapping(value = "/logout")
 	public String logout(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 
