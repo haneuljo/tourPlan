@@ -17,8 +17,17 @@
 		where contentid=#{contentid}
 	</select>
 	
+	<select id="myClipCount" resultType="int" parameterType="String">
+		select nvl(count(*),0) from clipBoard 
+		where email=#{email}
+	</select>
+	
 	<select id="myclip" parameterType="hashMap" resultType="int">
 		select nvl(count(*),0)from clipboard where email=#{email} and contentid=#{contentid}
+	</select>
+	
+	<select id="myclipList" parameterType="String" resultType="com.tour.dto.ClipBoardDTO">
+		select contentid from clipboard where email=#{email}
 	</select>
 	
 	<select id="maxNum" resultType="int">
