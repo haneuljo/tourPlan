@@ -5,7 +5,7 @@
 %>
 <div style="border:1px solid; float:left">
 	
-	<div id="map" style="width:400px;"></div>	
+	<div id="map" style="height: 400px; width:400px"></div>	
 	
 </div>
 

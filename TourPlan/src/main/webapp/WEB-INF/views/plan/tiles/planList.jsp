@@ -3,6 +3,7 @@
 <%
 	String cp = request.getContextPath();
 %>
+
 <script>
 	$(function(){
 		 $.ajax({
