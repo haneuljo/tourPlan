@@ -70,16 +70,16 @@ public class PlanInfoController {
 
 
 		if (time > 3600) {
-			hour = time / 3600;
-			tran = time % 3600;
-			min = tran / 60;
+			hour = time/3600;
+			tran = time%3600;
+			min = tran/60;
 			//d = b % 60; //초
 
 			System.out.println(hour + "시" + min + "분");
 
-		} else if (time < 3600 && time > 60) {
+		} else if (time<3600 && time>60) {
 
-			min = time / 60;
+			min = time/60;
 			//d = time % 60;//초
 
 			System.out.println(min + "분" );
