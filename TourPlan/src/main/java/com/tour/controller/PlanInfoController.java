@@ -155,14 +155,6 @@ public class PlanInfoController {
 		dao.planInfoInsert(pdto);
 
 
-		pdto.setPlanNum(dao.planInfoMax()+1);
-		pdto.setGroupNum(gp.getGroupNum());
-		pdto.setContent(address2);
-		pdto.setStartDate(startDate);
-		pdto.setLongTime(durTime);
-
-		dao.planInfoInsert(pdto);
-
 		System.out.println(pdto.getStartDate());
 		System.out.println(durTime);
 		System.out.println(hour);
