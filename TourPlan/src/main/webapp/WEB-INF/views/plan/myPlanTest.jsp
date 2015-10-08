@@ -3,9 +3,9 @@
 <%
 	String cp = request.getContextPath();
 %>
-<div class="container">
-<button type="button" class="btn btn-primary" onclick="location='<%=cp%>/forTest'">ForTest</button>
-<form action="">
+     <!-- drag JavaScript files -->
+<script type="text/javascript" src="<%=cp%>/resources/dragJS/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="<%=cp%>/resources/dragJS/jquery-ui-1.8.custom.min.js"></script>
 
 	<div id="example-1-1">
 		<div class="sortable-list" style="width: 450;float: left;">
@@ -18,7 +18,7 @@
 	 				<div> ${map.addr1} ${map.addr2 }</div>
 	 				<div class="btn-group">
 					   <button type="button" class="btn btn-primary">수정//${map.mapx}</button>
-					   <button type="button" class="btn btn-primary" onclick="location='<%=cp%>/deleteTemp?index=${status.index}'">삭제</button>
+					   <button id="deleteTemp" type="button" class="btn btn-primary" onclick="deleteTemp('${status.index}')">삭제</button>
 					</div>
 					</div>
 					<input type="hidden" name="planNum" value="${map.planNum }">
@@ -48,8 +48,7 @@
 	
 	<!-- Example jQuery code (JavaScript)  -->
 		<script type="text/javascript">
-		
-		$(document).ready(function(){
+		$(document).ready(function(){                                                                    //드래그앤 드랍 및 순서 업데이트
 			$('#example-1-1 .sortable-list').sortable({
 			    axis: 'y',
 			    update: function (event, ui) {
@@ -65,4 +64,21 @@
 			    }
 			});
 		});
+		
+		$("#deleteTemp").click(function(del_index){                                                                    //임시리스트 삭제버튼
+			alert(del_index);
+	    	$.ajax({
+	            type:"POST",
+				url:"<%=cp%>/deleteTemp",
+				data:"index="+del_index,	
+				success:function(args){
+			           $("#result").html(args);
+				},
+		        error:function(e){
+		            alert(e.responseText);
+		         }
+				
+			});
+	        
+	    });
 		</script>
