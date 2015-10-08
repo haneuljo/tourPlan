@@ -11,6 +11,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   
+
+  
    <style>
   .modal-header, h4, .close {
       background-color: #5cb85c;
@@ -315,6 +317,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, address1
 	       });
 	            
 	    }
+	   var chk = 0;
 <%-- 	function choice(){
 		var contentid = $("#contentid").val();
 
@@ -334,8 +337,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, address1
 	
 	//var jbAry = new Array();
 	 //일정추가부분?
-	var buffer = new Array();
-	var chk = 0;
+	//var buffer = new Array();                        쓰는부분업길래 
+	
 	//검색을 할때 empty하도록
 	<%-- $("#result").empty();
 	function choice(){
@@ -438,7 +441,13 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, address1
 		});
         
     });
+
+	
+	
+
 	</script>
+	
+	
 	
 	<div id="result"></div>
 	<input type="button" value="일정저장" onclick="register();"/>
