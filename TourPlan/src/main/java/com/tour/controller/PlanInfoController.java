@@ -49,12 +49,12 @@ public class PlanInfoController {
 	@Autowired
 	JSONResponseUtil jsonUtil;
 
-	@RequestMapping("/newplan")
+/*	@RequestMapping("/newplan")
 	public String newplan(HttpServletRequest req,HttpServletResponse res, Integer contentid) {
 
 
 		return "plan/selPlan";
-	}
+	}*/
 
 
 
@@ -70,16 +70,16 @@ public class PlanInfoController {
 
 
 		if (time > 3600) {
-			hour = time / 3600;
-			tran = time % 3600;
-			min = tran / 60;
+			hour = time/3600;
+			tran = time%3600;
+			min = tran/60;
 			//d = b % 60; //초
 
 			System.out.println(hour + "시" + min + "분");
 
-		} else if (time < 3600 && time > 60) {
+		} else if (time<3600 && time>60) {
 
-			min = time / 60;
+			min = time/60;
 			//d = time % 60;//초
 
 			System.out.println(min + "분" );
@@ -87,13 +87,31 @@ public class PlanInfoController {
 		} 
 
 		String stratDate = gp.getStartDate() + " " + hour + ":" + min + ":00"; 
-		System.out.println("날짜:" + gp.getStartDate());
+		System.out.println("날짜:" + gp.getStartDate()); 
 		System.out.println("소요:" + durTime);
 		System.out.println("도착:" + endTime);
 		System.out.println("컨아이디:" + contentid);
 		System.out.println("출발날짜시간:" + stratDate);
 		//System.out.println(contentid);
-
+		
+		/*인서트 해야하는 변수들
+		 planNum : dao.planInfoMax()+1
+		 groupNum : gp.getGroupNum()
+		 content : 관광지정보
+		 startDate : gp.getStartDate()
+		 longTime : 0 관광광지에서 머무르는 시간으로 바뀔때마다 update해야함
+		 contentid : contentid
+		 contenttypeid : 관광지타입
+		 
+		hMap.put("order", 4);  //이부분은 멀 넣어야할지????
+		hMap.put("planNum", dao.planInfoMax()+1);
+		hMap.put("groupNum", gp.getGroupNum());
+		hMap.put("contentid", contentid);
+		hMap.put("contenttypeid", 1);
+		hMap.put("longTime",0); //default로 0으로
+		hMap.put("content", "111");
+		hMap.put("startDate", gp.getStartDate());
+		 */
 
 		PlanInfoDTO adto = new PlanInfoDTO();
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
@@ -152,7 +170,7 @@ public class PlanInfoController {
 		pdto.setStartDate(startDate);
 		pdto.setLongTime(0);
 
-		dao.planInfoInsert(pdto);
+		//dao.planInfoInsert(pdto);//출발지 인서트
 
 
 		pdto.setPlanNum(dao.planInfoMax()+1);
@@ -161,7 +179,7 @@ public class PlanInfoController {
 		pdto.setStartDate(startDate);
 		pdto.setLongTime(durTime);
 
-		dao.planInfoInsert(pdto);
+		//dao.planInfoInsert(pdto);//도착지 인서트
 
 		System.out.println(pdto.getStartDate());
 		System.out.println(durTime);

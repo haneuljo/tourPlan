@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
    <style>
   .modal-header, h4, .close {
       background-color: #5cb85c;
@@ -56,7 +57,27 @@
 			});
 	        
 	    });
+	    
+	    $("#btn").click(function(){
+			// $(this).datepicker();
+			// $(this).datepicker("show");
+			$.ajax({
+				type:"GET",
+				url:"<%=cp%>/planAdd",
+				dataType:"html",		
+				success:function(data){
+					$("#myModal").html(data);
+					$("#myModal").modal();
+				},
+				error:function(e){
+					alert("1111111111"+e.responseText);
+				}
+				
+			});
+	        
+	    });
 	});
+	
   </script>
   
 </head>
@@ -116,7 +137,8 @@
   
 <div class="container">
   <h3>내용 추가</h3>
-  <input type="button" value="새로운일정" onclick="javascript:location.href='<%=cp%>/newplan';">&nbsp;&nbsp;&nbsp;&nbsp;
+  
+  <input type="button" value="새로운일정" id="btn">&nbsp;&nbsp;&nbsp;&nbsp;
   <!-- <input type="button" value="나의일정"> -->
   
 </div>
