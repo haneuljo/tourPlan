@@ -1,5 +1,6 @@
 package com.tour.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,10 +22,25 @@ public class PlanInfoDAO {
 		
 	}
 	
+	//일정정보등록  (hMAp)
+	public void planInfoInsertForhMap(HashMap<String, Object> hMap) {
+		System.out.println(hMap);
+		sessionTemplate.insert("com.tour.planInfo.planInfoInsertForhMap", hMap);
+		
+	}
+	
 	//planNum 최대값
 	public int planInfoMax(){
 		
 		int result = sessionTemplate.selectOne("com.tour.planInfo.planInfoMax");
+		
+		return result;
+	}
+	
+	//groupNum 최대값
+	public int planInfoGroupMax(){
+		
+		int result = sessionTemplate.selectOne("com.tour.planInfo.planInfoGroupMax");
 		
 		return result;
 	}

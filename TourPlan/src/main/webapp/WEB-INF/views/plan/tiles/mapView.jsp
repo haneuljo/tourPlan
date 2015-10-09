@@ -32,7 +32,6 @@
 	var geocoder;
 	function initMap() {
 	
-		alert("지도 왜안그려져");
 		directionsDisplay = new google.maps.DirectionsRenderer;
 		directionsService = new google.maps.DirectionsService;
 		

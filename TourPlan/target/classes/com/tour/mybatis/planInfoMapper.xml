@@ -12,8 +12,17 @@
 		values (#{planNum},#{groupNum},#{content},to_date(#{startDate},'yyyy-mm-dd HH24:MI:SS'),#{longTime},#{contentid},#{contenttypeid})
 	</insert>
 	
+	<insert id="planInfoInsertForhMap" parameterType="hashMap">
+		insert into planInfo (planNum,groupNum,content,startDate,longTime,contentid,contenttypeid)
+		values (#{planNum},#{groupNum},#{content},to_date(#{startDate},'yyyy-mm-dd HH24:MI:SS'),#{longTime},#{contentid},#{contenttypeid})
+	</insert>
+	
 	<select id="planInfoMax" resultType="int">
 		select nvl(max(planNum),0) from planInfo 
+	</select>
+	
+	<select id="planInfoGroupMax" resultType="int">
+		select nvl(max(groupNum),0) from planInfo 
 	</select>
 	
 	<select id="getLists" resultType="com.tour.dto.PlanInfoDTO" parameterType="int">

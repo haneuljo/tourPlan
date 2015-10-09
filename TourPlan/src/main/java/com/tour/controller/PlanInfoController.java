@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Comparator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.tour.dao.PlanDAO;
 import com.tour.dao.PlanInfoDAO;
 import com.tour.dto.PlanDTO;
@@ -86,6 +88,7 @@ public class PlanInfoController {
 		 longTime : 0 관광광지에서 머무르는 시간으로 바뀔때마다 update해야함
 		 contentid : contentid
 		 contenttypeid : 관광지타입
+<<<<<<< HEAD
 		 
 		hMap.put("order", 4);  //이부분은 멀 넣어야할지????
 		hMap.put("groupNum", gp.getGroupNum());
@@ -107,6 +110,13 @@ public class PlanInfoController {
 		hMap.put("title",adto.getTitle());
 		hMap.put("mapx",adto.getMapx());
 		hMap.put("mapy",adto.getMapy());
+		//hMap.put("planNum", dao.planInfoMax()+1);
+		hMap.put("groupNum", gp.getGroupNum());
+		hMap.put("contentid", contentid);
+		hMap.put("contenttypeid", 1);
+		hMap.put("longTime",0); //default로 0으로
+		hMap.put("content", "111");
+		hMap.put("startDate", gp.getStartDate());
 
 		insertInfoLists(hMap, req );
 
@@ -165,7 +175,6 @@ public class PlanInfoController {
 		//dao.planInfoInsert(pdto);//도착지 인서트
 
 		System.out.println(pdto.getStartDate());
-		System.out.println(durTime);
 		System.out.println(hour);
 		System.out.println(min);
 		System.out.println(address1);
@@ -185,18 +194,31 @@ public class PlanInfoController {
 	@RequestMapping("/register")
 	public String register(HttpServletRequest req,HttpServletResponse res) {
 
-		PlanInfoDTO pdto = new PlanInfoDTO();
-
+		System.out.println("reㅎister 시작");
 		
-		pdto.setPlanNum(dao.planInfoMax()+1);
-		pdto.setGroupNum(1);
-		pdto.setContent("관광지");
-		//	pdto.setStartDate(start);
-		//pdto.setLongTime(end);
-		//	pdto.setContentid(contentid[i]);
-		pdto.setContenttypeid(12);
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
+		
+		if(info.getInfoList()==null){
+			System.out.println("infolists is null");
+		}
+		
+		ArrayList<HashMap<String, Object>> lists = new  ArrayList<HashMap<String,Object>>();               
+		lists = info.getInfoList();
+		System.out.println("not null");
 
-		dao.planInfoInsert(pdto);
+		ListIterator<HashMap<String, Object>> it = lists.listIterator();
+		while(it.hasNext()){
+			
+			HashMap<String, Object> hMap = (HashMap<String, Object>)it.next();
+			hMap.put("planNum", dao.planInfoMax()+1);
+			//hMap.put("groupNum", dao.planInfoGroupMax()+1);
+			dao.planInfoInsertForhMap(hMap);
+			
+		}	
+		
+		listchk(lists);
+		session.removeAttribute("groupDate");
 
 		return "planInfo";
 	}
@@ -378,11 +400,12 @@ public class PlanInfoController {
 		if(lists!=null){
 			Iterator<HashMap<String, Object>> it = lists.iterator();
 			HashMap<String, Object> dto = new HashMap<String, Object>();
-
+			System.out.println("리스트시작--------------------");
 			while(it.hasNext()){                                      //내용체크
 				dto = (HashMap<String, Object>)it.next();
 				System.out.println(dto);
 			}
+			System.out.println("리스트끝--------------------");
 		}else {
 			System.out.println("lists is null");
 		}

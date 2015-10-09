@@ -21,8 +21,9 @@
 		${startDate}
 	</div>
 	<div style="border:1px solid; float:left">일정이 들어갈 부분
-	
+	<form action="planForm">
 		<div id="result"></div>
+	</form>
 	</div>
 	<div style="border:1px solid; float:left">
 		지역 :
