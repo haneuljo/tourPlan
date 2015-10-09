@@ -17,6 +17,15 @@
 				 	<div> <h3>${map.title}//index:${status.index}</h3></div>
 	 				<div> ${map.addr1} ${map.addr2 }</div>
 	 				<div class="btn-group">
+	 				<select id="lonTime${status.index}">
+	 					<option value="0">0</option>
+	 					<option value="30">30분</option>
+	 					<option value="60">1시간</option>
+	 					<option value="90">1시간30분</option>
+	 					<option value="120">2시간</option>
+	 					<option value="150">2시간30분</option>
+	 					<option value="180">3시간</option>
+	 				</select>
 					   <button type="button" class="btn btn-primary">수정//${map.mapx}</button>
 					   <button id="deleteTemp" type="button" class="btn btn-primary deleteTemp" data="${status.index}">삭제</button>
 					</div>

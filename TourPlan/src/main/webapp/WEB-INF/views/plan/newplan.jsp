@@ -8,7 +8,7 @@
 		
 		var f = document.planForm;
 		
-		f.action = "<%=cp%>/register.action";
+		f.action = "<%=cp%>/register";
 		f.submit();
 	}
 	</script>

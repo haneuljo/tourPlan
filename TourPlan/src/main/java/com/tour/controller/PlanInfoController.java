@@ -79,7 +79,7 @@ public class PlanInfoController {
 		//System.out.println(contentid);
 		
 		/*인서트 해야하는 변수들
-		 planNum : dao.planInfoMax()+1
+		 planNum : dao.planInfoMax()+1 //이부분은 최종 인서트할때!!!!!!!
 		 groupNum : gp.getGroupNum()
 		 content : 관광지정보
 		 startDate : gp.getStartDate()
@@ -88,7 +88,6 @@ public class PlanInfoController {
 		 contenttypeid : 관광지타입
 		 
 		hMap.put("order", 4);  //이부분은 멀 넣어야할지????
-		hMap.put("planNum", dao.planInfoMax()+1);
 		hMap.put("groupNum", gp.getGroupNum());
 		hMap.put("contentid", contentid);
 		hMap.put("contenttypeid", 1);
@@ -175,6 +174,7 @@ public class PlanInfoController {
 		//System.out.println(durTime);
 		//System.out.println(durTime);
 		//req.setAttribute("durTime", durTime);
+		req.setAttribute("startDate", gp.getStartDate());
 		req.setAttribute("endTime", endTime);
 		req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
 
@@ -183,17 +183,10 @@ public class PlanInfoController {
 
 	//일정완료
 	@RequestMapping("/register")
-	public String register(HttpServletRequest req,HttpServletResponse res, Integer[] contentid, Integer[] contenttypeid,String[] sday,String[] stime,String[] eday,String[] etime,Integer[] longTime) {
+	public String register(HttpServletRequest req,HttpServletResponse res) {
 
 		PlanInfoDTO pdto = new PlanInfoDTO();
 
-		//System.out.println("컨아이디:" + contentid[i]);
-		//String start = sday[i] +" " + stime[i];
-		//String end = eday[i] + " " + etime[i];
-		//	System.out.println("시작:" + start );
-		//System.out.println("끝:" + end);
-
-		
 		
 		pdto.setPlanNum(dao.planInfoMax()+1);
 		pdto.setGroupNum(1);
