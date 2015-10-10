@@ -56,6 +56,3 @@
 	<div style="border:1px solid; float:left">
 		<div id="areaList"></div>
 	</div>
-	<form name="testform">
-		<input name="title">
-	</form>
