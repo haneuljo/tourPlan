@@ -17,8 +17,10 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tour.dao.PlanDAO;
 import com.tour.dao.PlanInfoDAO;
@@ -104,7 +106,7 @@ public class PlanInfoController {
 		hMap.put("title",adto.getTitle());
 		hMap.put("mapx",adto.getMapx());
 		hMap.put("mapy",adto.getMapy());
-		hMap.put("planNum", dao.planInfoMax()+1);
+		//hMap.put("planNum", dao.planInfoMax()+1);
 		hMap.put("groupNum", gp.getGroupNum());
 		hMap.put("contentid", contentid);
 		hMap.put("contenttypeid", 1);
@@ -292,10 +294,27 @@ public class PlanInfoController {
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 
 		ArrayList<HashMap<String, Object>> lists = info.getInfoList();
+		ArrayList<HashMap<String, Object>> lists2 = new ArrayList<HashMap<String,Object>>();
+		Object mapxex = null;
+		Object mapyex = null;
+		ListIterator<HashMap<String, Object>> it = lists.listIterator();
+		while(it.hasNext()){
+			
+			HashMap<String, Object> hMap = (HashMap<String, Object>)it.next();
+			if(mapxex!=null){
+			hMap.put("mapxex", mapxex);
+			hMap.put("mapyex", mapyex);
+			}
+			mapxex=hMap.get("mapx");
+			mapyex=hMap.get("mapy");
+			
+			lists2.add(hMap);
+			
+		}	
 
-		req.setAttribute("lists", lists);
+		req.setAttribute("lists", lists2);
 
-		listchk(lists);
+		listchk(lists2);
 
 		return "myPlanTest";
 	}
@@ -619,6 +638,8 @@ public class PlanInfoController {
 		System.out.println(sortable_item.length);
 
 	}
+	
+	
 }
 
 
