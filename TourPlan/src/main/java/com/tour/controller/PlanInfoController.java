@@ -83,17 +83,23 @@ public class PlanInfoController {
 		//System.out.println(contentid);
 		
 		/*인서트 해야하는 변수들
-		 planNum : dao.planInfoMax()+1
+		 planNum : dao.planInfoMax()+1 //이부분은 최종 인서트할때!!!!!!!
 		 groupNum : gp.getGroupNum()
 		 content : 관광지정보
 		 startDate : gp.getStartDate()
 		 longTime : 0 관광광지에서 머무르는 시간으로 바뀔때마다 update해야함
 		 contentid : contentid
 		 contenttypeid : 관광지타입
-		  */
-		
-
-		
+<<<<<<< HEAD
+		 
+		hMap.put("order", 4);  //이부분은 멀 넣어야할지????
+		hMap.put("groupNum", gp.getGroupNum());
+		hMap.put("contentid", contentid);
+		hMap.put("contenttypeid", 1);
+		hMap.put("longTime",0); //default로 0으로
+		hMap.put("content", "111");
+		hMap.put("startDate", gp.getStartDate());
+		 */
 
 		PlanInfoDTO adto = new PlanInfoDTO();
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
@@ -179,6 +185,7 @@ public class PlanInfoController {
 		//System.out.println(durTime);
 		//System.out.println(durTime);
 		//req.setAttribute("durTime", durTime);
+		req.setAttribute("startDate", gp.getStartDate());
 		req.setAttribute("endTime", endTime);
 		req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
 
@@ -193,7 +200,7 @@ public class PlanInfoController {
 		
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
-
+		
 		if(info.getInfoList()==null){
 			System.out.println("infolists is null");
 		}
@@ -207,28 +214,13 @@ public class PlanInfoController {
 			
 			HashMap<String, Object> hMap = (HashMap<String, Object>)it.next();
 			hMap.put("planNum", dao.planInfoMax()+1);
-			hMap.put("groupNum", dao.planInfoGroupMax()+1);
+			//hMap.put("groupNum", dao.planInfoGroupMax()+1);
 			dao.planInfoInsertForhMap(hMap);
 			
 		}	
 		
 		listchk(lists);
-
-/*		//System.out.println("컨아이디:" + contentid[i]);
-		//String start = sday[i] +" " + stime[i];
-		//String end = eday[i] + " " + etime[i];
-		//	System.out.println("시작:" + start );
-		//System.out.println("끝:" + end);
-		 * 
-		pdto.setPlanNum(dao.planInfoMax()+1);
-		pdto.setGroupNum(1);
-		pdto.setContent("관광지");
-		//	pdto.setStartDate(start);
-		//pdto.setLongTime(end);
-		//	pdto.setContentid(contentid[i]);
-		pdto.setContenttypeid(12);
-
-		dao.planInfoInsert(pdto);*/
+		session.removeAttribute("groupDate");
 
 		return "planInfo";
 	}
