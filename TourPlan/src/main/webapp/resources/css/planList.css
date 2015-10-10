@@ -1,8 +1,91 @@
 @CHARSET "UTF-8";
+#tilesDayAdd{
+	float:left;
+	width: 15%;
+}
+#tilesPlan{
+	
+	width: 40%;
+	float:left;
+}
+#tilesMapView{
+	
+	width: 45%;
+	float:left;
+}
 #areaContainer{
  height:130px;
 }
-.planList_area {
-	border:1px solid;
-   
+.day{
+	padding : 5%;
+}
+#dayList{
+	height: 90%;	
+}
+.dayAdd{
+	background-color: #00001E;
+	color:#fff;
+	height: 85%;
+	width: 100%;
+	
+}
+.dayCount{
+	font-size: 15pt;
+}
+.dayAddBtn{
+	width: 45%;
+	margin:2%;
+	padding:2%;
+	float:left;
+	border:1px solid #fff;
+	background-color: rgba( 255, 255, 255, 0.0 );	
+}
+
+/* planList CSS */
+#planList_All{
+	color:#fff;
+}
+.listDiv{
+	float: left;
+	width: 50%;
+}
+.currentDay{
+	height: 8%;
+	background: #A6A6A6;
+	
+}
+.planListBtn Button{
+	
+	width: 45%;
+	margin:2%;
+	padding:2%;
+	float:left;
+	border:1px solid #fff;
+	background-color: #2F9D27;
+}
+#areaList{
+	color:black;
+	
+}
+#planList{
+	color:black;
+	
+}
+.planList_area{
+	height: 6%;
+	padding: 2%;
+}
+.area_name{
+	font-size:12pt;
+	float:left;
+}
+.areaListBtn{
+	float:left;
+	border:1px solid #ccc;
+	color:#ccc;
+	background-color: rgba( 255, 255, 255, 0.0 );	   
+}
+.startPlace{
+	
+	
 }

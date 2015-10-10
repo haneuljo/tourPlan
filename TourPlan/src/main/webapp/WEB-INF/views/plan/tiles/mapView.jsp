@@ -3,9 +3,9 @@
 <%
 	String cp = request.getContextPath();
 %>
-<div style="border:1px solid; float:left">
+<div>
 	
-	<div id="map" style="height: 400px; width:400px"></div>	
+	<div id="map" style="height: 80%; width:600px;"></div>	
 	
 </div>
 

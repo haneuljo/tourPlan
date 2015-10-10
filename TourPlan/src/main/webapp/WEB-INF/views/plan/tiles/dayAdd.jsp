@@ -1,26 +1,41 @@
 <%@page import="java.util.Calendar"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%
 	String cp = request.getContextPath();
 
 %>
  
-<div id="dayList">
-
+ <fmt:parseDate value="${startDate}" pattern ="yyyy-MM-dd" var="date"> </fmt:parseDate>
+<div class="dayAdd">	
+	<div id="dayList">
 		<div class="day" index="1">
-			day1<br>
-			<span class="cal">${startDate}</span>
+			<span class="dayCount">DAY1</span>
+			<span class="cal">
+				<fmt:formatDate value="${date}" pattern="yy.MM.dd"></fmt:formatDate>
+			</span>
 		</div>
-	  </div>
-	<button id="dayAdd">추가</button>
-	<button id="dayDelete">삭제</button>
+	</div>
+	<div class="dayBtnDiv">
+		<button id="dayDelete" class="dayAddBtn">삭제</button>
+		<button id="dayAdd" class="dayAddBtn">추가</button>
+	</div>
+</div>
 	<script>
 		var count=2;
 		var day1;
 		$("#dayAdd").click(function(){
 			if($(".day:last").attr("index")==(count-1)){
-				day1=$(".day:last>span").text();
+				if(count==2){
+					day1='${startDate}'					
+				}else{
+				
+					var dateFormat = $(".day:last>span:last").text().split(".");
+					day1 = "20"+dateFormat[0] + "-" +dateFormat[1] + "-" +dateFormat[2];
+
+				}
 				//alert(day1);
 			}
 			$.ajax({
@@ -28,8 +43,11 @@
 				url:"<%=cp%>/dayCal?day1="+day1,
 				dataType:"text",		
 				success:function(data){
+
+					var dateFormat = data.split("-");
+					var dateFormatChange = dateFormat[0].substring(2) + "." +dateFormat[1] + "." +dateFormat[2];
 //					alert(data);
-					$("#dayList").append('<div class="day" index="'+count+'">day'+count+'<br><span class="cal">'+data+'</span></div>');
+					$("#dayList").append('<div class="day" index="'+count+'"><span class="dayCount">DAY'+count+'</span> <span class="cal">'+dateFormatChange+'</span></div>');
 					count++;
 				},
 					error:function(e){
