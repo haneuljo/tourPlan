@@ -47,14 +47,13 @@ public class ClipBoardController {
 
 	String tourAPIKey = "GuzaHzXNprs4fLYjtHtDrHm56KNX9GWdRELzkuqPUELlWBjOtuW%2BygZfhgEuZI2ZbU4se3cn2AFfyfQJM%2BhG3Q%3D%3D";
 	
-	//¿©ÇàÁö ÆäÀÌÁö ¶ç¿ì±â
 	@RequestMapping("/travel")
 	public String travel(HttpServletRequest req, HttpServletResponse res, Integer contentid) {
 
 		return "travelMain";
 	}
 
-	// Áö¿ªÄÚµå API
+	//ì§€ì—­ì½”ë“œ API
 	@RequestMapping("/areaCodeAPI")
 	@ResponseBody
 	public ResponseEntity<String> areaCodeAPI(HttpServletResponse response) throws IOException {
@@ -64,7 +63,7 @@ public class ClipBoardController {
 		return jsonUtil.getJSONResponse(response, url);
 	}
 
-	// ½Ã±¸±º ÄÚµå API
+	//ì‹œêµ¬êµ°ì½”ë“œ
 	@RequestMapping("/sigunguCodeAPI")
 	@ResponseBody
 	public ResponseEntity<String> sigunguCodeAPI(HttpServletResponse response, Integer areaCode) throws IOException {
@@ -215,7 +214,7 @@ public class ClipBoardController {
 	}
 		
 
-	//Å¬¸³ Map
+	//Å¬ï¿½ï¿½ Map
 	@RequestMapping("/travelMap")
 	public String travelMap(HttpServletRequest req, HttpServletResponse res, Integer contentid) {
 
@@ -223,12 +222,12 @@ public class ClipBoardController {
 	}
 
 	
-	//clipCountÇØ¼­ ºñ±³
+	//clipCountï¿½Ø¼ï¿½ ï¿½ï¿½
 	@RequestMapping("/clipCount")
 	@ResponseBody
 	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp,Integer areaCode, Integer sigunguCode, Integer mapChk) throws ParseException, IOException {
 		
-		//DB - contentid º° clipCount
+		//DB - contentid ï¿½ï¿½ clipCount
 		List<ClipBoardDTO> clipCountList = dao.clipCount();
 		
 		List<ClipBoardDTO> clipList = new ArrayList<ClipBoardDTO>();
@@ -237,7 +236,7 @@ public class ClipBoardController {
 		// System.out.println("DB clipCount" + clipCountList.size());
 		String url = "";
 
-		// ½Ã ¼±ÅÃ½Ã
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½Ã½ï¿½
 
 		if (sigunguCode == 0) {
 			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode="
@@ -270,7 +269,7 @@ public class ClipBoardController {
 
 			while (it.hasNext()) {
 				ClipBoardDTO dto = it.next();
-				// System.out.println("¿©±â±îÁö?");
+				// System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?");
 				if (contentid == dto.getContentid()) {
 
 					dto.setFirstimage((String) entity.get("firstimage"));
@@ -283,14 +282,14 @@ public class ClipBoardController {
 
 					}
 					dto.setAddr1((String) entity.get("addr1"));
-					// System.out.println("Å¬¸³ Ä«¿îÆ® " + dto.getClipCount());
+					// System.out.println("Å¬ï¿½ï¿½ Ä«ï¿½ï¿½Æ® " + dto.getClipCount());
 					chk = 1;
 					clipList.add(dto);
 					break;
 
 				}
 			}
-			// ListºÎºÐ
+			// Listï¿½Îºï¿½
 			if (mapChk == 0) {
 
 				if (chk == 0) {
@@ -313,7 +312,7 @@ public class ClipBoardController {
 
 		}
 
-		// clipList Á¤·Ä, clipCount ¼øÀ¸·Î?
+		// clipList ï¿½ï¿½ï¿½ï¿½, clipCount ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 		Collections.sort(clipList, new Comparator<ClipBoardDTO>() {
 
 			@Override
@@ -343,7 +342,7 @@ public class ClipBoardController {
 	public ResponseEntity<String> travelMain(HttpServletRequest req, HttpServletResponse resp, Integer areaCode, Integer sigunguCode, Integer page) throws ParseException, IOException {
 
 		//System.out.println(clipList.size());
-		//Ã¹ ÆäÀÌÁöÀÏ¶§ session¿¡
+		//Ã¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ sessionï¿½ï¿½
 		if(page==1){
 			List<ClipBoardDTO> clipList = clipCount(req, resp, areaCode, sigunguCode, 0);
 			jsonUtil.clipPage(clipList, req);
