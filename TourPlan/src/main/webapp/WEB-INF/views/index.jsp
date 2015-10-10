@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!-- ---- 여기까지 모든 jsp 일단 복사 ---- -->  
-  
+<div class="area_top">
+</div>
 <div class="container">
   <h3>
   1. 주소뒤에 action 쓰지마세요 <br>
