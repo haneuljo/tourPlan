@@ -4,7 +4,6 @@
 <%	String cp = request.getContextPath(); %>    
 <script type="text/javascript">
 
-
 var address1;
 var address2;
 
@@ -53,9 +52,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, address1
        
        
       directionsDisplay.setDirections(response);
-      alert(response.routes[0].legs[0].duration.value);
+      //alert(response.routes[0].legs[0].duration.value);
       durTime = response.routes[0].legs[0].duration.value;
-
       
     } else {
       window.alert('Directions request failed due to ' + status);
