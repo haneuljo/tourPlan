@@ -1,9 +1,7 @@
 package com.tour.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -19,10 +17,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tour.dao.PlanDAO;
 import com.tour.dao.PlanInfoDAO;
@@ -51,7 +47,7 @@ public class PlanInfoController {
 	@RequestMapping("/choice")
 	public String choice(int durTime,int endTime,Long contentid,HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {
 
-		int time=endTime+durTime; //ê´€ê´‘ì§€ ì¶œë°œì‹œê°„
+		int time=endTime+durTime; //°ü±¤Áö Ãâ¹ß½Ã°£
 		int tran, min=0;
 		int hour=0;
 
@@ -63,43 +59,42 @@ public class PlanInfoController {
 			hour = time/3600;
 			tran = time%3600;
 			min = tran/60;
-			//d = b % 60; //ì´ˆ
+			//d = b % 60; //ÃÊ
 
-			System.out.println(hour + "ì‹œ" + min + "ë¶„");
+			System.out.println(hour + "½Ã" + min + "ºĞ");
 
 		} else if (time<3600 && time>60) {
 
 			min = time/60;
-			//d = time % 60;//ì´ˆ
+			//d = time % 60;//ÃÊ
 
-			System.out.println(min + "ë¶„" );
+			System.out.println(min + "ºĞ" );
 
 		} 
 
 		String stratDate = gp.getStartDate() + " " + hour + ":" + min + ":00"; 
-		System.out.println("ë‚ ì§œ:" + gp.getStartDate()); 
-		System.out.println("ì†Œìš”:" + durTime);
-		System.out.println("ë„ì°©:" + endTime);
-		System.out.println("ì»¨ì•„ì´ë””:" + contentid);
-		System.out.println("ì¶œë°œë‚ ì§œì‹œê°„:" + stratDate);
+		System.out.println("³¯Â¥:" + gp.getStartDate()); 
+		System.out.println("¼Ò¿ä:" + durTime);
+		System.out.println("µµÂø:" + endTime);
+		System.out.println("ÄÁ¾ÆÀÌµğ:" + contentid);
+		System.out.println("Ãâ¹ß³¯Â¥½Ã°£:" + stratDate);
 		//System.out.println(contentid);
-
 		
-		/*ì¸ì„œíŠ¸ í•´ì•¼í•˜ëŠ” ë³€ìˆ˜ë“¤
-		 planNum : dao.planInfoMax()+1
+		/*ÀÎ¼­Æ® ÇØ¾ßÇÏ´Â º¯¼öµé
+		 planNum : dao.planInfoMax()+1 //ÀÌºÎºĞÀº ÃÖÁ¾ ÀÎ¼­Æ®ÇÒ¶§!!!!!!!
 		 groupNum : gp.getGroupNum()
-		 content : ê´€ê´‘ì§€ì •ë³´
+		 content : °ü±¤ÁöÁ¤º¸
 		 startDate : gp.getStartDate()
-		 longTime : 0 ê´€ê´‘ê´‘ì§€ì—ì„œ ë¨¸ë¬´ë¥´ëŠ” ì‹œê°„ìœ¼ë¡œ ë°”ë€”ë•Œë§ˆë‹¤ updateí•´ì•¼í•¨
+		 longTime : 0 °ü±¤±¤Áö¿¡¼­ ¸Ó¹«¸£´Â ½Ã°£À¸·Î ¹Ù²ğ¶§¸¶´Ù updateÇØ¾ßÇÔ
 		 contentid : contentid
-		 contenttypeid : ê´€ê´‘ì§€íƒ€ì…
+		 contenttypeid : °ü±¤ÁöÅ¸ÀÔ
+<<<<<<< HEAD
 		 
-		hMap.put("order", 4);  //ì´ë¶€ë¶„ì€ ë©€ ë„£ì–´ì•¼í• ì§€????
-		hMap.put("planNum", dao.planInfoMax()+1);
+		hMap.put("order", 4);  //ÀÌºÎºĞÀº ¸Ö ³Ö¾î¾ßÇÒÁö????
 		hMap.put("groupNum", gp.getGroupNum());
 		hMap.put("contentid", contentid);
 		hMap.put("contenttypeid", 1);
-		hMap.put("longTime",0); //defaultë¡œ 0ìœ¼ë¡œ
+		hMap.put("longTime",0); //default·Î 0À¸·Î
 		hMap.put("content", "111");
 		hMap.put("startDate", gp.getStartDate());
 		 */
@@ -119,16 +114,15 @@ public class PlanInfoController {
 		hMap.put("groupNum", gp.getGroupNum());
 		hMap.put("contentid", contentid);
 		hMap.put("contenttypeid", 1);
-		hMap.put("longTime",0); //defaultï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½
+		hMap.put("longTime",0); //default·Î 0À¸·Î
 		hMap.put("content", "111");
 		hMap.put("startDate", gp.getStartDate());
 
 		insertInfoLists(hMap, req );
 
 		// HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  
-		//ì„¸ì…˜ì—ì„œ ë¡œê·¸ì¸ì •ë³´ ê°€ì ¸ì˜¤ê¸°
-		
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //¼¼¼Ç¿¡¼­ ·Î±×ÀÎÁ¤º¸°¡Á®¿À±â
+
 		ArrayList<HashMap<String, Object>> lists;
 
 		lists = info.getInfoList();
@@ -155,12 +149,12 @@ public class PlanInfoController {
 	}*/
 
 	@RequestMapping("/startPut")
-	public void startPut(PlanInfoDTO pdto,int durTime,int hour,int min,String address1,String address2,HttpServletRequest req,HttpServletResponse res, Integer contentid) throws IOException {
+	public String startPut(PlanInfoDTO pdto,int durTime,int hour,int min,String address1,String address2,HttpServletRequest req,HttpServletResponse res, Integer contentid) {
 
 		HttpSession session = req.getSession();
 		GroupSession gp = (GroupSession) session.getAttribute("groupDate");
 
-		int endTime = 60*60*hour+60*min+durTime; //ë„ì°©ì‹œê°„
+		int endTime = 60*60*hour+60*min+durTime; //µµÂø½Ã°£
 		String startDate = pdto.getStartDate() + " " + hour + ":" + min + ":00";
 
 		pdto.setPlanNum(dao.planInfoMax()+1);
@@ -169,7 +163,7 @@ public class PlanInfoController {
 		pdto.setStartDate(startDate);
 		pdto.setLongTime(0);
 
-		//dao.planInfoInsert(pdto);//ì¶œë°œ insert
+		//dao.planInfoInsert(pdto);//Ãâ¹ßÁö ÀÎ¼­Æ®
 
 
 		pdto.setPlanNum(dao.planInfoMax()+1);
@@ -178,7 +172,7 @@ public class PlanInfoController {
 		pdto.setStartDate(startDate);
 		pdto.setLongTime(durTime);
 
-		//dao.planInfoInsert(pdto);//ë„ì°© insert
+		//dao.planInfoInsert(pdto);//µµÂøÁö ÀÎ¼­Æ®
 
 		System.out.println(pdto.getStartDate());
 		System.out.println(hour);
@@ -189,23 +183,21 @@ public class PlanInfoController {
 		//System.out.println(durTime);
 		//System.out.println(durTime);
 		//req.setAttribute("durTime", durTime);
-		
-		//req.setAttribute("startDate", gp.getStartDate());
-		//req.setAttribute("endTime", endTime);
-		//req.setAttribute("address2", address2);//ë‹¤ìŒ ê´€ê´‘ì§€ì™€ ê±°ë¦¬ëŠ” ì‹œê°„ êµ¬í•˜ê¸°ìœ„í•´
-		
-		PrintWriter out = res.getWriter();
-		out.print("1");
+		req.setAttribute("startDate", gp.getStartDate());
+		req.setAttribute("endTime", endTime);
+		req.setAttribute("address2", address2);//´ÙÀ½ °ü±¤Áö¿Í °Å¸®´Â ½Ã°£ ±¸ÇÏ±âÀ§ÇØ
+
+		return "newPlan";
 	}
 
-	//ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½
+	//ÀÏÁ¤¿Ï·á
 	@RequestMapping("/register")
 	public String register(HttpServletRequest req,HttpServletResponse res) {
 
-		System.out.println("reï¿½ï¿½ister ï¿½ï¿½ï¿½ï¿½");
+		System.out.println("re¤¾ister ½ÃÀÛ");
 		
 		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo"); 
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //¼¼¼Ç¿¡¼­ ·Î±×ÀÎÁ¤º¸°¡Á®¿À±â
 		
 		if(info.getInfoList()==null){
 			System.out.println("infolists is null");
@@ -220,25 +212,26 @@ public class PlanInfoController {
 			
 			HashMap<String, Object> hMap = (HashMap<String, Object>)it.next();
 			hMap.put("planNum", dao.planInfoMax()+1);
-			//hMap.put("groupNum", dao.planInfoGroupMax()+1);
+			//hMap.put("groupNum", dao.planInfoGroupMax()+1); //ÇÏ³ªÀÇ ÀÏÁ¤¿¡ groupNumÇÏ³ª¸¸ insertÇØ¾ß µÇ¼­ +1 ¾ÈÇØµµ µÉµí?
 			dao.planInfoInsertForhMap(hMap);
 			
 		}	
 		
 		listchk(lists);
-		session.removeAttribute("groupDate");
+		
+		session.removeAttribute("groupDate"); //»õ·Î¿î ÀÏÁ¤À» À§ÇØ session³»¿ë Å¬¸®¾î
 
 		return "planInfo";
 	}
 	
-	//ëª¨ë‹¬ì°½
+	//¸ğ´Ş
 	@RequestMapping("/planAdd")
 	public String planAdd(PlanDTO pdto,HttpServletRequest req,HttpServletResponse res) {
 
 		return "plan/planAdd";
 	}
 
-	//ëª¨ë‹¬ì°½
+	//¸ğ´Ş
 	@RequestMapping("/startPlace")
 	public String startPlace(String startDate,HttpServletRequest req,HttpServletResponse res) {
 
@@ -248,7 +241,7 @@ public class PlanInfoController {
 	}
 
 
-	//ê´€ê´‘ì¼ì •ì¶”ê°€
+	//°ü±¤ÀÏÁ¤Ãß°¡
 	@RequestMapping("/planOk")
 	public String planOk(PlanDTO pdto,String startDate,HttpServletRequest req,HttpServletResponse res) {
 
@@ -272,10 +265,8 @@ public class PlanInfoController {
 
 		return "newPlan";
 	}
-	
-	
-	//ë‚´ì¼ì •ë³´ê¸°
-	@RequestMapping("/myPlan")                                    
+
+	@RequestMapping("/myPlan")                                    //³»ÀÏÁ¤º¸±â
 	public String myPlan(HttpServletRequest req) {
 
 		int groupNum = 1;
@@ -287,112 +278,60 @@ public class PlanInfoController {
 		return "myPlan";
 	}
 
-/*	//ë‚´ì¼ì •ë³´ê¸°
-	@RequestMapping("/dayAdd")                                 
-	public String dayAdd(HttpServletRequest req){
-		
-		req.setAttribute("startDate", "2015-10-10");
-		return "plan/tiles/dayAdd";
-	}*/
-	@RequestMapping("/dayCal")                                 
-	public void dayCal(HttpServletRequest req, HttpServletResponse resp,String day1) throws IOException{
-
-		Calendar cal = Calendar.getInstance();
-			
-
-		String[] day= day1.split("-");
-		int nowYear =  Integer.parseInt(day[0]);
-		int nowMonth = Integer.parseInt(day[1]);
-		int nowDay = Integer.parseInt(day[2])+1;
-		
-		cal.set(nowYear, nowMonth-1, nowDay);
-		int endDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);//ë§ì¼
-		
-		if(nowDay==endDay){
-			
-			nowMonth ++;
-			nowDay=1;
-		}
-		
-		String nextDay=nowYear + "-"+nowMonth + "-"+ nowDay;
-		PrintWriter out = resp.getWriter();
-		out.print(nextDay);
-	}
-	//ë‚´ì¼ì •ë³´ê¸°
-	@RequestMapping("/myPlanTest")                                 
+	@RequestMapping("/myPlanTest")                                    //³»ÀÏÁ¤º¸±â
 	public String myPlanTest(HttpServletRequest req, HttpServletResponse res) throws ParseException, IOException {
 
 		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //¼¼¼Ç¿¡¼­ ·Î±×ÀÎÁ¤º¸°¡Á®¿À±â
 
 		ArrayList<HashMap<String, Object>> lists = info.getInfoList();
-		ArrayList<HashMap<String, Object>> lists2 = new ArrayList<HashMap<String,Object>>();
-		Object mapxex = null;
-		Object mapyex = null;
-		ListIterator<HashMap<String, Object>> it = lists.listIterator();
-		while(it.hasNext()){
-			
-			HashMap<String, Object> hMap = (HashMap<String, Object>)it.next();
-			if(mapxex!=null){
-			hMap.put("mapxex", mapxex);
-			hMap.put("mapyex", mapyex);
-			}
-			mapxex=hMap.get("mapx");
-			mapyex=hMap.get("mapy");
-			
-			lists2.add(hMap);
-			
-		}	
 
-		req.setAttribute("lists", lists2);
+		req.setAttribute("lists", lists);
 
-		listchk(lists2);
+		listchk(lists);
 
 		return "myPlanTest";
 	}
 
 
+	//------------------ÀÓ½ÃÀúÀå¼Ò°ü·Ã---------------------
 
-	//------------------ì„ì‹œì €ì¥ì†Œê´€ë ¨---------------------
 
-	public void insertInfoLists (HashMap<String, Object> hMap,HttpServletRequest req) {                   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ï³ï¿½ ï¿½Ş¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½ (ï¿½Î±ï¿½ï¿½Î¿ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½Ê¿ï¿½) 
+	public void insertInfoLists (HashMap<String, Object> hMap,HttpServletRequest req) {                   //ÀÏÁ¤Å×ÀÌºí ÇÏ³ª ¹Ş¾Æ¼­ ¸®½ºÆ®¿¡ Ãß°¡ (·Î±×ÀÎ¿¹¿ÜÃ³¸® ÇÊ¿ä) 
 
 		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //¼¼¼Ç¿¡¼­ ·Î±×ÀÎÁ¤º¸°¡Á®¿À±â
 
 		ArrayList<HashMap<String, Object>> lists;
 
-		if(info.getInfoList()==null){                                      
-			//ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•œì ì—†ìœ¼ë©´ ê°ì²´ ìƒˆë¡œí•˜ë‚˜ ë§Œë“¬.
-			lists = new  ArrayList<HashMap<String,Object>>();               
+		if(info.getInfoList()==null){                                        
+			lists = new  ArrayList<HashMap<String,Object>>();               //¸®½ºÆ® Ãß°¡ÇÑÀû¾øÀ¸¸é °´Ã¼ »õ·ÎÇÏ³ª ¸¸µë.
 			System.out.println("infolist is null");
 		}else{
 			lists = info.getInfoList();
 			System.out.println("not null");
 		}
 
-		lists.add(hMap);                                             
-		//ë¦¬ìŠ¤íŠ¸ì— ì¼ì •ì¶”ê°€
+		lists.add(hMap);                                             //¸®½ºÆ®¿¡ ÀÏÁ¤Ãß°¡
 
 		info.setInfoList(lists);
 
-		session.setAttribute("loginInfo", info);                      
-		//ì„¸ì…˜ì— ë¦¬ìŠ¤íŠ¸ ì˜¬ë¦¼
-		/*		PlanInfoListCompartor planComp = new PlanInfoListCompartor("order");               //ï¿½ï¿½ï¿½ï¿½...  ï¿½ï¿½ï¿½ PNï¿½ï¿½ï¿½ï¿½ ï¿½Øµï¿½ ï¿½Éµï¿½? ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ® ï¿½Ï·ï¿½.
+		session.setAttribute("loginInfo", info);                      //¼¼¼Ç¿¡ ¸®½ºÆ® ´ã¾Æ¿Ã¸²
+
+		/*		PlanInfoListCompartor planComp = new PlanInfoListCompartor("order");               //Á¤·Ä...  ¼ø¼­´Â PNÀ¸·Î ÇØµµ µÉµí? °Ë»öÁ¤·Ä Å×½ºÆ® ¿Ï·á.
 		Collections.sort(lists,planComp);*/
 
-		listchk(lists);                    //ë¦¬ìŠ¤íŠ¸ì•ˆí™•ì¸
+		listchk(lists);                                               //¸®½ºÆ®¾ÈÈ®ÀÎ
 
 		System.out.println("index:"+lists.indexOf(hMap));
-		System.out.println("ëª¨ë‘ì¶œë ¥:"+hMap);
-		System.out.println("-----------------êµ¬ë¶„ì„ ");
-      
+		System.out.println("¸ğµÎÃâ·Â:"+hMap);
+		System.out.println("-----------------±¸ºĞ¼±");
 
 	}
 
 
 /*	@RequestMapping("/forTest")
-	public String forTest (HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {                                                      //ï¿½ï¿½ï¿½×½ï¿½ï¿½ï¿½
+	public String forTest (HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {                                                      //°ÁÅ×½ºÆÃ
 
 		PlanInfoDTO adto = new PlanInfoDTO();
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
@@ -458,16 +397,16 @@ public class PlanInfoController {
 
 
 
-	public void listchk(List<HashMap<String, Object>> lists){                                                        //ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½Ã¼Å©
+	public void listchk(List<HashMap<String, Object>> lists){                                                        //¸®½ºÆ®³»¿ëÃ¼Å©
 		if(lists!=null){
 			Iterator<HashMap<String, Object>> it = lists.iterator();
 			HashMap<String, Object> dto = new HashMap<String, Object>();
-			System.out.println("--------------------------");
-			while(it.hasNext()){                                      //ë‚´ìš©ì²´í¬
+			System.out.println("¸®½ºÆ®½ÃÀÛ--------------------");
+			while(it.hasNext()){                                      //³»¿ëÃ¼Å©
 				dto = (HashMap<String, Object>)it.next();
 				System.out.println(dto);
 			}
-			System.out.println("--------------------------");
+			System.out.println("¸®½ºÆ®³¡--------------------");
 		}else {
 			System.out.println("lists is null");
 		}
@@ -475,7 +414,7 @@ public class PlanInfoController {
 
 
 
-	public class PlanInfoListCompartor implements Comparator<HashMap<String, Object>> {                        //listï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½Å¬ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ì¼±ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½.
+	public class PlanInfoListCompartor implements Comparator<HashMap<String, Object>> {                        //list°Ë»öÁ¤·ÄÀ§ÇÑ ÇÊ¿äÅ¬·¡½º(¿À¸§Â÷¼ø) ¿ì¼±ÀÎµ¦½º·Î.
 
 		private final String key;
 
@@ -491,14 +430,14 @@ public class PlanInfoController {
 		}
 	}
 
-	public void updatetInfoLists (HttpServletRequest req, String[] index) {               //ì„ì‹œì €ì¥ë¦¬ìŠ¤íŠ¸ ìˆ˜ì • ë©”ì†Œë“œ ì¸ë±ìŠ¤ë¡œ ìˆœì„œë°”ê¿ˆìš©
+	public void updatetInfoLists (HttpServletRequest req, String[] index) {               //ÀÓ½ÃÀúÀå¸®½ºÆ® ¼öÁ¤ ¸Ş¼Òµå ÀÎµ¦½º·Î ¼ø¼­¹Ù²Ş¿ë
 		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //ì„¸ì…˜ì—ì„œ ë¡œê·¸ì¸ì •ë³´ê°€ì ¸ì˜¤ê¸°
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //¼¼¼Ç¿¡¼­ ·Î±×ÀÎÁ¤º¸°¡Á®¿À±â
 
 		ArrayList<HashMap<String, Object>> lists;
 
 		if(info.getInfoList()==null){                                        
-			lists = new  ArrayList<HashMap<String,Object>>();               //ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•œì ì—†ìœ¼ë©´ ê°ì²´ ìƒˆë¡œí•˜ë‚˜ ë§Œë“¬.
+			lists = new  ArrayList<HashMap<String,Object>>();               //¸®½ºÆ® Ãß°¡ÇÑÀû¾øÀ¸¸é °´Ã¼ »õ·ÎÇÏ³ª ¸¸µë.
 			System.out.println("infolist is null");
 		}else{
 			lists = info.getInfoList();
@@ -523,26 +462,28 @@ public class PlanInfoController {
 
 		listchk(lists);        
 
-		session.setAttribute("loginInfo", info);                     
-		//ì„¸ì…˜ì— ë¦¬ìŠ¤íŠ¸ ë‹´ì•„ì˜¬ë¦¼
+		session.setAttribute("loginInfo", info);                      //¼¼¼Ç¿¡ ¸®½ºÆ® ´ã¾Æ¿Ã¸²
+
+
+
 	}
 
-	/*	public void updatetInfoLists (HttpServletRequest req, Integer index) {               //ï¿½Ó½ï¿½ï¿½ï¿½ï¿½å¸®ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	/*	public void updatetInfoLists (HttpServletRequest req, Integer index) {               //ÀÓ½ÃÀúÀå¸®½ºÆ® ¼öÁ¤ ¸Ş¼Òµå ¼öÁ¤Àü
 >>>>>>> 211f19208412f8b26c3618667448b32c6cd7d425
 		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //¼¼¼Ç¿¡¼­ ·Î±×ÀÎÁ¤º¸°¡Á®¿À±â
 
 		ArrayList<HashMap<String, Object>> lists;
 
 		if(info.getInfoList()==null){                                        
-			lists = new  ArrayList<HashMap<String,Object>>();               //ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½.
+			lists = new  ArrayList<HashMap<String,Object>>();               //¸®½ºÆ® Ãß°¡ÇÑÀû¾øÀ¸¸é °´Ã¼ »õ·ÎÇÏ³ª ¸¸µë.
 			System.out.println("infolist is null");
 		}else{
 <<<<<<< HEAD
 			lists = info.getInfoList();
 			System.out.println("not null");
 
-			int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ï±ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½îµµ ï¿½Ë»ï¿½ï¿½Ç°ï¿½ï¿½ï¿½                   ï¿½×½ï¿½Æ® ï¿½Ê¿ï¿½
+			int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //¿ÀºêÁ§Æ®´Ï±î Çüº¯È¯ÀÌ ¾ø¾îµµ °Ë»öµÇ°ÚÁö                   Å×½ºÆ® ÇÊ¿ä
 
 			HashMap<String, Object> hMap =lists.get(index);
 			hMap.put("planNum", dto.getPlanNum());
@@ -555,7 +496,7 @@ public class PlanInfoController {
 
 			lists.set(index, hMap);
 
-			session.setAttribute("loginInfo", info);                      //ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Æ¿Ã¸ï¿½
+			session.setAttribute("loginInfo", info);                      //¼¼¼Ç¿¡ ¸®½ºÆ® ´ã¾Æ¿Ã¸²
 
 		}
 
@@ -567,7 +508,7 @@ public class PlanInfoController {
 
 		HashMap<String, Object> hMap = lists.get(index)
 
-		int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ï±ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½îµµ ï¿½Ë»ï¿½ï¿½Ç°ï¿½ï¿½ï¿½                   ï¿½×½ï¿½Æ® ï¿½Ê¿ï¿½
+		int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //¿ÀºêÁ§Æ®´Ï±î Çüº¯È¯ÀÌ ¾ø¾îµµ °Ë»öµÇ°ÚÁö                   Å×½ºÆ® ÇÊ¿ä
 
 		HashMap<String, Object> hMap =lists.get(index);
 		hMap.put("planNum", dto.getPlanNum());
@@ -580,38 +521,37 @@ public class PlanInfoController {
 
 		lists.set(index, hMap);
 
-		session.setAttribute("loginInfo", info);                      //ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Æ¿Ã¸ï¿½
+		session.setAttribute("loginInfo", info);                      //¼¼¼Ç¿¡ ¸®½ºÆ® ´ã¾Æ¿Ã¸²
 
 		}
 
 	}*/
 
 	@RequestMapping("/deleteTemp")
-	public String deleteInfoLists (HttpServletRequest req, PlanInfoDTO dto, int index) {               //ï¿½Ó½ï¿½ï¿½ï¿½ï¿½å¸®ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼Òµï¿½
+	public String deleteInfoLists (HttpServletRequest req, PlanInfoDTO dto, int index) {               //ÀÓ½ÃÀúÀå¸®½ºÆ® »èÁ¦ ¸Ş¼Òµå
 		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //¼¼¼Ç¿¡¼­ ·Î±×ÀÎÁ¤º¸°¡Á®¿À±â
 
 		ArrayList<HashMap<String, Object>> lists;
 
 		if(info.getInfoList()==null){                                        
-			lists = new  ArrayList<HashMap<String,Object>>();               //ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•œì ì—†ìœ¼ë©´ ê°ì²´ ìƒˆë¡œí•˜ë‚˜ ë§Œë“¬.
+			lists = new  ArrayList<HashMap<String,Object>>();               //¸®½ºÆ® Ãß°¡ÇÑÀû¾øÀ¸¸é °´Ã¼ »õ·ÎÇÏ³ª ¸¸µë.
 			System.out.println("infolist is null and index:"+index);
 		}else{
 			lists = info.getInfoList();
 			System.out.println("not null");
 
-			//int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //ì˜¤ë¸Œì íŠ¸ë‹ˆê¹Œ String contentidë¡œ ê²€ìƒ‰ë ê¹Œ                   í…ŒìŠ¤íŠ¸ í•„ìš”
+			//int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //¿ÀºêÁ§Æ®´Ï±î String contentid·Î °Ë»öµÉ±î                   Å×½ºÆ® ÇÊ¿ä
 
 			lists.remove(index);
 
-			session.setAttribute("loginInfo", info);                      //ì„¸ì…˜ì— ë¦¬ìŠ¤íŠ¸ ë‹´ì•„ì˜¬ë¦¼
+			session.setAttribute("loginInfo", info);                      //¼¼¼Ç¿¡ ¸®½ºÆ® ´ã¾Æ¿Ã¸²
 		}
-
 
 		return "redirect:/myPlanTest";
 	}
 
-	int getPlanInfoMapIndex(ArrayList<HashMap<String, Object>> lists, String key,Object value){     //ê°’ìœ¼ë¡œ ê²€ìƒ‰í•´ì„œ indexë°˜í™˜ ì—†ì„ì‹œ -1ë°˜í™˜ ê°’ì´ ì—¬ëŸ¬ê°œì¸ê²ƒìœ¼ë¡œ ê²€ìƒ‰í•˜ë©´ ë§ˆì§€ë§‰ê²ƒë§Œ ë‚˜ì˜´
+	int getPlanInfoMapIndex(ArrayList<HashMap<String, Object>> lists, String key,Object value){         //°ªÀ¸·Î °Ë»öÇØ¼­ index¹İÈ¯ ¾øÀ»½Ã -1¹İÈ¯ °ªÀÌ ¿©·¯°³ÀÎ°ÍÀ¸·Î °Ë»öÇÏ¸é ¸¶Áö¸·°Í¸¸ ³ª¿È
 		int i = -1;
 		for (HashMap<String, Object> hMap : lists) {
 			for (String mapkey : hMap.keySet()) {
@@ -625,7 +565,7 @@ public class PlanInfoController {
 		return i;
 	}
 
-	public PlanInfoDTO getPlanInfoDTOfromContentID(HttpServletRequest req,HttpServletResponse res,Long contentid,String startDate) throws ParseException, IOException {                                       //ï¿½Ï´ï¿½ï¿½ï¿½ article.actionï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ contentid  -> apiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ adtoï¿½Î¹ï¿½È¯
+	public PlanInfoDTO getPlanInfoDTOfromContentID(HttpServletRequest req,HttpServletResponse res,Long contentid,String startDate) throws ParseException, IOException {                                       //ÇÏ´ÃÀÌ article.action¼öÁ¤ÇØ¼­ contentid  -> apiÁ¤º¸¹İÈ¯¸¸µë adto·Î¹İÈ¯
 
 		PlanInfoDTO adto = new PlanInfoDTO();
 		System.out.println(contentid);
@@ -663,7 +603,7 @@ public class PlanInfoController {
 	}
 
 	@RequestMapping("/orderUpdate")
-	public void orderUpdate(HttpServletRequest req,HttpServletResponse res, String[] sortable_item) {             //í•˜ëŠ˜ì´ê°€ì¤€ê±° ë“œë˜ê·¸ì•¤ ë“œë.. ê·¼ë° ì‚¬ë¼ì§?;
+	public void orderUpdate(HttpServletRequest req,HttpServletResponse res, String[] sortable_item) {             //ÇÏ´ÃÀÌ°¡ÁØ°Å µå·¡±×¾Ø µå¶ø.. ±Ùµ¥ »ç¶óÁü?;
 
 		for(String value : sortable_item){
 			System.out.println(value);
@@ -672,8 +612,6 @@ public class PlanInfoController {
 		System.out.println(sortable_item.length);
 
 	}
-	
-	
 }
 
 
