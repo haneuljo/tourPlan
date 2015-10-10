@@ -53,6 +53,45 @@
    			 <div id="map" style="width: 300px;height: 300px;float: right;"></div> -->
 	</div>
 	
+<script>
+					function initMap() {
+						  alert("1");
+						  var directionsDisplay = new google.maps.DirectionsRenderer;
+						  var directionsService = new google.maps.DirectionsService;
+						  
+						  var geocoder = new google.maps.Geocoder(); 
+						  
+						  var tmap = new google.maps.Map({
+						  });
+						  <c:forEach var="map" items="${lists}" varStatus="status">
+						  calculateAndDisplayRoute${status.index}(directionsService, directionsDisplay);
+						  </c:forEach>
+						}
+					  
+					  <c:forEach var="map" items="${lists}" varStatus="status">
+					function calculateAndDisplayRoute${status.index}(directionsService, directionsDisplay) {            //대중교통길찾기
+						  directionsService.route({
+						    origin: {${map.mapy},${map.mapx}},
+						    destination: {${map.mapyex},${map.mapxex}},
+						    travelMode: google.maps.TravelMode.TRANSIT       //모드는 차량, 도보, 대중교통, 자전거 등이있음 TRANSIT은 대중교통
+						  }, function(response, status) {          //성공시 response json형태의 정보를 받음. 
+						    if (status === google.maps.DirectionsStatus.OK) {
+						        var point = response.routes[0].legs[0];
+						        $( '#travel_data${status.index}' ).html( '이동시간: ' + point.duration.text + ' (' + point.distance.text + ')' );
+						        alert("11");
+						    } else {
+						      window.alert('Directions request failed due to ' + status);
+						    }
+						  });
+						}
+					</c:forEach>
+					
+					</script>
+	
+		
+			<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"
+		async defer></script>
 
 	
 	<!-- Example jQuery code (JavaScript)  -->
