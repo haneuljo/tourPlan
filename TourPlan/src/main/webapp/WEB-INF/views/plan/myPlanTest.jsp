@@ -8,7 +8,6 @@
 <script type="text/javascript" src="<%=cp%>/resources/dragJS/jquery-ui-1.8.custom.min.js"></script>
 					
 	<div id="example-1-1">
-	<div id="map"></div>
 		<div class="sortable-list" style="width: 450;float: left;">
 			
  			<c:forEach var="map" items="${lists}" varStatus="status">
@@ -59,7 +58,7 @@
 						  
 						  var geocoder = new google.maps.Geocoder(); 
 						  
-						  var map = new google.maps.Map({
+						  var tmap = new google.maps.Map({
 						  });
 						  <c:forEach var="map" items="${lists}" varStatus="status">
 						  calculateAndDisplayRoute${status.index}(directionsService, directionsDisplay);
