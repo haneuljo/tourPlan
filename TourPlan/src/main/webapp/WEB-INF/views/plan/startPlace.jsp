@@ -11,11 +11,19 @@
 	var directionsService = new google.maps.DirectionsService;
 	
 	var geocoder = new google.maps.Geocoder();
-	 
+//---------------------추가-------------------------------
+	var hour;
+	var min;
+	//var time;
+	var start = new Date();
+//---------------------추가-------------------------------
+	
+	//var time=(hour*3600)+(min*60);
 	 directionsDisplay.setPanel(document.getElementById('rootList'));
 	 document.getElementById('submit1').addEventListener('click', function() {               //출발지
 	     address1 = document.getElementById('address1').value;
 	     //alert(address1);
+	     //alert(start);
 	     geocodeAddress(geocoder, map, address1);
 	  });
 	  document.getElementById('submit2').addEventListener('click', function() {                //도착지
@@ -29,13 +37,14 @@
 
 	  var durTime
 function calculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2) {            //대중교통길찾기
+		//alert(time);
 	  directionsService.route({
 		  
 	    origin: address1,
 	    destination: address2,
-	/*     transitOptions:{
-	    	departureTime:new Date(1337675679473),
-	    }, */
+    	transitOptions:{
+	    	departureTime: start   //----------------------------여기 수정
+	    },
 	    travelMode: google.maps.TravelMode.TRANSIT
 	    
 	  }, function(response, status) {
@@ -44,7 +53,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, address1
 	    	
 	    	
 	      directionsDisplay.setDirections(response);
-	      alert(response.routes[0].legs[0].duration.value);
+	     // alert(response.routes[0].legs[0].duration.value);
 	      durTime = response.routes[0].legs[0].duration.value;
 
 	      
@@ -53,7 +62,28 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, address1
 	    }
 	  });
 }
-
+//-----------------------추가----------------------------
+	  $(document).ready(function(){
+			
+			$("#hour").change(function(){
+				//alert($("#hour").val());
+				hour = $("#hour").val();
+				start.setHours(hour);
+			});
+			
+			$("#min").change(function(){
+				
+				//alert($("#min").val());
+				min = $("#min").val();
+				start.setMinutes(min);
+				//time = hour*3600+min*60;
+				//alert(time);
+			});
+				
+		
+		});
+//여기서 select부분에 id해줘야함
+//------------------------추가-------------------------	  
 function startPut(){
 	//alert(durTime)
 	var f = document.myForm;
@@ -76,12 +106,12 @@ function startPut(){
           <form name="myForm" action="" method="post">
             <div class="form-group">
               <label for="startDate"><span class="glyphicon glyphicon-eye-open"></span> 출발시간</label>
-              <select name="hour">
+              <select id="hour" name="hour">
               <c:forEach var="i" begin="0" end="24" step="1">
               	<option value="${i}">${i}</option>
               </c:forEach>
               </select>시
-                <select name="min">
+                <select id="min" name="min">
               <c:forEach var="i" begin="0" end="50" step="10">
               	<option value="${i}">${i}</option>
               </c:forEach>

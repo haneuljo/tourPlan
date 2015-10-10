@@ -212,13 +212,14 @@ public class PlanInfoController {
 			
 			HashMap<String, Object> hMap = (HashMap<String, Object>)it.next();
 			hMap.put("planNum", dao.planInfoMax()+1);
-			//hMap.put("groupNum", dao.planInfoGroupMax()+1);
+			//hMap.put("groupNum", dao.planInfoGroupMax()+1); //하나의 일정에 groupNum하나만 insert해야 되서 +1 안해도 될듯?
 			dao.planInfoInsertForhMap(hMap);
 			
 		}	
 		
 		listchk(lists);
-		session.removeAttribute("groupDate");
+		
+		session.removeAttribute("groupDate"); //새로운 일정을 위해 session내용 클리어
 
 		return "planInfo";
 	}
