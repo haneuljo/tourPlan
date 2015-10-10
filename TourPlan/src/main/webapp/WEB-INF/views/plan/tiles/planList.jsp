@@ -51,7 +51,7 @@
 </script>
 	<div style="border:1px solid; float:left">
 		<button id="startSelectBtn">출발지선택</button>
-		<div id="result"></div>
+		<div id="planList"></div>
 	</div>
 	<div style="border:1px solid; float:left">
 		<div id="areaList"></div>

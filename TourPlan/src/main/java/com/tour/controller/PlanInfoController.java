@@ -155,7 +155,7 @@ public class PlanInfoController {
 	}*/
 
 	@RequestMapping("/startPut")
-	public String startPut(PlanInfoDTO pdto,int durTime,int hour,int min,String address1,String address2,HttpServletRequest req,HttpServletResponse res, Integer contentid) {
+	public void startPut(PlanInfoDTO pdto,int durTime,int hour,int min,String address1,String address2,HttpServletRequest req,HttpServletResponse res, Integer contentid) throws IOException {
 
 		HttpSession session = req.getSession();
 		GroupSession gp = (GroupSession) session.getAttribute("groupDate");
@@ -189,11 +189,13 @@ public class PlanInfoController {
 		//System.out.println(durTime);
 		//System.out.println(durTime);
 		//req.setAttribute("durTime", durTime);
-		req.setAttribute("startDate", gp.getStartDate());
-		req.setAttribute("endTime", endTime);
-		req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
-
-		return "newPlan";
+		
+		//req.setAttribute("startDate", gp.getStartDate());
+		//req.setAttribute("endTime", endTime);
+		//req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
+		
+		PrintWriter out = res.getWriter();
+		out.print("1");
 	}
 
 	//�����Ϸ�
