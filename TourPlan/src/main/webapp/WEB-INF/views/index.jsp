@@ -12,18 +12,4 @@
 	  4. 회의때 제발 집중할것 !!!!!다 회의때랑 공지사항에 말한거잖아요 !!!!!!!! 나굉장히 두번일하는거안좋아함..
   </font>
   </h3>
-  
-  <div class="container">
-	<div class="day">
-		day1
-	</div>
-	<div class="day">
-		day2
-	</div>
-	<div class="day">
-		day3
-	</div>
-	<button>일정추가</button>
-
-</div>
 </div>

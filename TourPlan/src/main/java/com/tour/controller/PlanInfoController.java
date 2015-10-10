@@ -1,7 +1,9 @@
 package com.tour.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -283,6 +285,37 @@ public class PlanInfoController {
 		return "myPlan";
 	}
 
+/*	//내일정보기
+	@RequestMapping("/dayAdd")                                 
+	public String dayAdd(HttpServletRequest req){
+		
+		req.setAttribute("startDate", "2015-10-10");
+		return "plan/tiles/dayAdd";
+	}*/
+	@RequestMapping("/dayCal")                                 
+	public void dayCal(HttpServletRequest req, HttpServletResponse resp,String day1) throws IOException{
+
+		Calendar cal = Calendar.getInstance();
+			
+
+		String[] day= day1.split("-");
+		int nowYear =  Integer.parseInt(day[0]);
+		int nowMonth = Integer.parseInt(day[1]);
+		int nowDay = Integer.parseInt(day[2])+1;
+		
+		cal.set(nowYear, nowMonth-1, nowDay);
+		int endDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);//말일
+		
+		if(nowDay==endDay){
+			
+			nowMonth ++;
+			nowDay=1;
+		}
+		
+		String nextDay=nowYear + "-"+nowMonth + "-"+ nowDay;
+		PrintWriter out = resp.getWriter();
+		out.print(nextDay);
+	}
 	//내일정보기
 	@RequestMapping("/myPlanTest")                                 
 	public String myPlanTest(HttpServletRequest req, HttpServletResponse res) throws ParseException, IOException {
