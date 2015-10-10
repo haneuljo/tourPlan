@@ -4,52 +4,55 @@
 	String cp = request.getContextPath();
 %>
 
-<script>
+		
+	<script>
 	$(function(){
-		 $.ajax({
-			  type:"GET",
-			  url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&numOfRows=17&MobileOS=ETC&MobileApp=AppTesting&_type=json",
-			  dataType:"json",
-			  success:function(data){	
-				$('#selectArea').empty();
-				$("#selectArea").append('<option value="0">선택</option>');
-				for(i=0;i<data.response.body.items.item.length;i++){	
-					$("#selectArea").append('<option value="'+data.response.body.items.item[i].code+'">'+data.response.body.items.item[i].name+'</option>')
-				}
-			},error:function(e){}
-		  });
-		  $("#selectArea").change(function(){
-			  areaCode=$("#selectArea option:selected").val();
-			  //지역별로 시구군 코드가 다르므로 !!! numOfRows check할것
-			  $.ajax({
-				type:"GET",
-				url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?ServiceKey=sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D&areaCode="+areaCode+"&MobileOS=ETC&MobileApp=AppTesting",
-				dataType:"json",		
-				success:function(data){
-					$('#selectSubArea').empty();
-					$("#selectSubArea").append('<option value="0">선택</option>');
-					for(i=0;i<data.response.body.items.item.length;i++){	
-						$("#selectSubArea").append('<option value="'+data.response.body.items.item[i].code+'">'+data.response.body.items.item[i].name+'</option>')
-					}
-				},error:function(e){}
-			});
+	$("#areaList").hide();
+	 $.ajax({
+		  type:"GET",
+		  url:"<%=cp%>/areaCodeAPI",
+		  dataType:"json",
+		  success:function(data){	
+			for(i=0;i<data.response.body.items.item.length;i++){	
+				$("#areaList").append('<div class="planList_area">'+data.response.body.items.item[i].name+'<Button class="planList_btn" data="'+data.response.body.items.item[i].code+'">+</Button></div>')
+			}
+			 
+			 $(".planList_btn").click(function(){
+				 areaCode=$(this).attr('data');
+				// alert(areaCode);
+		 		 markerMap();
+			 });
+		},error:function(e){}
+	  });
+
+	$("#startSelectBtn").click(function(){
+    	$.ajax({
+			type:"GET",
+			url:"<%=cp%>/startPlace?startDate=" + '${startDate}',
+			dataType:"html",		
+			success:function(data){
+				$("#myModal").html(data);
+				//alert(data);
+				$("#myModal").modal();
+				
+				$("#areaList").show();
+				
+			},
+			error:function(e){11
+				alert("1111111111"+e.responseText);
+			}
+			
 		});
-		/* $("#selectSubArea").change(function(){
-			sigunguCode=$("#selectSubArea option:selected").val();
-		}); */
-	});
+        
+    });
+
+		 
+ });
 </script>
-<div style="border:1px solid; float:left">일정이 들어갈 부분
-	
-		<div id="result"></div>
+	<div style="border:1px solid; float:left">
+		<button id="startSelectBtn">출발지선택</button>
+		<div id="planList"></div>
 	</div>
 	<div style="border:1px solid; float:left">
-		지역 :
-		<button id="startsel">출발지선택</button>
-	<select id="selectArea" style="width: 116px;">
-		<option value="0">선택</option>
-	</select>
-		<button id="btn">검색</button>
-			
+		<div id="areaList"></div>
 	</div>
-	
