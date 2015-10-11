@@ -90,8 +90,7 @@ public class PlanInfoController {
 		 longTime : 0 관광광지에서 머무르는 시간으로 바뀔때마다 update해야함
 		 contentid : contentid
 		 contenttypeid : 관광지타입
-<<<<<<< HEAD
-		 
+
 		hMap.put("order", 4);  //이부분은 멀 넣어야할지????
 		hMap.put("groupNum", gp.getGroupNum());
 		hMap.put("contentid", contentid);
@@ -136,19 +135,7 @@ public class PlanInfoController {
 
 		//return "plan/newplan";
 	}
-	/*@ResponseBody
-	public ResponseEntity<String> choice(HttpServletRequest req,HttpServletResponse res, Integer contentid,Integer areaCode) throws IOException{
-
-		System.out.println(areaCode);
-		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList ?listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&_type=json&numOfRows=30&ServiceKey="
-				+ tourAPIKey
-				+ "&areaCode="+areaCode;
-				//+ "&contentid="+contentid;
-
-		JSONResponseUtil util = new JSONResponseUtil();
-
-		return util.getJSONResponse(res, url);
-	}*/
+	
 	
 	@RequestMapping("/dayCal")                                 
 	public void dayCal(HttpServletRequest req, HttpServletResponse resp,String day1) throws IOException{
@@ -210,6 +197,7 @@ public class PlanInfoController {
 		//System.out.println(durTime);
 		//System.out.println(durTime);
 		//req.setAttribute("durTime", durTime);
+		
 		//req.setAttribute("startDate", gp.getStartDate());
 		//req.setAttribute("endTime", endTime);
 		//req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해

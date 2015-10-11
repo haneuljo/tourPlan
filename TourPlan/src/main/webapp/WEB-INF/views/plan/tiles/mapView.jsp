@@ -5,7 +5,7 @@
 %>
 <div>
 	
-	<div id="map" style="height: 80%; width:600px;"></div>	
+	<div id="map" style="height: 80%; width:100%;"></div>	
 	
 </div>
 
