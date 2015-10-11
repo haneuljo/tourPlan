@@ -102,7 +102,7 @@ function startPut(){
 			  //req.setAttribute("endTime", endTime);
 			  //req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
 			  if(endTime!=null){
-				$("#planList").append('<div class="startPlace">'+address1+'→'+address2+'</div><input type="text" id="endTime" value="'+endTime+'">');
+				$("#planList").append('<div class="startPlace"><span>'+address1+'</span>→<span>'+address2+'</span></div><input type="text" id="endTime" value="'+endTime+'">');
 				
 				$("#myModal").modal("hide");
 			  }

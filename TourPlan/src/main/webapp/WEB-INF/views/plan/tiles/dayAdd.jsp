@@ -19,8 +19,8 @@
 		</div>
 	</div>
 	<div class="dayBtnDiv">
-		<button id="dayDelete" class="dayAddBtn">삭제</button>
 		<button id="dayAdd" class="dayAddBtn">추가</button>
+		<button id="dayDelete" class="dayAddBtn">삭제</button>
 	</div>
 </div>
 	<script>

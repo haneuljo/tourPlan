@@ -12,7 +12,36 @@
 			<button id="startSelectBtn">출발지선택</button>
 		</div>
 		<div id="planList">
-			<div id="result"></div>
+			<div class="startPlace">
+				<span>강남역</span> → <span>영등포</span> 30분
+			</div>
+			<div id="result">
+				<div id="sortable_item-${status.index}" onprogress="initMap(${map.mapx},${map.mapy});">
+					<div class="sortable-item">
+					<div style="float: left;"><img style="width:60px; height:60px" alt="" src="${map.firstimage }"></div>
+				 	<div> <h3>경복궁</h3></div>
+	 				<div> ${map.addr1} ${map.addr2 }</div>
+	 				<div class="btn-group">
+	 				<select id="lonTime${status.index}">
+	 					<option value="0">0</option>
+	 					<option value="30">30분</option>
+	 					<option value="60">1시간</option>
+	 					<option value="90">1시간30분</option>
+	 					<option value="120">2시간</option>
+	 					<option value="150">2시간30분</option>
+	 					<option value="180">3시간</option>
+	 				</select>
+					   <button type="button" class="btn btn-primary">수정//${map.mapx}</button>
+					   <button id="deleteTemp" type="button" class="btn btn-primary deleteTemp" data="${status.index}">삭제</button>
+					</div>
+					</div>
+				</div>
+				
+				<div id="travel_data${status.index}" class="travel_data">
+						교통 text				
+				</div>
+				
+			</div>
 		</div>
 	</div>
 	<div class="listDiv" style="border:1px solid #ccc;">
