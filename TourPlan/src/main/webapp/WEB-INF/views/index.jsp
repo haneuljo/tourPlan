@@ -3,14 +3,12 @@
 <div class="area_top">
 </div>
 <div class="container">
-  <h3>
-  1. 주소뒤에 action 쓰지마세요 <br>
-  2. 두번째 단어는 무조건 대문자 !!!!!!!!!!! 진짜 기술면접가면 변수 네임 정하는거 중요 ★  <br>
-  3. tiles 사용했으니 modal까지 복사 X <br>
-  하지만 각자의 코딩은 div class 컨테이너 안에 !!!!div 태그만 쓸것<br>
-  필요한 자바스크립트나, css 등 import도 그 페이지에서 할것 <br>
-  <font color="red">
-	  4. 회의때 제발 집중할것 !!!!!다 회의때랑 공지사항에 말한거잖아요 !!!!!!!! 나굉장히 두번일하는거안좋아함..
-  </font>
+  <h3> 혜란언니 : footer에 Copyright ⓒ 2015 TourPlan, All Rights Reserved. , 구글 공공데이터 써주기
+  색상 : #006583 <br>
+  래경언니 : travelMain 디자인  <br>
+  태훈오빠 : Main - session 체크해서 메인이랑, 로그인하고나서 디자인 & header<br>
+  상훈오빠 : 일정 세부목록 select <br>
+  종우오빠 : 기능먼저 하고 상훈오빠랑 select <br>
+  
   </h3>
 </div>
