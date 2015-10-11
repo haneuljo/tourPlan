@@ -7,8 +7,8 @@
 var address1;
 var address2;
 
-var directionsDisplay = new google.maps.DirectionsRenderer;
-var directionsService = new google.maps.DirectionsService;
+/* var directionsDisplay = new google.maps.DirectionsRenderer;
+var directionsService = new google.maps.DirectionsService; */
 
 var geocoder = new google.maps.Geocoder();
 var hour;
@@ -31,11 +31,11 @@ var start = new Date();
   }); 
 
   document.getElementById('Gdirection').addEventListener('click', function() {              //길찾기
-     calculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2); 
+	  startcalculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2); 
   }); 
 
   var durTime;
-function calculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2) {            //대중교통길찾기
+function startcalculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2) {            //대중교통길찾기
   // alert(time);
   directionsService.route({
      
@@ -94,14 +94,16 @@ function startPut(){
 		  data : f,
 		  contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 		  dataType:"text",
-		  success:function(data){	
+		  success:function(endTime){
+			  
 			  //alert(data);
 			  
 			  //req.setAttribute("startDate", gp.getStartDate());
 			  //req.setAttribute("endTime", endTime);
 			  //req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
-			  if(data==1){
-				$("#planList").append('<div class="startPlace">'+address1+'→'+address2+'</div>')
+			  if(endTime!=null){
+				$("#planList").append('<div class="startPlace">'+address1+'→'+address2+'</div><input type="text" id="endTime" value="'+endTime+'">');
+				
 				$("#myModal").modal("hide");
 			  }
 		},error:function(e){}

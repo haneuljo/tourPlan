@@ -32,14 +32,15 @@
 					</div>
 					<input type="hidden" name="planNum" value="${map.planNum }">
 					<input type="hidden" name="groupNum" value="${map.groupNum }">
-					<input type=""text"" name="contentid" value="${map.contentid }contentid">
-					<input type=""text"" name="contenttypeid" value="${map.contenttypeid }contenttypeid">
-					<input type=""text"" name="longTime" value="${map.longTime }longtime">
-					<input type=""text"" name="content" value="${map.content }content">
-					<input type=""text"" name="startDate" value="${map.startDate }startDate">
+					<input type="text" name="contentid" value="${map.contentid }contentid">
+					<input type="text" name="contenttypeid" value="${map.contenttypeid }contenttypeid">
+					<input type="text" name="longTime" value="${map.longTime }longtime">
+					<input type="text" name="content" value="${map.content }content">
+					<input type="text" name="startDate" value="${map.startDate }startDate">
 				</div>
 				
 				<div id="travel_data${status.index}"></div>
+
 
 			</c:forEach>
 			
@@ -56,19 +57,11 @@
 	</div>
 	
 <script>
-					function initMap() {
-						alert("1");
-						  var directionsDisplay = new google.maps.DirectionsRenderer;
-						  var directionsService = new google.maps.DirectionsService;
-						  
-						  var geocoder = new google.maps.Geocoder(); 
-						  
-						  var tmap = new google.maps.Map({
-						  });
+
+				
 						  <c:forEach var="map" items="${lists}" varStatus="status">
 						  calculateAndDisplayRoute(directionsService, directionsDisplay, '${status.index}');
 						  </c:forEach>
-						}
 			  
 				 	function calculateAndDisplayRoute(directionsService, directionsDisplay, index) {            //대중교통길찾기
 					  <c:forEach var="map" items="${lists}" varStatus="status">
@@ -94,9 +87,9 @@
 					</script>
 	
 		
-			<script
+	<!-- 		<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"
-		async defer></script>
+		async defer></script> -->
 
 	
 	<!-- Example jQuery code (JavaScript)  -->
@@ -104,7 +97,6 @@
 		<script type="text/javascript">
 
 		$(document).ready(function(){                                                                    //드래그앤 드랍 및 순서 업데이트
-			
 			
 			$(".deleteTemp").click(function(){
 				var del_index = $(this).attr("data");
@@ -124,8 +116,6 @@
 				
 			});
 
-		        
-			
 		
 		
 			$('#example-1-1 .sortable-list').sortable({

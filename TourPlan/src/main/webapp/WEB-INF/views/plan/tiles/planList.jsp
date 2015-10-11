@@ -11,7 +11,9 @@
 		<div class="planListBtn">
 			<button id="startSelectBtn">출발지선택</button>
 		</div>
-		<div id="planList"></div>
+		<div id="planList">
+			<div id="result"></div>
+		</div>
 	</div>
 	<div class="listDiv" style="border:1px solid #ccc;">
 		<div id="areaList"></div>
@@ -35,9 +37,9 @@
 				$("#areaList").append('<div class="planList_area"><span class="area_name">'+data.response.body.items.item[i].name+'</span><Button class="areaListBtn" data="'+data.response.body.items.item[i].code+'">+</Button></div>')
 			}
 			 
-			 $(".planList_btn").click(function(){
+			 $(".areaListBtn").click(function(){
 				 areaCode=$(this).attr('data');
-				// alert(areaCode);
+				//alert(areaCode);
 		 		 markerMap();
 			 });
 		},error:function(e){}

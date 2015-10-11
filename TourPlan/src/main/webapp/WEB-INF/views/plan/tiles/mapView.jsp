@@ -86,27 +86,15 @@
 			  });
 			  marker.addListener('click', function() {
 			    infowindow.open(marker.get('map'), marker);
-			    var mapx= $("#mapx").val();
+			 /*    var mapx= $("#mapx").val();
 				var mapy= $("#mapy").val();
 				var itemsXY = new google.maps.LatLng(mapy,mapx);
-				calculateAndDisplayRoute(directionsService, directionsDisplay, address1, itemsXY);
+				calculateAndDisplayRoute(directionsService, directionsDisplay, address1, itemsXY); */
 			  
 			  });
 				  
 			}
 				
-			//json key값 있는지 판단
-			function keyFind(obj, key){
-				var chk=false;
-				for (var j in obj) {
-					if (!obj.hasOwnProperty(key)){
-						chk=true;
-						break;
-					}
-				}
-			return chk;
-					
-		}
 				
 			function register(){
 				
@@ -116,50 +104,22 @@
 				f.submit();
 			}
 
-
-	var address1="${address2}";
-	var address2;
-	
-
-	var durTime;
-	function calculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2) {            //대중교통길찾기
-	  directionsService.route({
-		  
-	    origin: address1,
-	    destination: address2,
-	/*     transitOptions:{
-	    	departureTime:new Date(1337675679473),
-	    }, */
-	    travelMode: google.maps.TravelMode.TRANSIT
-	    
-	  }, function(response, status) {
-		  
-	    if (status === google.maps.DirectionsStatus.OK) {
-	    	
-	    	
-	      directionsDisplay.setDirections(response);
-	     // alert("소요2:"+response.routes[0].legs[0].duration.value);
-	      durTime = response.routes[0].legs[0].duration.value;
-	      //choice();
-	      
-	    } else {
-	      window.alert('Directions request failed due to ' + status);
-	    }
-	  });
-}
 	
 	// var buffer = new Array();
 	 //  var chk = 0;
 	   function choice(){
 	      // alert($("#contentid").val());
 	      // buffer.push($("#contentid").val());
+	      var endTime = $("#endTime").val();
+	      alert(endTime);
 	       $.ajax({
 	            type:"POST",
 	            url:"<%=cp%>/choice",
-	            data:"contentid=" + $("#contentid").val()+"&durTime="+durTime+"&endTime="+'${endTime}',
+	            dataType:"html",
+	            data:"contentid=" + $("#contentid").val()+"&durTime="+durTime+"&endTime="+endTime,
 	            success:function(args){
 	               $("#result").html(args);
-	               alert(args);
+	               //alert(args);
 	            },
 	            error:function(e){
 	               alert(e.responseText);

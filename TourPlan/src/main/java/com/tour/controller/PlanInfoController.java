@@ -1,7 +1,9 @@
 package com.tour.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -147,9 +149,34 @@ public class PlanInfoController {
 
 		return util.getJSONResponse(res, url);
 	}*/
+	
+	@RequestMapping("/dayCal")                                 
+	public void dayCal(HttpServletRequest req, HttpServletResponse resp,String day1) throws IOException{
+
+		Calendar cal = Calendar.getInstance();
+			
+
+		String[] day= day1.split("-");
+		int nowYear =  Integer.parseInt(day[0]);
+		int nowMonth = Integer.parseInt(day[1]);
+		int nowDay = Integer.parseInt(day[2])+1;
+		
+		cal.set(nowYear, nowMonth-1, nowDay);
+		int endDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);//留먯씪
+		
+		if(nowDay==endDay){
+			
+			nowMonth ++;
+			nowDay=1;
+		}
+		
+		String nextDay=nowYear + "-"+nowMonth + "-"+ nowDay;
+		PrintWriter out = resp.getWriter();
+		out.print(nextDay);
+	}
 
 	@RequestMapping("/startPut")
-	public String startPut(PlanInfoDTO pdto,int durTime,int hour,int min,String address1,String address2,HttpServletRequest req,HttpServletResponse res, Integer contentid) {
+	public void startPut(PlanInfoDTO pdto,int durTime,int hour,int min,String address1,String address2,HttpServletRequest req,HttpServletResponse res, Integer contentid) throws IOException {
 
 		HttpSession session = req.getSession();
 		GroupSession gp = (GroupSession) session.getAttribute("groupDate");
@@ -183,11 +210,12 @@ public class PlanInfoController {
 		//System.out.println(durTime);
 		//System.out.println(durTime);
 		//req.setAttribute("durTime", durTime);
-		req.setAttribute("startDate", gp.getStartDate());
-		req.setAttribute("endTime", endTime);
-		req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
+		//req.setAttribute("startDate", gp.getStartDate());
+		//req.setAttribute("endTime", endTime);
+		//req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
 
-		return "newPlan";
+		PrintWriter out = res.getWriter();
+		out.print(endTime);
 	}
 
 	//일정완료
@@ -290,7 +318,7 @@ public class PlanInfoController {
 
 		listchk(lists);
 
-		return "myPlanTest";
+		return "plan/myPlanTest";
 	}
 
 
