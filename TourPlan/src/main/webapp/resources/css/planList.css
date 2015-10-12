@@ -23,7 +23,7 @@
 	height: 90%;	
 }
 .dayAdd{
-	background-color: #00001E;
+	background-color: #006583;
 	color:#fff;
 	height: 85%;
 	width: 100%;
@@ -54,6 +54,7 @@
 	background: #A6A6A6;
 	
 }
+
 .planListBtn Button{
 	
 	width: 45%;
@@ -61,10 +62,13 @@
 	padding:2%;
 	float:left;
 	border:1px solid #fff;
-	background-color: #2F9D27;
+	background-color: #B3A197;
 }
 .planListBtn{
-	height: 12%;
+	height: 6.5%;
+}
+#startDurTime{
+	font-size:9pt;
 }
 #areaList{
 	color:black;
@@ -93,20 +97,60 @@
 	padding-top:4%;
 	padding-bottom:4%;
 	padding-left:25%;
+	border : 1px solid #fff;
+	
+}
+
+/* 정렬부분 */
+
+.sortable-item{
+	padding-top:2%;
+	padding-bottom:2%;
+	padding-left:4%;
 	border : 1px solid #ccc;
+	height: 14%;
+}
+.sortContent{
+	float:left;
+	width: 70%;
+	margin-left:5%;
 	
 }
 .startPlace span{
 	font-size : 15pt;
 	
 }
-.sortable-item{
-	padding-top:2%;
-	padding-bottom:2%;
-	padding-left:5%;
-	border : 1px solid #ccc;
+.sortItem_firstImg{
+	float:left;
+}
+.sortItem_firstImg img{
+	width: 60px;
+	height: 60px;
+	
+}
+.sortItem_title span{
+	font-size:13pt;
+}
+
+.sortItem_addr span{
+	font-size:9pt;
+}
+
+.sortItem_time{
+	float:left;
+	width: 40%;
+	height: 40%;
+	margin-top:2%;
+}
+.sortBtnGroup{
+	margin-top:2%;
+	float:right;
+}
+.sortBtn{
+	margin-top:2%;
 }
 .travel_data{
 	
 	font-size : 9pt;
+	padding: 2%;
 }
