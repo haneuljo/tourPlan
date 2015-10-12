@@ -435,7 +435,7 @@ public class PlanInfoController {
 		}
 	}
 
-	public void updatetInfoLists (HttpServletRequest req, String[] index) {               //占쌈쏙옙占쏙옙占썲리占쏙옙트 占쏙옙占쏙옙 占쌨소듸옙 占싸듸옙占쏙옙占쏙옙 占쏙옙侮乍占�
+	public void updateInfoLists (HttpServletRequest req, String[] index) {               //占쌈쏙옙占쏙옙占썲리占쏙옙트 占쏙옙占쏙옙 占쌨소듸옙 占싸듸옙占쏙옙占쏙옙 占쏙옙侮乍占�
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //占쏙옙占실울옙占쏙옙 占싸깍옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙
 
@@ -456,16 +456,13 @@ public class PlanInfoController {
 		for(int i = 0;i<index.length;i++) {
 
 			int index2 = Integer.parseInt(index[i]);
-			System.out.println(index[i]+"->"+i);
+			System.out.println(index2+"->"+i);
 			HashMap<String, Object> hMap = lists.get(index2);
-			System.out.println(hMap);
-
-			System.out.println(hMap);
 			lists2.add(hMap);	
 		}
 		info.setInfoList(lists2);
 
-		listchk(lists);        
+		listchk(lists2);        
 
 		session.setAttribute("loginInfo", info);                      //占쏙옙占실울옙 占쏙옙占쏙옙트 占쏙옙틸첩占�
 
@@ -583,14 +580,16 @@ public class PlanInfoController {
 	}
 
 	@RequestMapping("/orderUpdate")
-	public void orderUpdate(HttpServletRequest req,HttpServletResponse res, String[] sortable_item) {             //占싹댐옙占싱곤옙占쌔곤옙 占썲래占쌓억옙 占쏙옙占�.. 占쌕듸옙 占쏙옙占쏙옙占�?;
+	public String orderUpdate(HttpServletRequest req,HttpServletResponse res, String[] sortable_item) {             //占싹댐옙占싱곤옙占쌔곤옙 占썲래占쌓억옙 占쏙옙占�.. 占쌕듸옙 占쏙옙占쏙옙占�?;
 
+		System.out.println("orderUpdate");
 		for(String value : sortable_item){
 			System.out.println(value);
 		}
-		updatetInfoLists(req, sortable_item);
+		updateInfoLists(req, sortable_item);
 		System.out.println(sortable_item.length);
 
+		return "redirect:/myPlanTest";
 	}
 }
 

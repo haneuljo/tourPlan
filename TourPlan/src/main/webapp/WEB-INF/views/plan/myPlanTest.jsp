@@ -63,8 +63,8 @@
 	</div>
 	
 <script>
-
-				
+				transitDisplay();
+				function transitDisplay(){
 						  <c:forEach var="map" items="${lists}" varStatus="status">
 						  calculateAndDisplayRoute(directionsService, directionsDisplay, '${status.index}');
 						  </c:forEach>
@@ -73,7 +73,6 @@
 					  <c:forEach var="map" items="${lists}" varStatus="status">
 						var test = '${status.index}';
 						if(test==index){
-							alert('${map.mapyex}');
 							
 				 		directionsService.route({
 						    origin: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
@@ -83,7 +82,6 @@
 						    if (status === google.maps.DirectionsStatus.OK) {
 						        var point = response.routes[0].legs[0];
 						        $( '#travel_data${status.index}' ).html( '이동시간: ' + point.duration.text + ' (' + point.distance.text + ')' );
-						        alert("11");
 						    } else {
 						      window.alert('Directions request failed due to ' + status);
 						    }
@@ -91,6 +89,7 @@
 						}
 					</c:forEach>
 						}
+				}
 					</script>
 	
 		
@@ -129,13 +128,20 @@
 			    axis: 'y',
 			    update: function (event, ui) {
 			        var data = $(this).sortable('serialize');
-			        alert(data);
 		 	        $.ajax({
-		 	        	
-			            data: data,
-			            dataType:"json",
-			            type: 'POST',
-			            url: '<%=cp%>/orderUpdate'
+ 
+			            type:"POST",
+			            url: '<%=cp%>/orderUpdate',
+		            	data: data,
+			            dataType:"json",	
+						success:function(args){
+							alert(args);
+					        $("#result").html(args);
+					        transitDisplay();
+						},
+				        error:function(e){
+				            alert(e.responseText);
+				         }
 			        }); 
 			    }
 			});
