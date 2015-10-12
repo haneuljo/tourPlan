@@ -71,7 +71,7 @@
 		  dataType:"json",
 		  success:function(data){	
 			for(i=0;i<data.response.body.items.item.length;i++){	
-				var img="<%=cp%>/resources/areaImg/"+data.response.body.items.item[i].name"+.jpg";
+				var img="<%=cp%>/resources/areaImg/"+data.response.body.items.item[i].name+".jpg";
 				$("#areaList").append('<div class="planList_area"><img src="'+img+'" alt="areaImg"></img><span class="area_name">'+data.response.body.items.item[i].name+'</span><Button class="areaListBtn" data="'+data.response.body.items.item[i].code+'"> + </Button></div>')
 				
 			}
