@@ -11,15 +11,15 @@
 		<div class="sortable-list">
 
  			<c:forEach var="map" items="${lists}" varStatus="status">
+				<div id="travel_data${status.index}"class="travel_data"></div>
  			
  			
 				<div id="sortable_item-${status.index}" onprogress="initMap(${map.mapx},${map.mapy});">
 				
 					<div class="sortable-item">
-					<div id="travel_data${status.index}"class="travel_data"></div>
 					<div class="sortItem_firstImg"><img alt="대표이미지" src="${map.firstimage }"></div>
 				 		<div class="sortContent">
-						 	<div class="sortItem_title"> <span>${map.title}//index:${status.index}</span></div>
+						 	<div class="sortItem_title"> <span>${map.title}<%-- //index:${status.index} --%></span></div>
 			 				<div class="sortItem_addr"> <span> ${map.addr1}<%--  ${map.addr2 } --%></span> </div>
 			 				<select id="lonTime${status.index}" class="form-control sortItem_time">
 			 					<option value="0">0</option>
@@ -64,34 +64,31 @@
 	
 <script>
 
-				
-						  <c:forEach var="map" items="${lists}" varStatus="status">
-						  calculateAndDisplayRoute(directionsService, directionsDisplay, '${status.index}');
-						  </c:forEach>
+  <c:forEach var="map" items="${lists}" varStatus="status">
+	  calculateAndDisplayRoute(directionsService, directionsDisplay, '${status.index}');
+  </c:forEach>
 			  
-				 	function calculateAndDisplayRoute(directionsService, directionsDisplay, index) {            //대중교통길찾기
-					  <c:forEach var="map" items="${lists}" varStatus="status">
-						var test = '${status.index}';
-						if(test==index){
-							alert('${map.mapyex}');
-							
-				 		directionsService.route({
-						    origin: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
-						    destination: new google.maps.LatLng('${map.mapyex}','${map.mapxex}'),
-						    travelMode: google.maps.TravelMode.TRANSIT       //모드는 차량, 도보, 대중교통, 자전거 등이있음 TRANSIT은 대중교통
-						  }, function(response, status) {          //성공시 response json형태의 정보를 받음. 
-						    if (status === google.maps.DirectionsStatus.OK) {
-						        var point = response.routes[0].legs[0];
-						        $( '#travel_data${status.index}' ).html( '이동시간: ' + point.duration.text + ' (' + point.distance.text + ')' );
-						        alert("11");
-						    } else {
-						      window.alert('Directions request failed due to ' + status);
-						    }
-						  });
-						}
-					</c:forEach>
-						}
-					</script>
+	function calculateAndDisplayRoute(directionsService, directionsDisplay, index) {            //대중교통길찾기
+	  <c:forEach var="map" items="${lists}" varStatus="status">
+		var test = '${status.index}';
+			if(test==index){
+	/* 			alert('${map.mapyex}'); */
+		 		directionsService.route({
+				    origin: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
+				    destination: new google.maps.LatLng('${map.mapyex}','${map.mapxex}'),
+				    travelMode: google.maps.TravelMode.TRANSIT       //모드는 차량, 도보, 대중교통, 자전거 등이있음 TRANSIT은 대중교통
+				}, function(response, status) {          //성공시 response json형태의 정보를 받음. 
+					if (status === google.maps.DirectionsStatus.OK) {
+						var point = response.routes[0].legs[0];
+						$( '#travel_data${status.index}' ).html( '이동시간: ' + point.duration.text + ' (' + point.distance.text + ')' );
+				    } else {
+				        window.alert('Directions request failed due to ' + status);
+				    }
+				});
+			}
+ 	</c:forEach>
+	}
+</script>
 	
 		
 	<!-- 		<script
