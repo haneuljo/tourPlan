@@ -55,7 +55,7 @@
    			 <div id="map" style="width: 300px;height: 300px;float: right;"></div> -->
 	</div>
 	
-<script>
+				<script>
 					function initMap() {
 						alert("1");
 						  var directionsDisplay = new google.maps.DirectionsRenderer;
