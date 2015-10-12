@@ -1,5 +1,7 @@
 package com.tour.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.tour.dto.PlanDTO;
@@ -26,6 +28,14 @@ public class PlanDAO {
 		int result = sessionTemplate.selectOne("com.tour.plan.planMax");
 		
 		return result;
+	}
+	
+	//내가저장한 일정들
+	public List<PlanDTO> getMyPlan(String email){
+		
+		List<PlanDTO> lists = sessionTemplate.selectList("com.tour.plan.planMax");
+		
+		return lists;
 	}
 	
 	
