@@ -69,6 +69,7 @@
 					  <c:forEach var="map" items="${lists}" varStatus="status">
 						var test = '${status.index}';
 						if(test==index){
+							alert('${map.mapyex}');
 							
 				 		directionsService.route({
 						    origin: new google.maps.LatLng('${map.mapy}','${map.mapx}'),

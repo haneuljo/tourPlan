@@ -124,7 +124,7 @@
 	            data:"contentid=" + $("#contentid").val()+"&durTime="+durTime+"&endTime="+endTime,
 	            success:function(args){
 	               $("#result").html(args);
-	               //alert(args);
+	               alert(args);
 	            },
 	            error:function(e){
 	               alert(e.responseText);
