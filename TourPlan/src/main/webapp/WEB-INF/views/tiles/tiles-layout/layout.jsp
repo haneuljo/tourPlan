@@ -5,6 +5,12 @@
 	request.setCharacterEncoding("utf-8");
 	String cp = request.getContextPath();
 %>
+<div style="">
 <tiles:insertAttribute name="header"></tiles:insertAttribute>
+</div>
+<div  style="height: 90%;">
 <tiles:insertAttribute name="content"></tiles:insertAttribute>
+</div>
+<div>
 <tiles:insertAttribute name="footer"></tiles:insertAttribute>
+</div>

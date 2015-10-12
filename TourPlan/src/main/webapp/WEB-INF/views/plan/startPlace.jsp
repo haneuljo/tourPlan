@@ -104,9 +104,16 @@ function startPut(){
 			  //req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
 			  if(endTime!=null){
 				$(".startPlace").append('<span>'+address1+'</span>→<span>'+address2+'</span><span id="startDurTime"></span><input type="hidden" id="endTime" value="'+endTime+'">');
-				$(".startPlace").css("border-color","#ccc");
+				$(".startPlace").show();
 				$("#startDurTime").text(durText);
 				$("#myModal").modal("hide");
+				
+
+				$("#tilesPlan").css("width","40%");
+				$("#tilesMapView").css("width","45%");
+				$(".listDiv").css("width","50%");
+				$(".listDiv:last").show();
+				
 			  }
 		},error:function(e){}
 	  });

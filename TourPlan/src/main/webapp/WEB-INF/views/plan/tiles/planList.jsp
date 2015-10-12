@@ -55,10 +55,10 @@
 		
 	<script>
 	$(function(){
-	$(".listDiv:last").hide();
-	$("#tilesPlan").css("width","20%");
-	$(".listDiv").css("width","100%");
-	$("#tilesMapView").css("width","65%");
+	//$(".listDiv:last").hide();
+	//$("#tilesPlan").css("width","20%");
+	//$(".listDiv").css("width","100%");
+	//$("#tilesMapView").css("width","65%");
 	$.ajax({
 		  type:"GET",
 		  url:"<%=cp%>/areaCodeAPI",
@@ -71,6 +71,10 @@
 			 $(".areaListBtn").click(function(){
 				 areaCode=$(this).attr('data');
 				//alert(areaCode);
+				 $(".planList_area").hide();
+				 $("#areaList").append('<div class="clipMapView_info clipMapView_info_Header">'+$(this).parent('div').children('span').text()+'</div><div>버튼4개</div>');
+					
+				 //alert($(this).parent('div').children('span').text());
 		 		 markerMap();
 			 });
 		},error:function(e){}
@@ -86,10 +90,6 @@
 				//alert(data);
 				$("#myModal").modal();
 
-				$("#tilesPlan").css("width","40%");
-				$("#tilesMapView").css("width","45%");
-				$(".listDiv").css("width","50%");
-				$(".listDiv:last").show();
 				
 			},
 			error:function(e){11

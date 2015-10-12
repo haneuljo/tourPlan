@@ -1,6 +1,7 @@
 @CHARSET "UTF-8";
 .navbar-inverse {
     background-color: #fff;
+    margin-bottom: 0px;
 }
 .navbar {
     position: relative;

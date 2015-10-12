@@ -5,7 +5,7 @@
 %>
 <div>
 	
-	<div id="map" style="height: 80%; width:100%;"></div>	
+	<div id="map" style="height: 100%; width:100%;"></div>	
 	
 </div>
 
@@ -33,19 +33,25 @@
 	 
 	}
 	 function markerMap(){
+		 
+		 
 			var sigunguCode = 0;
-			alert("1");
 			$.ajax({
 				type:"GET",
 				url:"<%=cp%>/travelMapClipCount?areaCode="+areaCode+"&sigunguCode="+sigunguCode,
 				dataType:"json",		
 				success:function(data){
 					//alert(data);
+					
+					
+					
 					var secretMessages = new Array();
 					var mapy;
 					var mapx;
 							
 					$.each(data, function(index, value) {
+						$("#areaList").append('<div class="clipMapView_info"><img src="'+value.firstimage+'"/><div class="clipMapViewContent"><div class="clipMapView_info_title">'+value.title+'</div><div class="clipMapView_info_span"><span class="glyphicon glyphicon-send"></span>'+value.clipCount+'</div></div></div>');
+						 
 						if(keyFind(value, 'mapx')){
 							//alert(i+"주소좌표변환필요");
 							$.ajax({
@@ -64,8 +70,7 @@
 							mapx=value.mapx;
 						}
 								
-						secretMessages[i]='<div><img style="width:200px; height:150px;"src="'+value.firstimage+'"/>&nbsp;&nbsp;<input type="hidden" id="contentid" name="contentid" value="'+value.contentid+'"/>'
-						+'<input type="hidden" id="mapy" name="mapy" value="'+value.mapy+'"/><input type="hidden" id="mapx" name="mapx" value="'+value.mapx+'"/><input type="button" value="일정에 추가" id="sel" onclick="choice();"/> <br/>'+value.title+'</div>';
+						secretMessages[i]='<div class="clipMapViewInfoWindow"><img alt="대표이미지"src="'+value.firstimage+'"/><div>'+value.title+'</div><button id="sel" onclick="choice();">일정추가</button><input type="hidden" id="contentid" name="contentid" value="'+value.contentid+'"/><input type="hidden" id="mapy" name="mapy" value="'+value.mapy+'"/><input type="hidden" id="mapx" name="mapx" value="'+value.mapx+'"/></div>';
 
 							
 						var itemsXY = new google.maps.LatLng(value.mapy,value.mapx);
