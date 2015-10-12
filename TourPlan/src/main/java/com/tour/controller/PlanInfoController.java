@@ -346,70 +346,6 @@ public class PlanInfoController {
 	}
 
 
-/*	@RequestMapping("/forTest")
-	public String forTest (HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {                                                      //걍테스팅
-
-		PlanInfoDTO adto = new PlanInfoDTO();
-		HashMap<String, Object> hMap = new HashMap<String, Object>();
-		hMap.put("order", 4);
-		hMap.put("planNum", 1);
-		hMap.put("groupNum", 1);
-		hMap.put("contentid", 397664);
-		hMap.put("contenttypeid", 1);
-		hMap.put("longTime",60);
-		hMap.put("content", "111");
-		hMap.put("startDate", "2015-10-1 00:00:00");
-		adto = getPlanInfoDTOfromContentID(req, res, 397664);
-		hMap.put("firstimage",adto.getFirstimage());
-		hMap.put("addr1",adto.getAddr1());
-		hMap.put("addr2",adto.getAddr2());
-		hMap.put("title",adto.getTitle());
-		hMap.put("mapx",adto.getMapx());
-		hMap.put("mapy",adto.getMapy());
-
-
-		insertInfoLists(hMap, req );
-
-		hMap = new HashMap<String, Object>();
-		hMap.put("order", 2);
-		hMap.put("planNum", 2);
-		hMap.put("groupNum", 1);
-		hMap.put("contentid", 1331760);
-		hMap.put("contenttypeid", 2);
-		hMap.put("longTime",60);
-		hMap.put("content", "222");
-		hMap.put("startDate", "2015-10-1 00:00:01");
-		adto = getPlanInfoDTOfromContentID(req, res, 1331760);
-		hMap.put("firstimage",adto.getFirstimage());
-		hMap.put("addr1",adto.getAddr1());
-		hMap.put("addr2",adto.getAddr2());
-		hMap.put("title",adto.getTitle());
-		hMap.put("mapx",adto.getMapx());
-		hMap.put("mapy",adto.getMapy());
-
-		insertInfoLists(hMap, req );
-
-		hMap = new HashMap<String, Object>();
-		hMap.put("order", 3);
-		hMap.put("planNum", 3);
-		hMap.put("groupNum", 1);
-		hMap.put("contentid", 1883038);
-		hMap.put("contenttypeid", 3);
-		hMap.put("longTime",60);
-		hMap.put("content", "333");
-		hMap.put("startDate", "2015-10-1 00:00:02");
-		adto = getPlanInfoDTOfromContentID(req, res, 1883038);
-		hMap.put("firstimage",adto.getFirstimage());
-		hMap.put("addr1",adto.getAddr1());
-		hMap.put("addr2",adto.getAddr2());
-		hMap.put("title",adto.getTitle());
-		hMap.put("mapx",adto.getMapx());
-		hMap.put("mapy",adto.getMapy());
-
-		insertInfoLists(hMap, req );
-
-		return "redirect:/myPlanTest";
-	}*/
 
 
 
@@ -485,7 +421,6 @@ public class PlanInfoController {
 	}
 
 	/*	public void updatetInfoLists (HttpServletRequest req, Integer index) {               //임시저장리스트 수정 메소드 수정전
->>>>>>> 211f19208412f8b26c3618667448b32c6cd7d425
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
 
@@ -495,30 +430,6 @@ public class PlanInfoController {
 			lists = new  ArrayList<HashMap<String,Object>>();               //리스트 추가한적없으면 객체 새로하나 만듬.
 			System.out.println("infolist is null");
 		}else{
-<<<<<<< HEAD
-			lists = info.getInfoList();
-			System.out.println("not null");
-
-			int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //오브젝트니까 형변환이 없어도 검색되겠지                   테스트 필요
-
-			HashMap<String, Object> hMap =lists.get(index);
-			hMap.put("planNum", dto.getPlanNum());
-			hMap.put("groupNum", dto.getGroupNum());
-			hMap.put("contentid", dto.getContentid());
-			hMap.put("contenttypeid", dto.getContenttypeid());
-			hMap.put("longTime",dto.getLongTime());
-			hMap.put("content", dto.getContent());
-			hMap.put("startDate", dto.getStartDate());
-
-			lists.set(index, hMap);
-
-			session.setAttribute("loginInfo", info);                      //세션에 리스트 담아올림
-
-		}
-
-	}
-
-=======
 		lists = info.getInfoList();
 		System.out.println("not null");
 
