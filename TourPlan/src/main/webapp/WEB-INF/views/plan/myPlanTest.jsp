@@ -12,14 +12,14 @@
 
  			<c:forEach var="map" items="${lists}" varStatus="status">
  			
+				<div id="travel_data${status.index}"class="travel_data"></div>
  			
 				<div id="sortable_item-${status.index}" onprogress="initMap(${map.mapx},${map.mapy});">
 				
 					<div class="sortable-item">
-					<div id="travel_data${status.index}"class="travel_data"></div>
 					<div class="sortItem_firstImg"><img alt="대표이미지" src="${map.firstimage }"></div>
 				 		<div class="sortContent">
-						 	<div class="sortItem_title"> <span>${map.title}//index:${status.index}</span></div>
+						 	<div class="sortItem_title"> <span>${map.title}<%-- //index:${status.index} --%></span></div>
 			 				<div class="sortItem_addr"> <span> ${map.addr1}<%--  ${map.addr2 } --%></span> </div>
 			 				<select id="lonTime${status.index}" class="form-control sortItem_time">
 			 					<option value="0">0</option>
@@ -133,9 +133,9 @@
 			            type:"POST",
 			            url: '<%=cp%>/orderUpdate',
 		            	data: data,
-			            dataType:"json",	
+			            dataType:"html",	
 						success:function(args){
-							alert(args);
+							//alert(args);
 					        $("#result").html(args);
 					        transitDisplay();
 						},
