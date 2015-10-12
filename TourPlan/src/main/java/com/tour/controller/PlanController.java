@@ -2,6 +2,7 @@ package com.tour.controller;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tour.dao.PlanDAO;
 
 import com.tour.dto.MemberDTO;
+import com.tour.dto.PlanDTO;
 import com.tour.util.JSONResponseUtil;
 import com.tour.util.SessionInfo;
 
@@ -105,4 +107,19 @@ public class PlanController {
 		return jsonUtil.getJSONResponse(response, url);
 	}
 	
+	@RequestMapping("/getMyplan")
+	public String getMyplan(HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //세션에서 로그인정보가져오기
+		
+		String email = info.getEmail();
+		
+		List<PlanDTO> myPlan =  dao.getMyPlan(email);
+		
+		req.setAttribute("myPlan", myPlan);
+		
+		return "getMyplan";
+	}
+
 }

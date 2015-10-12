@@ -10,6 +10,7 @@
  
  <fmt:parseDate value="${startDate}" pattern ="yyyy-MM-dd" var="date"> </fmt:parseDate>
 <div class="dayAdd">	
+	<div class="dayHeader">여 행 일 정</div>
 	<div id="dayList">
 		<div class="day" index="1">
 			<span class="dayCount">DAY1</span>
@@ -26,6 +27,8 @@
 	<script>
 		var count=2;
 		var day1;
+		
+		
 		$("#dayAdd").click(function(){
 			if($(".day:last").attr("index")==(count-1)){
 				if(count==2){
@@ -49,6 +52,14 @@
 //					alert(data);
 					$("#dayList").append('<div class="day" index="'+count+'"><span class="dayCount">DAY'+count+'</span> <span class="cal">'+dateFormatChange+'</span></div>');
 					count++;
+					$(".day").click(function(){
+						$(".day").css("background-color","#000042");
+						$(".currentDay").empty();
+						$(".currentDay").html($(this).html());
+						$(this).css("background-color","#006583");
+					});
+					
+
 				},
 					error:function(e){
 						//alert("1111111111"+e.responseText);
@@ -64,6 +75,15 @@
 			}
 			
 		});
+		
+		$(".day").click(function(){
+			$(".day").css("background-color","#000042");
+			$(".currentDay").empty();
+			$(".currentDay").html($(this).html());
+			$(this).css("background-color","#006583");
+		});
+		
+		
 	</script>
 	
 	

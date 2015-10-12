@@ -23,7 +23,7 @@ var start = new Date();
      address1 = document.getElementById('address1').value;
      //alert(address1);
      //alert(start);
-     geocodeAddress(geocoder, map, address1);
+     //geocodeAddress(geocoder, map, address1);
   });
   document.getElementById('submit2').addEventListener('click', function() {                //도착지
      address2 = document.getElementById('address2').value;
@@ -33,8 +33,20 @@ var start = new Date();
   document.getElementById('Gdirection').addEventListener('click', function() {              //길찾기
 	  startcalculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2); 
   }); 
+  
+  function geocodeAddress(geocoder, resultsMap, address) {                                                 //검색마커찍기(주소->좌표변환)
+	  geocoder.geocode({'address': address}, function(results, status) {
+	    if (status === google.maps.GeocoderStatus.OK) {
+	    	$("#mapy").val(results[0].geometry.location.lat());
+	    	$("#mapx").val(results[0].geometry.location.lng());
+	    } else {
+	      alert('Geocode was not successful for the following reason: ' + status);
+	    }
+	  });
+	}
 
   var durTime;
+  var durText;
 function startcalculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2) {            //대중교통길찾기
   // alert(time);
   directionsService.route({
@@ -54,7 +66,7 @@ function startcalculateAndDisplayRoute(directionsService, directionsDisplay, add
       directionsDisplay.setDirections(response);
       //alert(response.routes[0].legs[0].duration.value);
       durTime = response.routes[0].legs[0].duration.value;
-      
+      durText = response.routes[0].legs[0].duration.text;
     } else {
       window.alert('Directions request failed due to ' + status);
     }
@@ -102,9 +114,17 @@ function startPut(){
 			  //req.setAttribute("endTime", endTime);
 			  //req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
 			  if(endTime!=null){
-				$("#planList").append('<div class="startPlace"><span>'+address1+'</span>→<span>'+address2+'</span></div><input type="text" id="endTime" value="'+endTime+'">');
-				
+				$(".startPlace").append('<span>'+address1+'</span>→<span>'+address2+'</span><span id="startDurTime"></span><input type="hidden" id="endTime" value="'+endTime+'">');
+				$(".startPlace").show();
+				$("#startDurTime").text(durText);
 				$("#myModal").modal("hide");
+				
+
+				$("#tilesPlan").css("width","40%");
+				$("#tilesMapView").css("width","45%");
+				$(".listDiv").css("width","50%");
+				$(".listDiv:last").show();
+				
 			  }
 		},error:function(e){}
 	  });
@@ -154,6 +174,9 @@ function startPut(){
           <input type="button" value="등록" onclick="startPut();"/>
           <input type="hidden" name="durTime" id="durTime">
           <input type="hidden" name="startDate" id="startDate">
+          <input type="text" name="mapx" id="mapx">
+          <input type="text" name="mapy" id="mapy">
+          
           </form>
           
           
