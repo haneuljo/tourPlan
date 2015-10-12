@@ -164,7 +164,7 @@ public class PlanInfoController {
 	}
 
 	@RequestMapping("/startPut")
-	public void startPut(Object mapx, Object mapy, PlanInfoDTO pdto,int durTime,int hour,int min,String address1,String address2,HttpServletRequest req,HttpServletResponse res, Integer contentid) throws IOException {
+	public void startPut(String mapx, String mapy, PlanInfoDTO pdto,int durTime,int hour,int min,String address1,String address2,HttpServletRequest req,HttpServletResponse res, Integer contentid) throws IOException {
 
 		HttpSession session = req.getSession();
 		GroupSession gp = (GroupSession) session.getAttribute("groupDate");
@@ -204,7 +204,7 @@ public class PlanInfoController {
 		//req.setAttribute("address2", address2);//占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占신몌옙占쏙옙 占시곤옙 占쏙옙占싹깍옙占쏙옙占쏙옙
 		
 		gp.setMapx(mapx);
-		gp.setMapx(mapy);
+		gp.setMapy(mapy);
 
 		PrintWriter out = res.getWriter();
 		out.print(endTime);
