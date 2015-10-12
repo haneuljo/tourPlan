@@ -22,14 +22,14 @@ public class MemberController {
 	@RequestMapping("/")
 	public String intro(HttpServletRequest req) {
 		//DB연동시 편하게 세션 설정
-		HttpSession session = req.getSession(true); 
+		//HttpSession session = req.getSession(true); 
 
-		SessionInfo info = new SessionInfo();
+		//SessionInfo info = new SessionInfo();
 		
 		//1이라는 아이디 대입
 		
-		info.setEmail("1");
-		session.setAttribute("loginInfo", info);
+		//info.setEmail("1");
+		//session.setAttribute("loginInfo", info);
 		// loginInfo라는 변수안에 info 라는 클래스 객체를 넣어준다
 
 		return "index";

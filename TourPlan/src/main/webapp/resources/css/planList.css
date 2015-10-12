@@ -2,14 +2,15 @@
 #tilesDayAdd{
 	float:left;
 	width: 15%;
+	height: 100%;
 }
 #tilesPlan{
-	
+	height: 100%;
 	width: 40%;
 	float:left;
 }
 #tilesMapView{
-	
+	height: 100%;
 	width: 45%;
 	float:left;
 }
@@ -23,9 +24,9 @@
 	height: 90%;	
 }
 .dayAdd{
-	background-color: #00001E;
+	background-color: #000042;
 	color:#fff;
-	height: 85%;
+	height: 100%;
 	width: 100%;
 	
 }
@@ -44,6 +45,8 @@
 /* planList CSS */
 #planList_All{
 	color:#fff;
+	background-color: #E8E4D9;
+	height: 100%;
 }
 .listDiv{
 	float: left;
@@ -51,9 +54,10 @@
 }
 .currentDay{
 	height: 8%;
-	background: #A6A6A6;
+	background: #b3a197;
 	
 }
+
 .planListBtn Button{
 	
 	width: 45%;
@@ -61,14 +65,21 @@
 	padding:2%;
 	float:left;
 	border:1px solid #fff;
-	background-color: #2F9D27;
+	background-color: #7cbac9;
+}
+.planListBtn{
+	height: 6.5%;
+}
+#startDurTime{
+	font-size:9pt;
 }
 #areaList{
 	color:black;
-	
+	background-color: #fff;
 }
 #planList{
 	color:black;
+	
 	
 }
 .planList_area{
@@ -86,6 +97,120 @@
 	background-color: rgba( 255, 255, 255, 0.0 );	   
 }
 .startPlace{
+	display: none; 
+	margin-top:2%;
+	padding-top:4%;
+	padding-bottom:4%;
+	padding-left:25%;
+	border : 1px solid #ccc;
+	background-color: #fff;
+}
+
+/* 정렬부분 */
+
+.sortable-item{
+	padding-top:2%;
+	padding-bottom:2%;
+	padding-left:4%;
+	border : 1px solid #ccc;
+	height: 14%;
+	background-color: #fff;
+}
+.sortContent{
+	float:left;
+	width: 70%;
+	margin-left:5%;
 	
+}
+.startPlace span{
+	font-size : 15pt;
 	
+}
+.sortItem_firstImg{
+	float:left;
+}
+.sortItem_firstImg img{
+	width: 60px;
+	height: 60px;
+	
+}
+.sortItem_title span{
+	font-size:13pt;
+}
+
+.sortItem_addr span{
+	font-size:9pt;
+}
+
+.sortItem_time{
+	float:left;
+	width: 40%;
+	height: 40%;
+	margin-top:2%;
+}
+.sortBtnGroup{
+	margin-top:2%;
+	float:right;
+}
+.sortBtn{
+	margin-top:2%;
+}
+.travel_data{
+	
+	font-size : 9pt;
+	padding: 2%;
+}
+
+/* infoWindow 디자인 */
+.clipMapViewInfoWindow{
+	width: 95%;
+	overflow: hidden;
+}
+.clipMapViewInfoWindow div{
+	font-size:13pt;
+	text-align : center;
+	width: 100%;
+}
+.clipMapViewInfoWindow img{
+	width:135px; 
+	height:100px;
+}
+.clipMapViewInfoWindow button{
+	color:#fff;
+	border:1px solid #fff;
+	background-color: #FF7012;
+	width: 100%;
+}
+/* 지역 clipList */
+
+.clipMapView_info{
+	width: 100%;
+	overflow: hidden;
+	border: 1px solid #ccc;
+}
+.clipMapViewContent{
+	margin-top: 5%;
+}
+.clipMapView_info_Header{
+	width: 100%;
+	height:8%;
+	color:#fff;
+	font-size:15pt;
+	background-color: #000042;
+}
+.clipMapView_info img{
+	width: 60px;
+	height: 60px;
+	float: left;
+	
+}
+.clipMapView_info_title{
+	width: 70%;
+	margin-left:5%;
+	float: left;
+	
+}
+.clipMapView_info_span{
+	color:#747474;
+	float: right;
 }

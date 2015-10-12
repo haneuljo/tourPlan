@@ -7,8 +7,8 @@
 var address1;
 var address2;
 
-var directionsDisplay = new google.maps.DirectionsRenderer;
-var directionsService = new google.maps.DirectionsService;
+/* var directionsDisplay = new google.maps.DirectionsRenderer;
+var directionsService = new google.maps.DirectionsService; */
 
 var geocoder = new google.maps.Geocoder();
 var hour;
@@ -31,11 +31,12 @@ var start = new Date();
   }); 
 
   document.getElementById('Gdirection').addEventListener('click', function() {              //길찾기
-     calculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2); 
+	  startcalculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2); 
   }); 
 
   var durTime;
-function calculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2) {            //대중교통길찾기
+  var durText;
+function startcalculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2) {            //대중교통길찾기
   // alert(time);
   directionsService.route({
      
@@ -54,7 +55,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, address1
       directionsDisplay.setDirections(response);
       //alert(response.routes[0].legs[0].duration.value);
       durTime = response.routes[0].legs[0].duration.value;
-      
+      durText = response.routes[0].legs[0].duration.text;
     } else {
       window.alert('Directions request failed due to ' + status);
     }
@@ -94,15 +95,25 @@ function startPut(){
 		  data : f,
 		  contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 		  dataType:"text",
-		  success:function(data){	
+		  success:function(endTime){
+			  
 			  //alert(data);
 			  
 			  //req.setAttribute("startDate", gp.getStartDate());
 			  //req.setAttribute("endTime", endTime);
 			  //req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
-			  if(data==1){
-				$("#planList").append('<div class="startPlace">'+address1+'→'+address2+'</div>')
+			  if(endTime!=null){
+				$(".startPlace").append('<span>'+address1+'</span>→<span>'+address2+'</span><span id="startDurTime"></span><input type="hidden" id="endTime" value="'+endTime+'">');
+				$(".startPlace").show();
+				$("#startDurTime").text(durText);
 				$("#myModal").modal("hide");
+				
+
+				$("#tilesPlan").css("width","40%");
+				$("#tilesMapView").css("width","45%");
+				$(".listDiv").css("width","50%");
+				$(".listDiv:last").show();
+				
 			  }
 		},error:function(e){}
 	  });
