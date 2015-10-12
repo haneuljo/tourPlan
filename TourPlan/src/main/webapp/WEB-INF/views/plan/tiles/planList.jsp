@@ -1,12 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String cp = request.getContextPath();
 %>
 <div id="planList_All">
 	<div class="listDiv">
 		<div class="currentDay">
-			일정클릭한 데이터 받기
 		</div>
 		<div class="planListBtn">
 			<button id="startSelectBtn">출발지선택</button>
@@ -47,6 +47,7 @@
 		</div>
 	</div>
 	<div class="listDiv" style="border:1px solid #ccc;">
+		<div class="selectArea">지역선택</div>
 		<div id="areaList"></div>
 	</div>
 	
@@ -55,10 +56,14 @@
 		
 	<script>
 	$(function(){
-	//$(".listDiv:last").hide();
-	//$("#tilesPlan").css("width","20%");
-	//$(".listDiv").css("width","100%");
-	//$("#tilesMapView").css("width","65%");
+
+		$(".currentDay").html($(".day").html());
+		$(".day").css("background-color","#006583");
+		
+		$(".listDiv:last").hide();
+		$("#tilesPlan").css("width","20%");
+		$(".listDiv").css("width","100%");
+		$("#tilesMapView").css("width","65%");
 	$.ajax({
 		  type:"GET",
 		  url:"<%=cp%>/areaCodeAPI",
@@ -72,7 +77,7 @@
 				 areaCode=$(this).attr('data');
 				//alert(areaCode);
 				 $(".planList_area").hide();
-				 $("#areaList").append('<div class="clipMapView_info clipMapView_info_Header">'+$(this).parent('div').children('span').text()+'</div><div>버튼4개</div>');
+				 $("#areaList").append('<div class="clipMapView_info clipMapView_info_Header">'+$(this).parent('div').children('span').text()+'</div><div id="clipMapViewContentType"><div class="contentTypeDetails"><span class="glyphicon glyphicon-camera"></span></div><div class="contentTypeDetails"><span class="glyphicon glyphicon-cutlery"></span></div><div class="contentTypeDetails"><span class="glyphicon glyphicon-credit-card"></span></div><div class="contentTypeDetails"><span class="glyphicon glyphicon-send"></span></div></div>');
 					
 				 //alert($(this).parent('div').children('span').text());
 		 		 markerMap();

@@ -18,10 +18,17 @@
  height:130px;
 }
 .day{
-	padding : 5%;
+	padding : 8%;
 }
 #dayList{
-	height: 90%;	
+	height: 80%;	
+}
+.dayHeader{
+	text-align: center;
+	padding-top:5%;
+	font-size:16pt;
+	border-bottom: 1px solid #fff;
+	height: 8%;	
 }
 .dayAdd{
 	background-color: #000042;
@@ -46,16 +53,18 @@
 #planList_All{
 	color:#fff;
 	background-color: #E8E4D9;
-	height: 100%;
+	height: 100%;	
 }
 .listDiv{
 	float: left;
 	width: 50%;
 }
 .currentDay{
+	
 	height: 8%;
 	background: #b3a197;
-	
+	text-align: center;
+	padding-top: 4%;	
 }
 
 .planListBtn Button{
@@ -74,17 +83,26 @@
 	font-size:9pt;
 }
 #areaList{
+	height: 91.6%;	
+	overflow-y:scroll;
 	color:black;
 	background-color: #fff;
 }
 #planList{
 	color:black;
-	
-	
+	overflow:hidden;
 }
 .planList_area{
+	overflow:hidden;
 	height: 6%;
 	padding: 2%;
+}
+.selectArea{
+	text-align:center;
+	padding-top:4%;
+	font-size:13pt;
+	height: 8%;
+	background-color: #7cbac9;
 }
 .area_name{
 	font-size:12pt;
@@ -211,6 +229,30 @@
 	
 }
 .clipMapView_info_span{
-	color:#747474;
+	color:#ccc;
 	float: right;
+	margin-right: 2%;
 }
+
+#clipMapViewContentType{
+	padding-left: 10%;
+	padding-top:2px;
+	height:50px;
+}
+.contentTypeDetails{
+	margin-right:5%;
+	width:45px;
+	height:45px;
+	border: 1px solid #ccc;
+	border-radius:50px;
+	float: left;
+	text-align:center;
+}
+.contentTypeDetails span{
+	font-size:15pt;
+	color:black;
+	margin-top: 25%;
+}
+
+
+
