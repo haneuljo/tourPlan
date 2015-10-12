@@ -23,7 +23,7 @@ var start = new Date();
      address1 = document.getElementById('address1').value;
      //alert(address1);
      //alert(start);
-     geocodeAddress(geocoder, map, address1);
+     //geocodeAddress(geocoder, map, address1);
   });
   document.getElementById('submit2').addEventListener('click', function() {                //도착지
      address2 = document.getElementById('address2').value;
@@ -33,6 +33,17 @@ var start = new Date();
   document.getElementById('Gdirection').addEventListener('click', function() {              //길찾기
 	  startcalculateAndDisplayRoute(directionsService, directionsDisplay, address1, address2); 
   }); 
+  
+  function geocodeAddress(geocoder, resultsMap, address) {                                                 //검색마커찍기(주소->좌표변환)
+	  geocoder.geocode({'address': address}, function(results, status) {
+	    if (status === google.maps.GeocoderStatus.OK) {
+	    	$("#mapy").val(results[0].geometry.location.lat());
+	    	$("#mapx").val(results[0].geometry.location.lng());
+	    } else {
+	      alert('Geocode was not successful for the following reason: ' + status);
+	    }
+	  });
+	}
 
   var durTime;
   var durText;
@@ -163,6 +174,9 @@ function startPut(){
           <input type="button" value="등록" onclick="startPut();"/>
           <input type="hidden" name="durTime" id="durTime">
           <input type="hidden" name="startDate" id="startDate">
+          <input type="text" name="mapx" id="mapx">
+          <input type="text" name="mapy" id="mapy">
+          
           </form>
           
           

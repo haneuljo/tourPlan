@@ -11,8 +11,12 @@
 		<div class="sortable-list">
 
  			<c:forEach var="map" items="${lists}" varStatus="status">
+ 			
+ 			
 				<div id="sortable_item-${status.index}" onprogress="initMap(${map.mapx},${map.mapy});">
+				
 					<div class="sortable-item">
+					<div id="travel_data${status.index}"class="travel_data"></div>
 					<div class="sortItem_firstImg"><img alt="대표이미지" src="${map.firstimage }"></div>
 				 		<div class="sortContent">
 						 	<div class="sortItem_title"> <span>${map.title}//index:${status.index}</span></div>
@@ -41,7 +45,7 @@
 					<input type="hidden" name="startDate" value="${map.startDate }startDate">
 				</div>
 				
-				<div id="travel_data${status.index}"class="travel_data"></div>
+				
 
 
 			</c:forEach>
@@ -69,6 +73,7 @@
 					  <c:forEach var="map" items="${lists}" varStatus="status">
 						var test = '${status.index}';
 						if(test==index){
+							alert('${map.mapyex}');
 							
 				 		directionsService.route({
 						    origin: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
