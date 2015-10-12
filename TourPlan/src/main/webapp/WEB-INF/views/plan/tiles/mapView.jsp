@@ -43,12 +43,10 @@
 				success:function(data){
 					//alert(data);
 					
-					
-					
 					var secretMessages = new Array();
 					var mapy;
 					var mapx;
-							
+						
 					$.each(data, function(index, value) {
 						$("#areaList").append('<div class="clipMapView_info"><img src="'+value.firstimage+'"/><div class="clipMapViewContent"><div class="clipMapView_info_title">'+value.title+'</div><div class="clipMapView_info_span"><span class="glyphicon glyphicon-send"></span>'+value.clipCount+'</div></div></div>');
 						 
@@ -116,7 +114,7 @@
 	      // alert($("#contentid").val());
 	      // buffer.push($("#contentid").val());
 	      var endTime = $("#endTime").val();
-	      alert(endTime);
+	     // alert(endTime);
 	       $.ajax({
 	            type:"POST",
 	            url:"<%=cp%>/choice",
@@ -124,7 +122,7 @@
 	            data:"contentid=" + $("#contentid").val()+"&durTime="+durTime+"&endTime="+endTime,
 	            success:function(args){
 	               $("#result").html(args);
-	               alert(args);
+	              // alert(args);
 	            },
 	            error:function(e){
 	               alert(e.responseText);

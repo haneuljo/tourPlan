@@ -6,13 +6,13 @@
 	String cp = request.getContextPath();
 %>
 
-	<div id="tilesDayAdd" >
+	<div id="tilesDayAdd" class="shadowAll" >
 		<tiles:insertAttribute name="dayAdd"></tiles:insertAttribute>
 	</div>
-	<div id="tilesPlan">
+	<div id="tilesPlan"  class="shadowAll" >
 		<tiles:insertAttribute name="plan"></tiles:insertAttribute>
 	</div>
-	<div id="tilesMapView">
+	<div id="tilesMapView" class="shadowAll" >
 		<tiles:insertAttribute name="mapView"></tiles:insertAttribute>
 	</div>
 

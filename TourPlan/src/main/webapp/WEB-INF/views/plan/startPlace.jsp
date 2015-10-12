@@ -114,7 +114,7 @@ function startPut(){
 			  //req.setAttribute("endTime", endTime);
 			  //req.setAttribute("address2", address2);//다음 관광지와 거리는 시간 구하기위해
 			  if(endTime!=null){
-				$(".startPlace").append('<span>'+address1+'</span>→<span>'+address2+'</span><span id="startDurTime"></span><input type="hidden" id="endTime" value="'+endTime+'">');
+				$(".startPlace").append('<span>'+address1+'</span> <span class="glyphicon glyphicon-arrow-right startArrow"></span> <span>'+address2+'</span><span id="startDurTime"></span><input type="hidden" id="endTime" value="'+endTime+'">');
 				$(".startPlace").show();
 				$("#startDurTime").text(durText);
 				$("#myModal").modal("hide");
@@ -138,22 +138,26 @@ function startPut(){
       <div class="modal-content">
         <div class="modal-header" style="padding:35px 50px;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4><span class="glyphicon glyphicon-lock"></span> 출발지선택</h4>
+          <h4>출발지를 선택해주세요 </h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
           <form name="myForm" action="" id="myForm" method="post">
-            <div class="form-group">
-              <label for="startDate"><span class="glyphicon glyphicon-eye-open"></span> 출발시간</label>
-              <select name="hour" id="hour">
-              <c:forEach var="i" begin="0" end="24" step="1">
-              	<option value="${i}">${i}</option>
-              </c:forEach>
-              </select>시
-                <select name="min" id="min">
-              <c:forEach var="i" begin="0" end="50" step="10">
-              	<option value="${i}">${i}</option>
-              </c:forEach>
-              </select>분
+            <div>
+              <div style="float: left;">
+	              <label for="startDate"><span class="glyphicon glyphicon-time"></span>출발시간</label>
+              </div>
+              <div style="float: left;">
+	              <select name="hour" id="hour" class="form-control" style="width: 15%;">
+	              <c:forEach var="i" begin="0" end="24" step="1">
+	              	<option value="${i}">${i}</option>
+	              </c:forEach>
+	              </select>시
+	                <select name="min" id="min" class="form-control" style="width: 15%; ">
+	              <c:forEach var="i" begin="0" end="50" step="10">
+	              	<option value="${i}">${i}</option>
+	              </c:forEach>
+	              </select>분
+              </div>
             </div>
             
             <div class="form-group">
@@ -174,8 +178,8 @@ function startPut(){
           <input type="button" value="등록" onclick="startPut();"/>
           <input type="hidden" name="durTime" id="durTime">
           <input type="hidden" name="startDate" id="startDate">
-          <input type="text" name="mapx" id="mapx">
-          <input type="text" name="mapy" id="mapy">
+          <input type="hidden" name="mapx" id="mapx">
+          <input type="hidden" name="mapy" id="mapy">
           
           </form>
           

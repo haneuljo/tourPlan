@@ -1,4 +1,11 @@
 @CHARSET "UTF-8";
+.shadowAll{
+	box-shadow: 0px 0px 15px rgba(0,0,0,.3);
+    -moz-box-shadow: 0px 0px 15px rgba(0,0,0,.3); 
+    -webkit-box-shadow: 0px 0px 15px rgba(0,0,0,.3); 
+    -o-box-shadow: 0px 0px 15px rgba(0,0,0,.3); 
+	
+}
 #tilesDayAdd{
 	float:left;
 	width: 15%;
@@ -64,6 +71,7 @@
 	height: 8%;
 	background: #b3a197;
 	text-align: center;
+	border-bottom: 1px solid #fff;
 	padding-top: 4%;	
 }
 
@@ -73,18 +81,21 @@
 	margin:2%;
 	padding:2%;
 	float:left;
-	border:1px solid #fff;
+	border:1px solid #004C63;
 	background-color: #7cbac9;
 }
 .planListBtn{
-	height: 6.5%;
+	height: 7.5%;
+	background-color:#fff;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 2%;
 }
 #startDurTime{
 	font-size:9pt;
 }
 #areaList{
 	height: 91.6%;	
-	overflow-y:scroll;
+	overflow-y: scroll;
 	color:black;
 	background-color: #fff;
 }
@@ -92,23 +103,42 @@
 	color:black;
 }
 .planList_area{
-	overflow:hidden;
-	height: 6%;
-	padding: 2%;
+	height: 10%;
+	padding-left: 4%;
+	padding-top: 2.5%;
+	width: 100%;
+	overflow: hidden;
+	border-bottom: 1px solid #ccc;
 }
+.planList_area img{
+	width: 40px;
+	height: 40px;
+	float: left;
+	
+}
+
 .selectArea{
 	text-align:center;
 	padding-top:4%;
 	font-size:13pt;
 	height: 8%;
 	background-color: #7cbac9;
+	border-bottom: 1px solid #fff;
 }
 .area_name{
-	font-size:12pt;
-	float:left;
+	font-size:15pt;
+	padding-top:2%;
+	width: 60%;
+	margin-left:5%;
+	float: left;
 }
 .areaListBtn{
-	float:left;
+	margin-top:2%;
+	margin-right:5%;
+	width:30px;
+	height:30px;
+	font-size:15pt;
+	float:right;
 	border:1px solid #ccc;
 	color:#ccc;
 	background-color: rgba( 255, 255, 255, 0.0 );	   
@@ -118,9 +148,13 @@
 	margin-top:2%;
 	padding-top:4%;
 	padding-bottom:4%;
-	padding-left:25%;
+	padding-left:20%;
 	border : 1px solid #ccc;
 	background-color: #fff;
+}
+.startArrow{
+	
+
 }
 
 /* 정렬부분 */
@@ -202,8 +236,9 @@
 
 .clipMapView_info{
 	width: 100%;
+	height: 61px;
 	overflow: hidden;
-	border: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 }
 .clipMapViewContent{
 	margin-top: 5%;
@@ -235,6 +270,7 @@
 
 #clipMapViewContentType{
 	padding-left: 10%;
+	border-bottom:1px solid #ccc;
 	padding-top:2px;
 	height:50px;
 }

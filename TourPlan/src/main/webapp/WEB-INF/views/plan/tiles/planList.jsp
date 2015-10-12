@@ -9,7 +9,8 @@
 		<div class="currentDay">
 		</div>
 		<div class="planListBtn">
-			<button id="startSelectBtn">출발지선택</button>
+			<button id="startSelectBtn" >출발지선택</button>
+			<button  >경로최적화</button>
 		</div>
 		<div id="planList">
 			<div class="startPlace">
@@ -70,13 +71,16 @@
 		  dataType:"json",
 		  success:function(data){	
 			for(i=0;i<data.response.body.items.item.length;i++){	
-				$("#areaList").append('<div class="planList_area"><span class="area_name">'+data.response.body.items.item[i].name+'</span><Button class="areaListBtn" data="'+data.response.body.items.item[i].code+'">+</Button></div>')
+				$("#areaList").append('<div class="planList_area"><img alt="areaImg"></img><span class="area_name">'+data.response.body.items.item[i].name+'</span><Button class="areaListBtn" data="'+data.response.body.items.item[i].code+'"> + </Button></div>')
+				
 			}
 			 
 			 $(".areaListBtn").click(function(){
 				 areaCode=$(this).attr('data');
 				//alert(areaCode);
+				 $("#areaList").css("overflow-y","hidden");
 				 $(".planList_area").hide();
+				 
 				 $("#areaList").append('<div class="clipMapView_info clipMapView_info_Header">'+$(this).parent('div').children('span').text()+'</div><div id="clipMapViewContentType"><div class="contentTypeDetails"><span class="glyphicon glyphicon-camera"></span></div><div class="contentTypeDetails"><span class="glyphicon glyphicon-cutlery"></span></div><div class="contentTypeDetails"><span class="glyphicon glyphicon-credit-card"></span></div><div class="contentTypeDetails"><span class="glyphicon glyphicon-send"></span></div></div>');
 					
 				 //alert($(this).parent('div').children('span').text());
