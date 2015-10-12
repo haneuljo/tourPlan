@@ -34,4 +34,11 @@ public class MemberDAO {
 		return dto;
 
 	}
+	
+	public MemberDTO searchMember(String email) {
+		
+		MemberDTO dto = sessionTemplate.selectOne("com.tour.member.searchMember", email);
+		
+		return dto;
+	}
 }

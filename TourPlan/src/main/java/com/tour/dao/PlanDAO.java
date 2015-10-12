@@ -28,5 +28,15 @@ public class PlanDAO {
 		return result;
 	}
 	
+	public int myPlanCount(String email){
+		
+		int result = 0;
+		
+		result = sessionTemplate.selectOne("com.tour.plan.myPlanCount", email);
+		
+		return result;
+		
+	}
+	
 	
 }

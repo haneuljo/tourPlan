@@ -16,6 +16,11 @@
 		select * from member where email=#{email} and pwd=#{pwd}
 	</select>
 	
+	<!-- email(아이디)에 대한 정보 -->
+	<select id="searchMember" resultType="com.tour.dto.MemberDTO" parameterType="String">
+		select * from member where email=#{email}
+	</select>
+	
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 
 	from post where seq=#{seq}

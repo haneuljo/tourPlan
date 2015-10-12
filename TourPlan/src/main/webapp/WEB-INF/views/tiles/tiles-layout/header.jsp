@@ -14,7 +14,6 @@
   <script src="<%=cp%>/resources/all.js"></script>
  <link rel="stylesheet" href="<%=cp%>/resources/css/header.css" type="text/css"/>
  <link rel="stylesheet" href="<%=cp%>/resources/css/planList.css" type="text/css"/>
-  
  <link rel="stylesheet" href="<%=cp%>/resources/css/travelMain.css" type="text/css"/>
   
    <style>

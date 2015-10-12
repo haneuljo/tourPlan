@@ -15,6 +15,9 @@
 		select nvl(max(groupNum),0) from plan 
 	</select>
 	
+	<select id="myPlanCount" resultType="int" parameterType="String">
+		select nvl(count(*),0) from plan where email=#{email}
+	</select>
 	
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 
