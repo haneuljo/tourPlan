@@ -243,7 +243,7 @@ public class PlanInfoController {
 		PlanDTO pdto = new PlanDTO();
 		int groupNum = dao.planInfoGroupMax()+1;
 		String email = info.getEmail();
-		pdto.setGroupNum(groupNum+1);
+		pdto.setGroupNum(groupNum);
 		pdto.setEmail(email);
 		pdto.setTitle(gp.getTitle());
 		pdao.planInsert(pdto);
@@ -253,11 +253,15 @@ public class PlanInfoController {
 		dto = gp.getSdto();
 		dto.setPlanNum(dao.planInfoMax()+1);
 		dto.setGroupNum(groupNum);
+		dto.setContentid((long) 8888);
+		dto.setContenttypeid(8888);
 		dao.planInfoInsert(dto);
 		
 		dto = gp.getEdto();
 		dto.setPlanNum(dao.planInfoMax()+1);
 		dto.setGroupNum(groupNum);
+		dto.setContentid((long) 9999);
+		dto.setContenttypeid(9999);
 		dao.planInfoInsert(dto);
 		
 		ListIterator<HashMap<String, Object>> it = lists.listIterator();
@@ -330,6 +334,7 @@ public class PlanInfoController {
 		while(it.hasNext()){
 			pdto = it.next();
 			Long contentid = dao.getLastId(pdto.getGroupNum());
+			System.out.println(contentid);
 			if(contentid!=null){
 			pdto.setFirstimage(getPlanInfoDTOfromContentID(req, res,contentid, "11").getFirstimage());         //노답
 			}
