@@ -33,8 +33,10 @@
 	 
 	}
 	
+	var itemsMarker  = [];
 	 function markerMap(contentTypeId){
 			var sigunguCode = 0;
+
 			$.ajax({
 				type:"GET",
 				url:"<%=cp%>/travelMapClipCount?areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&contentTypeId="+contentTypeId,
@@ -71,18 +73,27 @@
 
 							
 						var itemsXY = new google.maps.LatLng(value.mapy,value.mapx);
-						var itemsMarker=new google.maps.Marker({
+						itemsMarker[i]=new google.maps.Marker({
 						  	  position:itemsXY,
 					  	});
-						itemsMarker.setMap(null);
-						itemsMarker.setMap(map);
-						attachSecretMessage(itemsMarker, secretMessages[i]);
+						itemsMarker[i].setMap(map);
+						attachSecretMessage(itemsMarker[i], secretMessages[i]);
 					});  
 					},error:function(e){	alert("1111111111"+e.responseText);}
 					
 				});
 			}
-			// marker is clicked, the info window will open with the secret message
+				 
+		
+			 function clearMarkers() {
+				 //alert(itemsMarker.length);
+				 for (var i = 0; i < itemsMarker.length; i++) {
+					 itemsMarker[i].setMap(null);
+				   }
+				 itemsMarker = [];
+			 }
+		
+				// marker is clicked, the info window will open with the secret message
 			function attachSecretMessage(marker, secretMessage) {
 			  var infowindow = new google.maps.InfoWindow({
 			    content: secretMessage

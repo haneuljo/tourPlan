@@ -86,6 +86,7 @@
 	$(".contentTypeDetails").click(function(){
 		$(".contentTypeDetails").attr("class","contentTypeDetails");
 		$(this).attr("class","contentTypeDetails contentTypeActive");
+		clearMarkers();
 		markerMap($(this).attr("data"));
 		
 	});
