@@ -102,4 +102,12 @@ public class ClipBoardDAO {
 		
 	}
 	
+	public List<ClipBoardDTO>  clipList(){
+	      
+	      List<ClipBoardDTO> clipList = sessionTemplate.selectList("com.tour.clipBoard.clipList");
+	      
+	      return clipList;
+
+	   }
+	
 }

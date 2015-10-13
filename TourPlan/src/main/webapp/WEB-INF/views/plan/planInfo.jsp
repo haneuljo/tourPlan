@@ -28,12 +28,18 @@
 	});
 	
   </script>
-<div class="area_top">
+<div class="planInfo_top_img">
+</div>
+<div id="layer1">
+  <input type="button" value="새로운일정" id="btn">&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 <div class="container">
 	  
-  <input type="button" value="새로운일정" id="btn">&nbsp;&nbsp;&nbsp;&nbsp;
   <!-- <input type="button" value="나의일정"> -->
   
 </div>
 
+<style>
+#layer1{background-color:#FFF; position:absolute; left:300px; top:100px;height:300px; z-index:1;}
+</style>
+ 

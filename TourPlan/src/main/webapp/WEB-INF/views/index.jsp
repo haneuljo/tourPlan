@@ -56,4 +56,26 @@
 	</div>	
 
 </c:if>
+
+<div>
+  	<div align="center" class="titleName">인기 관광지 TOP 8</div>
+  	<div align="center" class="subTitle">대한민국 어디까지 가봤니?</div>
+  	
+	  	<c:if test="${clipList !=null }">
+	  	<c:forEach items="${clipList}" var="cdto" >
+	  	<div class="clipBox">
+	  		<div class="imageBox">
+	  			<img style="width: 300px; height: 150px;" src="${cdto.firstimage }">
+	  		</div>
+	  		<div class="titleBox">
+		  		<div class="title">${cdto.title }</div>
+		  		<div class="clip"><span class="glyphicon glyphicon-send"> ${cdto.clipCount }</span></div>
+		  		<%-- <div class="area"><span class="glyphicon glyphicon-road"> ${cdto.area }</span></div> --%>
+	  		</div>
+	  		
+	  		</div>
+	  	</c:forEach>
+	  	</c:if>
+	
+  </div>
 </div>

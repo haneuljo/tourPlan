@@ -44,6 +44,16 @@
 		delete clipboard where email=#{email} and contentid=#{contentid}
 	
 	</delete>
+	<select id="clipList" resultType="com.tour.dto.ClipBoardDTO">
+      select * from 
+      (select rownum rnum, data.* from
+      (select distinct contentid, 
+      count(*) over (PARTITION BY contentid) clipCount from clipBoard 
+      order by clipCount desc) data) 
+      <![CDATA[
+		   where rnum>=1 and rnum<=8
+	  ]]> 
+   </select>
 	
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 
