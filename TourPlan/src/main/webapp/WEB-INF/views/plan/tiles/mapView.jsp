@@ -33,11 +33,7 @@
 	 
 	}
 	
-	 function markerMap(){
-		 
-		 
-		 
-			var contentTypeId=12;
+	 function markerMap(contentTypeId){
 			var sigunguCode = 0;
 			$.ajax({
 				type:"GET",

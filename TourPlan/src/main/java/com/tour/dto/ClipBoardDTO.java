@@ -3,9 +3,16 @@ package com.tour.dto;
 public class ClipBoardDTO {
 	
 	private int clipBoardNum, contentid, clipCount;
-	private String email, firstimage,title, addr1;
+	private String email, firstimage,title, addr1, area;
 	private Object mapx, mapy;
 	
+	
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
 	public String getAddr1() {
 		return addr1;
 	}

@@ -70,7 +70,7 @@
 	  		<div class="titleBox">
 		  		<div class="title">${cdto.title }</div>
 		  		<div class="clip"><span class="glyphicon glyphicon-send"> ${cdto.clipCount }</span></div>
-		  		<%-- <div class="area"><span class="glyphicon glyphicon-road"> ${cdto.area }</span></div> --%>
+		  		<div class="area"><span class="glyphicon glyphicon-road"> ${cdto.area }</span></div> 
 	  		</div>
 	  		
 	  		</div>

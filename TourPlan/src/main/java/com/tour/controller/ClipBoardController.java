@@ -241,11 +241,11 @@ public class ClipBoardController {
 
 
 		if (sigunguCode == 0) {
-			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId="+contentTypeId+"&areaCode="
+			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeid="+contentTypeId+"&areaCode="
 					+ areaCode
 					+ "&cat1=A02&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=100&pageNo=1&_type=json&ServiceKey=";
 		} else {
-			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId="+contentTypeId+"&areaCode="
+			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeid="+contentTypeId+"&areaCode="
 					+ areaCode + "&sigunguCode=" + sigunguCode
 					+ "&cat1=A02&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=100&pageNo=1&_type=json&ServiceKey=";
 		}

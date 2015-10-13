@@ -75,11 +75,16 @@
 	   			 $("#clipMapViewContentType").show();
 				 $("#areaList").css("height","453px");
 				 //alert($(this).parent('div').children('span').text());
-		 		 markerMap();
+		 		 markerMap(12);
 			 });
 		},error:function(e){}
 	  });
 
+	$(".contentTypeDetails").click(function(){
+		
+		markerMap($(this).attr("data"));
+		
+	});
 	$("#startSelectBtn").click(function(){
     	$.ajax({
 			type:"GET",
