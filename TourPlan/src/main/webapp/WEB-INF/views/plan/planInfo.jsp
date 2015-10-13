@@ -27,10 +27,10 @@
 	});
 	
   </script>
-
+<div class="area_top">
+</div>
 <div class="container">
-  <h3>내용 추가</h3>
-  
+	  
   <input type="button" value="새로운일정" id="btn">&nbsp;&nbsp;&nbsp;&nbsp;
   <!-- <input type="button" value="나의일정"> -->
   

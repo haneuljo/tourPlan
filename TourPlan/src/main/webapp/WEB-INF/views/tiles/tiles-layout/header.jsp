@@ -63,7 +63,30 @@
 	    });
 	});
   </script>
+
+  <script type="text/javascript">
   
+  $(document).ready(function(){
+		
+		$("#menu1").click(function(){
+			
+		
+			
+		});
+			
+		$("#menu2").click(function(){
+			
+			
+		});
+		
+		$("#menu3").click(function(){
+			
+			
+		});
+		
+	});
+  
+  </script>
 </head>
 
 <body>
@@ -72,24 +95,27 @@
 <!-- ---- 모든 jsp 일단 복사 ---- -->
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
+  
     <div class="navbar-header">
       <a class="navbar-brand" href="<%=cp%>/">TourPlan</a>
     </div>
+    
     <div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="<%=cp%>/">Index</a></li>
-        <li><a href="<%=cp%>/travel">여행지</a></li>
-        <li><a href="<%=cp%>/planInfo">여행일정</a></li>
-        <li><a href="<%=cp%>/myPlan">내일정</a></li>
+        <%-- <li class="active"><a href="<%=cp%>/">Index</a></li> --%>
+        <li id="menu1" class="active"><a href="<%=cp%>/travel">여행지</a></li>
+        <li id="menu2" class=""><a href="<%=cp%>/planInfo">여행일정</a></li>
+        <li id="menu3" class=""><a href="<%=cp%>/myPlanTest">내일정</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       
       	<c:choose>
       	
-      	 <c:when test="${empty sessionScope.loginInfo.email }">
+      	<c:when test="${empty sessionScope.loginInfo.email}">
       	
         <li id="sign"><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <li id="login"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        
         </c:when>
 	        <c:otherwise>
 	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이페이지<span class="caret"></span></a>
@@ -103,6 +129,7 @@
 	       </c:otherwise>
        </c:choose>
       </ul>
+      
     </div>
   </div>
 </nav>

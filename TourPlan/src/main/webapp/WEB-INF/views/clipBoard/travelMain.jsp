@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%	String cp = request.getContextPath(); %>
+<div class="area_top">
+</div>
 <div class="container">
 	<div id="areaContainer">
 		<div id="seoul" class ="area area0">서울</div>

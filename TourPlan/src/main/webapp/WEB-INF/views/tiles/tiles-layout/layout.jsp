@@ -8,7 +8,7 @@
 <div style="">
 <tiles:insertAttribute name="header"></tiles:insertAttribute>
 </div>
-<div  style="height: 90%;">
+<div>
 <tiles:insertAttribute name="content"></tiles:insertAttribute>
 </div>
 <div>

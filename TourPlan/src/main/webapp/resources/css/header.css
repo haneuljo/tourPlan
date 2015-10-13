@@ -21,11 +21,14 @@
     height: 60px;
 
 }
-.navbar-inverse .navbar-brand {
+.navbar-inverse .navbar-brand { /* 브랜드 */
 	color:black;
+	font-size:200%;
 }
-.navbar-inverse .navbar-nav>li>a {
+.navbar-inverse .navbar-nav>li>a { /* header글자옵션 */
 	color:black;
+	font-weight:800;
+	font-size:125%;
 }
 .navbar-header, .navbar-nav, .navbar-nav>li,
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse 
@@ -33,6 +36,7 @@
 .navbar-inverse .navbar-nav>.active>a:hover {
     height: 60px;
 	background-color:#fff;
+
 }
  .navbar-nav{
 	margin-right: 10%;
