@@ -5,6 +5,7 @@
 	request.setCharacterEncoding("utf-8");
 	String cp = request.getContextPath();
 %>
+<DIV style="height: 598px;">
 
 	<div id="tilesDayAdd" class="shadowAll" >
 		<tiles:insertAttribute name="dayAdd"></tiles:insertAttribute>
@@ -15,4 +16,5 @@
 	<div id="tilesMapView" class="shadowAll" >
 		<tiles:insertAttribute name="mapView"></tiles:insertAttribute>
 	</div>
+</DIV>
 

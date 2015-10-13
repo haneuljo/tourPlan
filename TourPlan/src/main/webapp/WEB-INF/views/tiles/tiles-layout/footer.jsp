@@ -5,7 +5,7 @@
 	String cp = request.getContextPath();
 %>
 
-<div style="width: 100%; height:150; background-color: #006583;" align="center">
+<div style="width: 100%; height:150PX; background-color: #006583;" align="center">
 	<div style="padding-top: 30px; width: 310px" align="left">
 	<font color="#ffffff">[reference]  www.data.go.kr <br/>
 			              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

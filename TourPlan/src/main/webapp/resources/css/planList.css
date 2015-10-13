@@ -9,15 +9,12 @@
 #tilesDayAdd{
 	float:left;
 	width: 15%;
-	height: 100%;
 }
 #tilesPlan{
-	height: 100%;
 	width: 40%;
 	float:left;
 }
 #tilesMapView{
-	height: 100%;
 	width: 45%;
 	float:left;
 }
