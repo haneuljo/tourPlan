@@ -6,11 +6,26 @@ public class PlanInfoDTO {
 	private Long contenttypeid, contentid;
 	private int planNum, groupNum, longTime;
 	private String content, startDate,title,addr1,addr2,firstimage,overview;
-	Object mapx, mapy;
+	Object mapx, mapy, mapxex, mapyex;
 	
 	
 	public int getPlanNum() {
 		return planNum;
+	}
+	public Object getMapxex() {
+		return mapxex;
+	}
+	public void setMapxex(Object mapxex) {
+		this.mapxex = mapxex;
+	}
+	public Object getMapyex() {
+		return mapyex;
+	}
+	public void setMapyex(Object mapyex) {
+		this.mapyex = mapyex;
+	}
+	public void setContenttypeid(Long contenttypeid) {
+		this.contenttypeid = contenttypeid;
 	}
 	public void setPlanNum(int planNum) {
 		this.planNum = planNum;
