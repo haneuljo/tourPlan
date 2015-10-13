@@ -297,16 +297,15 @@ public class PlanInfoController {
 
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
-
-
-		System.out.println(pdto.getTitle());
-		System.out.println(startDate);
 		GroupSession gp = (GroupSession) session.getAttribute("groupDate");
+		String title = pdto.getTitle();
+		System.out.println(title);
+		System.out.println(startDate);
+		
 
-		pdto.setGroupNum(gp.getGroupNum()+1);
 		pdto.setEmail(info.getEmail());
 		
-		gp.setTitle(pdto.getTitle());
+		gp.setTitle(title);
 		gp.setGroupNum(pdto.getGroupNum());
 		gp.setStartDate(startDate);
 		//pdao.planInsert(pdto);

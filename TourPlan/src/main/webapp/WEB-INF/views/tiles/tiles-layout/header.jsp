@@ -98,7 +98,7 @@
         <%-- <li class="active"><a href="<%=cp%>/">Index</a></li> --%>
         <li id="menu1" class=""><a href="<%=cp%>/travel">여행지</a></li>
         <li id="menu2" class=""><a href="<%=cp%>/planInfo">여행일정</a></li>
-        <li id="menu3" class=""><a href="<%=cp%>/myPlanTest">내일정</a></li>
+        <li id="menu3" class=""><a href="<%=cp%>/myPlan">내일정</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       
