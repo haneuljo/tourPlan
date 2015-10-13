@@ -1,12 +1,15 @@
 package com.tour.util;
 
+import com.tour.dto.PlanInfoDTO;
 
 public class GroupSession {
 	
 	private int groupNum;
 	private String startDate;
 	private Object mapx, mapy;
-
+	private PlanInfoDTO sdto,edto;
+	private String title;
+	
 	public int getGroupNum() {
 		return groupNum;
 	}
@@ -39,4 +42,27 @@ public class GroupSession {
 		this.mapy = mapy;
 	}
 
+	public PlanInfoDTO getSdto() {
+		return sdto;
+	}
+
+	public void setSdto(PlanInfoDTO sdto) {
+		this.sdto = sdto;
+	}
+
+	public PlanInfoDTO getEdto() {
+		return edto;
+	}
+
+	public void setEdto(PlanInfoDTO edto) {
+		this.edto = edto;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }
