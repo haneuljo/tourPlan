@@ -3,7 +3,7 @@ package com.tour.dto;
 public class PlanDTO {
 	
 	private int groupNum,uploadChk;
-	private String email,title;
+	private String email,title,firstimage;
 	
 	public int getGroupNum() {
 		return groupNum;
@@ -28,6 +28,12 @@ public class PlanDTO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getFirstimage() {
+		return firstimage;
+	}
+	public void setFirstimage(String firstimage) {
+		this.firstimage = firstimage;
 	}
 	
 	

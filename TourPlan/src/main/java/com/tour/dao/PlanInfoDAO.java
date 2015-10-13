@@ -52,6 +52,12 @@ public class PlanInfoDAO {
 		
 		return lists;
 	}
-	
+	//마지막일정 컨텐트id뽑음.
+	public Long getLastId(int groupNum) {
+		
+		Long contentid = sessionTemplate.selectOne("com.tour.planInfo.getLastId",groupNum);
+		
+		return contentid;
+	}
 
 }

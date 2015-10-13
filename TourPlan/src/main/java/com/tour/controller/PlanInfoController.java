@@ -316,20 +316,29 @@ public class PlanInfoController {
 	}
 
 	@RequestMapping("/myPlan")                                    //   db에저장된 일정들
-	public String myPlan(HttpServletRequest req) {
+	public String myPlan(HttpServletRequest req, HttpServletResponse res) throws ParseException, IOException {
 
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
 		
 		String email = info.getEmail();
 		List<PlanDTO> lists = pdao.getMyPlan(email);
+		PlanDTO pdto = new PlanDTO(); 
 		
+		ListIterator<PlanDTO> it = lists.listIterator();
+		while(it.hasNext()){
+			pdto = it.next();
+			Long contentid = dao.getLastId(pdto.getGroupNum());
+			if(contentid!=null){
+			pdto.setFirstimage(getPlanInfoDTOfromContentID(req, res,contentid, "11").getFirstimage());         //노답
+			}
+		}
 		
 		req.setAttribute("lists", lists);
 		req.setAttribute("listsSize", lists.size());
 
 
-		return "plan/myPlan";
+		return "myPlan";
 	}
 	
 	@RequestMapping("/myPlanCompl")                                    //   db에저장된 일정들
@@ -360,7 +369,7 @@ public class PlanInfoController {
 				
 		req.setAttribute("lists", lists);
 
-		return "plan/myPlanCompl";
+		return "myPlanCompl";
 	}
 
 	@RequestMapping("/myPlanTest")          

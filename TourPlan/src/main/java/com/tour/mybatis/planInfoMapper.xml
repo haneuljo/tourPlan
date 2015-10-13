@@ -29,12 +29,13 @@
 		select * from planInfo where groupNum = #{groupNum}
 	</select>
 	
-	
+	<select id="getLastId" resultType="Long" parameterType="int">
+		select contentid from (select rownum rnum, contentid from planInfo where  groupNum = #{groupNum}) where rnum = (select nvl(max(rownum),0) from planinfo  where  groupNum = #{groupNum})
+	</select>
 	
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 
 	from post where seq=#{seq}
 </select> -->
-
 
 </mapper> 
