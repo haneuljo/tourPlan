@@ -36,16 +36,16 @@ public class MemberController {
 	
 	@RequestMapping("/")
 	public String intro(HttpServletRequest req) {
-		//DB¿¬µ¿½Ã ÆíÇÏ°Ô ¼¼¼Ç ¼³Á¤
-		HttpSession session = req.getSession(true); 
+		//DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		/*HttpSession session = req.getSession(true); 
 
 		SessionInfo info = new SessionInfo();
 		
-		//1ÀÌ¶ó´Â ¾ÆÀÌµð ´ëÀÔ
+		//1ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 		info.setEmail("1");
 		session.setAttribute("loginInfo", info);
-		// loginInfo¶ó´Â º¯¼ö¾È¿¡ info ¶ó´Â Å¬·¡½º °´Ã¼¸¦ ³Ö¾îÁØ´Ù
+		// loginInfoï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È¿ï¿½ info ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½
 		
 		MemberDTO dto = dao.searchMember(info.getEmail());
 		
@@ -57,18 +57,18 @@ public class MemberController {
 		req.setAttribute("clipCount", clipCount);
 		req.setAttribute("planCount", planCount);
 		req.setAttribute("reviewCount", reviewCount);
-		
+		*/
 		return "index";
 	}
 		
-	//°¡ÀÔÃ¢ Modal
+	//ï¿½ï¿½ï¿½ï¿½Ã¢ Modal
 	@RequestMapping("/signModal")
 	public String signModal() {
 		
 		return "member/sign";
 	}
 	
-	//°¡ÀÔÃ¢ Insert
+	//ï¿½ï¿½ï¿½ï¿½Ã¢ Insert
 	@RequestMapping("/memberSign")
 	public String memberSign(HttpServletRequest req, MemberDTO dto) {
 		dao.insertData(dto);
@@ -76,7 +76,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	//·Î±×ÀÎ Modal
+	//ï¿½Î±ï¿½ï¿½ï¿½ Modal
 	@RequestMapping("/loginModal")
 	public String loginModal() {
 
@@ -87,11 +87,11 @@ public class MemberController {
 		
 		MemberDTO dto = dao.loginChk(email,pwd);
 		
-		//¾ÆÀÌµð¶û ºñ¹Ð¹øÈ£°¡ Æ²¸®¸é?
+		//ï¿½ï¿½ï¿½Ìµï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ Æ²ï¿½ï¿½ï¿½ï¿½?
 		if (dto == null || (!dto.getPwd().equals(pwd))) {
 			return null;
 		}
-		// id, pwd°¡ ÀÏÄ¡
+		// id, pwdï¿½ï¿½ ï¿½ï¿½Ä¡
 
 		HttpSession session = req.getSession(true); 
 
@@ -101,12 +101,21 @@ public class MemberController {
 		//info.setProfileImg(dto.getProfileImg());
 
 		session.setAttribute("loginInfo", info);
-		// loginInfo¶ó´Â º¯¼ö¾È¿¡ info ¶ó´Â Å¬·¡½º °´Ã¼¸¦ ³Ö¾îÁØ´Ù
+		
+		
+		int clipCount = cdao.myClipCount(info.getEmail());
+		int planCount = pdao.myPlanCount(info.getEmail());
+		int reviewCount = rdao.myReviewCount(info.getEmail());
+		
+		req.setAttribute("name", dto.getName());
+		req.setAttribute("clipCount", clipCount);
+		req.setAttribute("planCount", planCount);
+		req.setAttribute("reviewCount", reviewCount);
 		
 		return "redirect:/";
 	}
 	
-	//·Î±×¾Æ¿ô
+	//ï¿½Î±×¾Æ¿ï¿½
 	@RequestMapping(value = "/logout")
 	public String logout(HttpServletRequest req) {
 		HttpSession session = req.getSession();

@@ -23,16 +23,16 @@
 		<div class="selectArea">지역선택</div>
 		<div class="clipMapView_info clipMapView_info_Header" ></div>
 		<div id="clipMapViewContentType">
-			<div class="contentTypeDetails contentTypeActive">
+			<div class="contentTypeDetails contentTypeActive"  data="12">
 				<span class="glyphicon glyphicon-camera"></span>
 			</div>
-			<div class="contentTypeDetails">
+			<div class="contentTypeDetails"  data="39">
 				<span class="glyphicon glyphicon-cutlery"></span>
 			</div>
-			<div class="contentTypeDetails">
+			<div class="contentTypeDetails"  data="38">
 				<span class="glyphicon glyphicon-credit-card"></span>
 			</div>
-			<div class="contentTypeDetails">
+			<div class="contentTypeDetails"  data="12">
 				<span class="glyphicon glyphicon-send"></span>
 			</div>
 		</div>					

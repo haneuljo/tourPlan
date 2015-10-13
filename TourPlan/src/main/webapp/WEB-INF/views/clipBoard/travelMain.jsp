@@ -31,6 +31,7 @@
 	</form>
 	
 	<script>
+		$("#menu1").attr("class","active");
 		var areaCode;
 		var sigunguCode=0;
 		$.ajax({

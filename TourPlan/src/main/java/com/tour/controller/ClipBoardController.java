@@ -225,7 +225,7 @@ public class ClipBoardController {
 	//clipCount�ؼ� ��
 	@RequestMapping("/clipCount")
 	@ResponseBody
-	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp,Integer areaCode, Integer sigunguCode, Integer mapChk) throws ParseException, IOException {
+	public List<ClipBoardDTO> clipCount(HttpServletRequest req, HttpServletResponse resp,Integer areaCode, Integer sigunguCode, Integer mapChk, Integer contentTypeId) throws ParseException, IOException {
 		
 		//DB - contentid �� clipCount
 		List<ClipBoardDTO> clipCountList = dao.clipCount();
@@ -235,15 +235,17 @@ public class ClipBoardController {
 
 		// System.out.println("DB clipCount" + clipCountList.size());
 		String url = "";
+		if(contentTypeId==null){
+			contentTypeId=12;
+		}
 
-		// �� ���ý�
 
 		if (sigunguCode == 0) {
-			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode="
+			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId="+contentTypeId+"&areaCode="
 					+ areaCode
 					+ "&cat1=A02&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=100&pageNo=1&_type=json&ServiceKey=";
 		} else {
-			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId=12&areaCode="
+			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId="+contentTypeId+"&areaCode="
 					+ areaCode + "&sigunguCode=" + sigunguCode
 					+ "&cat1=A02&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=100&pageNo=1&_type=json&ServiceKey=";
 		}
@@ -344,7 +346,7 @@ public class ClipBoardController {
 		//System.out.println(clipList.size());
 		//ù �������϶� session��
 		if(page==1){
-			List<ClipBoardDTO> clipList = clipCount(req, resp, areaCode, sigunguCode, 0);
+			List<ClipBoardDTO> clipList = clipCount(req, resp, areaCode, sigunguCode, 0, null);
 			jsonUtil.clipPage(clipList, req);
 			
 		}
@@ -380,9 +382,9 @@ public class ClipBoardController {
 
 	@ResponseBody
 	@RequestMapping("/travelMapClipCount")
-	private List<ClipBoardDTO> travelMap(HttpServletRequest req,HttpServletResponse resp, Integer areaCode, Integer sigunguCode) throws ParseException, IOException{
+	private List<ClipBoardDTO> travelMap(HttpServletRequest req,HttpServletResponse resp, Integer areaCode, Integer sigunguCode, Integer contentTypeId) throws ParseException, IOException{
 		// TODO Auto-generated method stub
-		return clipCount(req, resp, areaCode, sigunguCode, 1);
+		return clipCount(req, resp, areaCode, sigunguCode, 1, contentTypeId);
 	}
 
 }

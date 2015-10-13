@@ -47,6 +47,13 @@ public class PlanInfoController {
 
 	@Autowired
 	JSONResponseUtil jsonUtil;
+	
+	@RequestMapping("/test")
+	public String test(HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {
+		
+		return "/plan/test";
+	}
+	
 
 	@RequestMapping("/choice")
 	public String choice(int durTime,int endTime,Long contentid,HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {
@@ -174,22 +181,26 @@ public class PlanInfoController {
 		int endTime = 60*60*hour+60*min+durTime; //占쏙옙占쏙옙챨占�
 		String startDate = pdto.getStartDate() + " " + hour + ":" + min + ":00";
 
-		pdto.setPlanNum(dao.planInfoMax()+1);
-		pdto.setGroupNum(gp.getGroupNum());
 		pdto.setContent(address1);
 		pdto.setStartDate(startDate);
 		pdto.setLongTime(0);
+		pdto.setContenttypeid(888);
+		pdto.setMapx(mapx);
+		pdto.setMapy(mapy);
+		pdto.setContent(mapx+","+mapy);
 		
-		//dao.planInfoInsert(pdto);//占쏙옙占쏙옙占� 占싸쇽옙트
+		gp.setSdto(pdto);
 
 
-		pdto.setPlanNum(dao.planInfoMax()+1);
-		pdto.setGroupNum(gp.getGroupNum());
 		pdto.setContent(address2);
 		pdto.setStartDate(startDate);
 		pdto.setLongTime(durTime);
+		pdto.setContenttypeid(999);
+		pdto.setMapx(mapx);
+		pdto.setMapy(mapy);
+		pdto.setContent(mapx+","+mapy);
 
-		//dao.planInfoInsert(pdto);//占쏙옙占쏙옙占쏙옙 占싸쇽옙트
+		gp.setEdto(pdto);
 
 		System.out.println(pdto.getStartDate());
 		System.out.println(hour);
@@ -219,7 +230,8 @@ public class PlanInfoController {
 		System.out.println("re占쏙옙ister 占쏙옙占쏙옙");
 		
 		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //占쏙옙占실울옙占쏙옙 占싸깍옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
+		GroupSession gp = (GroupSession) session.getAttribute("groupDate");
 		
 		if(info.getInfoList()==null){
 			System.out.println("infolists is null");
@@ -231,12 +243,22 @@ public class PlanInfoController {
 		PlanDTO pdto = new PlanDTO();
 		int groupNum = dao.planInfoGroupMax()+1;
 		String email = info.getEmail();
-		String title = "임시";
 		pdto.setGroupNum(groupNum+1);
 		pdto.setEmail(email);
-		pdto.setTitle(title);
+		pdto.setTitle(gp.getTitle());
 		pdao.planInsert(pdto);
 		
+		PlanInfoDTO dto = new PlanInfoDTO();
+		
+		dto = gp.getSdto();
+		dto.setPlanNum(dao.planInfoMax()+1);
+		dto.setGroupNum(groupNum);
+		dao.planInfoInsert(dto);
+		
+		dto = gp.getEdto();
+		dto.setPlanNum(dao.planInfoMax()+1);
+		dto.setGroupNum(groupNum);
+		dao.planInfoInsert(dto);
 		
 		ListIterator<HashMap<String, Object>> it = lists.listIterator();
 		while(it.hasNext()){
@@ -256,7 +278,6 @@ public class PlanInfoController {
 	//占쏙옙占�
 	@RequestMapping("/planAdd")
 	public String planAdd(PlanDTO pdto,HttpServletRequest req,HttpServletResponse res) {
-
 		return "plan/planAdd";
 	}
 
@@ -276,16 +297,15 @@ public class PlanInfoController {
 
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
-
-
-		System.out.println(pdto.getTitle());
+		GroupSession gp = (GroupSession) session.getAttribute("groupDate");
+		String title = pdto.getTitle();
+		System.out.println(title);
 		System.out.println(startDate);
-		GroupSession gp = new GroupSession();
+		
 
-
-		pdto.setGroupNum(gp.getGroupNum()+1);
 		pdto.setEmail(info.getEmail());
-
+		
+		gp.setTitle(title);
 		gp.setGroupNum(pdto.getGroupNum());
 		gp.setStartDate(startDate);
 		//pdao.planInsert(pdto);
