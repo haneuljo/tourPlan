@@ -296,16 +296,17 @@ public class PlanInfoController {
 	public String planOk(PlanDTO pdto,String startDate,HttpServletRequest req,HttpServletResponse res) {
 
 		HttpSession session = req.getSession();
+		GroupSession gp = new GroupSession();//처음 객체를 생성한다음 세션에 등록후 사용
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
-		GroupSession gp = (GroupSession) session.getAttribute("groupDate");
-		String title = pdto.getTitle();
-		System.out.println(title);
+		//GroupSession gp = (GroupSession) session.getAttribute("groupDate");
+		//String title = pdto.getTitle();
+		//System.out.println(title);
 		System.out.println(startDate);
-		
+		System.out.println(info.getEmail());
 
 		pdto.setEmail(info.getEmail());
 		
-		gp.setTitle(title);
+		gp.setTitle(pdto.getTitle());
 		gp.setGroupNum(pdto.getGroupNum());
 		gp.setStartDate(startDate);
 		//pdao.planInsert(pdto);

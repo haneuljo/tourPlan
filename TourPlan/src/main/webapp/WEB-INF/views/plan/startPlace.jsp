@@ -18,7 +18,7 @@ var start = new Date();
 
 
 //var time=(hour*3600)+(min*60);
- directionsDisplay.setPanel(document.getElementById('rootList'));
+ //directionsDisplay.setPanel(document.getElementById('rootList'));
  document.getElementById('submit1').addEventListener('click', function() {               //출발지
      address1 = document.getElementById('address1').value;
      //alert(address1);
@@ -61,15 +61,20 @@ function startcalculateAndDisplayRoute(directionsService, directionsDisplay, add
   }, function(response, status) {
      
     if (status === google.maps.DirectionsStatus.OK) {
-       
-       
-      directionsDisplay.setDirections(response);
-      //alert(response.routes[0].legs[0].duration.value);
+      
+    	directionsDisplay.setDirections(response);
+      
       durTime = response.routes[0].legs[0].duration.value;
       durText = response.routes[0].legs[0].duration.text;
+      disText = response.routes[0].legs[0].distance.text;
+      //alert(response.routes[0].fare.location);
+      //alert(durText);
+      //alert(disText);
     } else {
       window.alert('Directions request failed due to ' + status);
     }
+    
+    $("#rootList").append('<div><font size="4px"><b>'+ address1+'</b></font>&nbsp;<span class="glyphicon glyphicon-arrow-right"/>&nbsp;<font size="4px"><b>' + address2 +'</b></font> <font size="2px"><b>하차</b></font><br/>총시간:'+durText+'&nbsp;&nbsp;총거리: '+ disText +'</div>')
   });
 }
 
@@ -191,8 +196,10 @@ function startPut(){
             </div>
             
             <input id="Gdirection" type="button" value="길찾기"  class="btn" style="width: 286px;margin-top: 10px; background-color: #FF7012; color:#fff;"/>
+           
             <!-- <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> 찾기</button> -->
-          <div id="rootList"></div>
+          <div id="rootList" align="center" style="margin-top:20px; margin-left:0px; border:1px solid #ccc;"></div>
+          
           <input type="hidden" name="durTime" id="durTime">
           <input type="hidden" name="startDate" id="startDate">
           <input type="hidden" name="mapx" id="mapx">
