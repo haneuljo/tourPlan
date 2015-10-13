@@ -70,17 +70,21 @@
 		
 		$("#menu1").click(function(){
 			
-		
+			document.getElementById('menu1').className="active";
+			//alert(document.getElementById('menu1').className);
 			
 		});
 			
 		$("#menu2").click(function(){
 			
+			$("#menu2").empty();
+			$("#menu2").attr("class","active");
 			
 		});
 		
 		$("#menu3").click(function(){
 			
+			$("#menu3").attr("class","active");
 			
 		});
 		
@@ -102,10 +106,10 @@
     
     <div>
       <ul class="nav navbar-nav">
-        <%-- <li class="active"><a href="<%=cp%>/">Index</a></li> --%>
-        <li id="menu1" class="active"><a href="<%=cp%>/travel">여행지</a></li>
-        <li id="menu2" class=""><a href="<%=cp%>/planInfo">여행일정</a></li>
-        <li id="menu3" class=""><a href="<%=cp%>/myPlanTest">내일정</a></li>
+       <%-- <li id="sss" class="active"><a href="<%=cp%>/">Index</a></li> --%>
+        <li id="menu1" ><a href="<%=cp%>/travel">여행지</a></li>
+        <li id="menu2" ><a href="<%=cp%>/planInfo">여행일정</a></li>
+        <li id="menu3" ><a href="<%=cp%>/myPlanTest">내일정</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       

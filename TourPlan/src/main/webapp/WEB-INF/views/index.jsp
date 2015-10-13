@@ -7,11 +7,11 @@
 <c:if test="${!empty sessionScope.loginInfo.email}">
 <div style="height: 100px; width: 900px; border: 1px solid; margin-left:20%; margin-top:2%; float: left; overflow: hidden;">
 	
-	<div style="width: 600px; border: 1px solid; float: left; overflow: hidden;" >
+	<div style="width: 600px; height: 100px; border: 1px solid; float: left; overflow: hidden; margin: 0px auto;" >
 		<div style="width: 120px;  border: 1px solid;">
 			<img src="/tourPlan/resources/profile.jpg" style="width: 65px; height: 65px; border-radius:50px;">
 		</div>
-		<div style="width: 480px; height:20px; border: 1px solid;">
+		<div style="width: 480px; height:20px; border: 1px solid; ">
 			${name}			
 		</div>
 		
