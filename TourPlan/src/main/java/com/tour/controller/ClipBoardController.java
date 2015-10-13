@@ -239,15 +239,44 @@ public class ClipBoardController {
 			contentTypeId=12;
 		}
 
+		String cat1="";
+		
+		switch (contentTypeId) {
+		case 12:
+			cat1="A02";
+			break;
+		case 32:
+			cat1="B02";
+			break;
+		case 38:
+			cat1="A04";
+			break;
+		case 39:
+			cat1="A05";
+			break;
+		}
 
+		/*관광지 : 인문 ; A02
+		쇼핑 A04
+		음식점 A05
+		숙박 B02
+		관광지	12
+		문화시설	14
+		행사/공연/축제	15
+		여행코스	25
+		레포츠	28
+		숙박	32
+		쇼핑	38
+		음식점	39
+		*/
 		if (sigunguCode == 0) {
-			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeid="+contentTypeId+"&areaCode="
+			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId="+contentTypeId+"&areaCode="
 					+ areaCode
-					+ "&cat1=A02&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=100&pageNo=1&_type=json&ServiceKey=";
+					+ "&sigunguCode=&cat1="+cat1+"&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=400&pageNo=1&_type=json&ServiceKey=";
 		} else {
-			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeid="+contentTypeId+"&areaCode="
+			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?contentTypeId="+contentTypeId+"&areaCode="
 					+ areaCode + "&sigunguCode=" + sigunguCode
-					+ "&cat1=A02&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=100&pageNo=1&_type=json&ServiceKey=";
+					+ "&cat1="+cat1+"&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI2.0_Guide&arrange=A&numOfRows=400&pageNo=1&_type=json&ServiceKey=";
 		}
 		url = url + tourAPIKey;
 

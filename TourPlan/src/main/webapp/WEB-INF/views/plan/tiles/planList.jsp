@@ -81,7 +81,8 @@
 	  });
 
 	$(".contentTypeDetails").click(function(){
-		
+		$(".contentTypeDetails").attr("class","contentTypeDetails");
+		$(this).attr("class","contentTypeDetails contentTypeActive");
 		markerMap($(this).attr("data"));
 		
 	});
