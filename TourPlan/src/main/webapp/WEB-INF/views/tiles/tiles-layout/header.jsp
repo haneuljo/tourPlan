@@ -37,6 +37,7 @@
 				success:function(data){
 					$("#myModal").html(data);
 					$("#myModal").modal();
+		    	$(this).attr("class","");
 				},
 				error:function(e){
 					alert("1111111111"+e.responseText);
@@ -53,6 +54,7 @@
 				success:function(data){
 					$("#myModal").html(data);
 					$("#myModal").modal();
+			    	$(this).attr("class","");
 				},
 				error:function(e){
 					alert("1111111111"+e.responseText);
@@ -68,21 +70,12 @@
   
   $(document).ready(function(){
 		
-		$("#menu1").click(function(){
+		$(".navbar-nav>li").click(function(){
 			
-		
-			
-		});
-			
-		$("#menu2").click(function(){
-			
+			$(this).attr("class","active");
 			
 		});
-		
-		$("#menu3").click(function(){
 			
-			
-		});
 		
 	});
   
@@ -96,14 +89,14 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
   
-    <div class="navbar-header">
+    <div class="navbar-header" style="border:1px solid #ccc;">
       <a class="navbar-brand" href="<%=cp%>/">TourPlan</a>
     </div>
     
     <div>
       <ul class="nav navbar-nav">
         <%-- <li class="active"><a href="<%=cp%>/">Index</a></li> --%>
-        <li id="menu1" class="active"><a href="<%=cp%>/travel">여행지</a></li>
+        <li id="menu1" class=""><a href="<%=cp%>/travel">여행지</a></li>
         <li id="menu2" class=""><a href="<%=cp%>/planInfo">여행일정</a></li>
         <li id="menu3" class=""><a href="<%=cp%>/myPlanTest">내일정</a></li>
       </ul>
@@ -113,8 +106,8 @@
       	
       	<c:when test="${empty sessionScope.loginInfo.email}">
       	
-        <li id="sign"><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li id="login"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li id="sign"><a href="#" class="headerBtn" style="padding-top: 5px; color: #fff; font-weight: normal;">Sign Up</a></li>
+        <li id="login"><a href="#" class="headerBtn" style="padding-top: 5px; color: #fff; font-weight: normal;">Login</a></li>
         
         </c:when>
 	        <c:otherwise>

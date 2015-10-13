@@ -5,7 +5,8 @@
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script>
 	$(document).ready(function(){
-	    
+		$("#menu2").attr("class","active");
+		
 	    $("#btn").click(function(){
 			// $(this).datepicker();
 			// $(this).datepicker("show");
