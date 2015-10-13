@@ -59,5 +59,13 @@ public class PlanInfoDAO {
 		
 		return contentid;
 	}
+	
+	//출발설정의 startdate가져오기
+	public String getStartDate(int groupNum) {
+		
+		String startDate = sessionTemplate.selectOne("com.tour.planInfo.getStartDate",groupNum);
+		
+		return startDate;
+	}
 
 }

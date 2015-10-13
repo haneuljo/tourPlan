@@ -348,7 +348,7 @@ public class PlanInfoController {
 	}
 	
 	@RequestMapping("/myPlanCompl")                                    //   db에저장된 일정들
-	public String myPlanCompl(HttpServletRequest req, HttpServletResponse res, int groupNum) throws ParseException, IOException {
+	public String myPlanCompl(HttpServletRequest req, HttpServletResponse res, int groupNum, String title) throws ParseException, IOException {
 		
 		List<PlanInfoDTO> lists = dao.getLists(groupNum);
 		ListIterator<PlanInfoDTO> it = lists.listIterator();
@@ -356,7 +356,7 @@ public class PlanInfoController {
 		Object mapxex = null;
 		Object mapyex = null;
 		
-		String startDate="임시";          //어디서 가져옴?;
+		String startDate= dao.getStartDate(groupNum);
 		
 		while(it.hasNext()){
 			PlanInfoDTO dto = it.next();
@@ -373,8 +373,9 @@ public class PlanInfoController {
 			System.out.println(dto.getFirstimage());
 		}
 				
+		req.setAttribute("title", title);
 		req.setAttribute("lists", lists);
-
+		req.setAttribute("startDate", startDate);
 		return "myPlanCompl";
 	}
 

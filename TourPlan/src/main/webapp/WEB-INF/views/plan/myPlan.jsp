@@ -36,7 +36,7 @@
 <div style="width: 300px; height: 250px; border: 1px solid; border-color: #BDBDBD; float: left; overflow: hidden; margin-left: 1%;margin-right: 1%; margin-bottom: 3%;">
 	
 	<div>	
-		<a onclick="javascript:location.href='<%=cp%>/myPlanCompl?groupNum=${dto.groupNum}'"><img src="${dto.firstimage}" style="width: 300px; height: 150px;"></a>
+		<a onclick="javascript:location.href='<%=cp%>/myPlanCompl?groupNum=${dto.groupNum}&title=${dto.title}'"><img src="${dto.firstimage}" style="width: 300px; height: 150px;"></a>
 	</div>
 	
 	<div style="width: 300px; height: 100px;">

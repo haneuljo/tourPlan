@@ -19,11 +19,11 @@
 	 			</div>
 	 			
 	 			<div style="font-size: 20pt;">
-	 				<b>Title</b>
+	 				<b>일정제목:${title}</b>
 	 			</div>
 	 			
 	 			<div style="font-size: 10pt;">
-	 				startDate ~ endDate
+	 				${startDate} ~ endDate
 	 			</div>
 	 		
 	 		</div>
@@ -46,7 +46,7 @@
 					<!-- 정보박스  -->
 					<div style="background-color: white; width: 75%; height: 60px; float: left; overflow: hidden;">
 						<div style="font-size: 12pt; color: #B3A197; padding-top: 3px; text-align: left;" >
-							startDate 
+							${startDate}
 						</div>
 					
 			
@@ -66,7 +66,7 @@
 
  			<c:forEach var="map" items="${lists}" varStatus="status">
  			
-							<div style="width: 100%; height: 20px; font-size: 10pt;">
+							<div id="travel_data${status.index}" style="width: 100%; height: 20px; font-size: 10pt;">
 				최단거리 -> 
 				</div>
 		
@@ -86,7 +86,7 @@
 					
 					<div style="background-color: white; width: 55%; height: 100px; float: left; overflow: hidden; text-align: left: ;">
 						<div style="font-size: 14pt; padding-top: 4%;">
-							${map.content}
+							 ${map.title}
 						</div>
 						
 					</div>
@@ -113,7 +113,8 @@
 	
 </div>
 
-<script>
+<script type="text/javascript">
+alert("Aa");
 	var map;
 	var directionsDisplay;
 	var directionsService;
@@ -124,10 +125,8 @@
 		directionsService = new google.maps.DirectionsService;
 		
 		geocoder = new google.maps.Geocoder();
-		
-	  map = new google.maps.Map();
-	  
-	 
+		alert("Aa11");
+	  map = new google.maps.Map({});
 	}
 
 
@@ -136,7 +135,7 @@
 			  <c:forEach var="map" items="${lists}" varStatus="status">
 			  calculateAndDisplayRoute(directionsService, directionsDisplay, '${status.index}');
 			  </c:forEach>
-  
+			  alert("Aa");
 	 	function calculateAndDisplayRoute(directionsService, directionsDisplay, index) {            //대중교통길찾기
 		  <c:forEach var="map" items="${lists}" varStatus="status">
 			var test = '${status.index}';
