@@ -278,7 +278,6 @@ public class PlanInfoController {
 	//占쏙옙占�
 	@RequestMapping("/planAdd")
 	public String planAdd(PlanDTO pdto,HttpServletRequest req,HttpServletResponse res) {
-
 		return "plan/planAdd";
 	}
 
@@ -302,12 +301,12 @@ public class PlanInfoController {
 
 		System.out.println(pdto.getTitle());
 		System.out.println(startDate);
-		GroupSession gp = new GroupSession();
-
+		GroupSession gp = (GroupSession) session.getAttribute("groupDate");
 
 		pdto.setGroupNum(gp.getGroupNum()+1);
 		pdto.setEmail(info.getEmail());
-
+		
+		gp.setTitle(pdto.getTitle());
 		gp.setGroupNum(pdto.getGroupNum());
 		gp.setStartDate(startDate);
 		//pdao.planInsert(pdto);
