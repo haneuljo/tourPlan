@@ -73,7 +73,7 @@
 				 $(".clipMapView_info_Header").append($(this).parent('div').children('span').text());
 				 $(".clipMapView_info_Header").show();
 	   			 $("#clipMapViewContentType").show();
-				 
+				 $("#areaList").css("height","453px");
 				 //alert($(this).parent('div').children('span').text());
 		 		 markerMap();
 			 });
