@@ -32,13 +32,16 @@
 	  
 	 
 	}
+	
 	 function markerMap(){
 		 
 		 
+		 
+			var contentTypeId=12;
 			var sigunguCode = 0;
 			$.ajax({
 				type:"GET",
-				url:"<%=cp%>/travelMapClipCount?areaCode="+areaCode+"&sigunguCode="+sigunguCode,
+				url:"<%=cp%>/travelMapClipCount?areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&contentTypeId="+contentTypeId,
 				dataType:"json",		
 				success:function(data){
 					//alert(data);
