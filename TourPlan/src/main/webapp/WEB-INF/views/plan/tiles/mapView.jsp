@@ -70,26 +70,34 @@
 						}
 								
 						secretMessages[i]='<div class="clipMapViewInfoWindow"><img alt="대표이미지"src="'+value.firstimage+'"/><div>'+value.title+'</div><button id="sel" onclick="choice();">일정추가</button><input type="hidden" id="contentid" name="contentid" value="'+value.contentid+'"/><input type="hidden" id="mapy" name="mapy" value="'+value.mapy+'"/><input type="hidden" id="mapx" name="mapx" value="'+value.mapx+'"/></div>';
-
-							
-						var itemsXY = new google.maps.LatLng(value.mapy,value.mapx);
-						itemsMarker[i]=new google.maps.Marker({
-						  	  position:itemsXY,
-					  	});
-						itemsMarker[i].setMap(map);
-						attachSecretMessage(itemsMarker[i], secretMessages[i]);
+						addMarker(value.mapy, value.mapx, secretMessages[i]);
 					});  
 					},error:function(e){	alert("1111111111"+e.responseText);}
 					
 				});
 			}
-				 
+			// Adds a marker to the map and push to the array.
+			 function addMarker(mapy, mapx, msg) {
+				var itemsXY = new google.maps.LatLng(mapy,mapx);
+				var addMarker=new google.maps.Marker({
+					  position:itemsXY,
+				     map: map
+			  	});
+				itemsMarker.push(addMarker);
+				attachSecretMessage(addMarker, msg);
+							
+			 }
 		
+			 // Sets the map on all markers in the array.
+			 function setMapOnAll(map) {
+			   for (var i = 0; i < itemsMarker.length; i++) {
+				   itemsMarker[i].setMap(map);
+			   }
+			 }
+		
+			 // Removes the markers from the map, but keeps them in the array.
 			 function clearMarkers() {
-				 //alert(itemsMarker.length);
-				 for (var i = 0; i < itemsMarker.length; i++) {
-					 itemsMarker[i].setMap(null);
-				   }
+			   setMapOnAll(null);
 				 itemsMarker = [];
 			 }
 		
