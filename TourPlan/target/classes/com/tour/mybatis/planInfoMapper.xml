@@ -37,6 +37,14 @@
 		select startDate from planInfo where groupNum = #{groupNum} and contentid in (9999)
 	</select>
 	
+	<select id="getStartPlace" resultType="com.tour.dto.PlanInfoDTO" parameterType="int">
+		select * from planInfo where groupNum = #{groupNum} and contentid in (8888)
+	</select>
+	
+	<select id="getSecondPlace" resultType="com.tour.dto.PlanInfoDTO" parameterType="int">
+		select * from planInfo where groupNum = #{groupNum} and contentid in (9999)
+	</select>
+	
 	
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 

@@ -128,7 +128,7 @@
 		    	$.ajax({
 		            type:"POST",
 					url:"<%=cp%>/longTime",
-					data:"index="+time_index+"&longTime="+$(".form-control").val(),	
+					data:"index="+time_index+"&longTime="+$(".sortItem_time").val(),	
 					success:function(args){
 				           $("#result").html(args);
 					},

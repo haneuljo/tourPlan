@@ -166,19 +166,16 @@ public class PlanInfoController {
 		pdto.setContenttypeid(888);
 		pdto.setMapx(mapx);
 		pdto.setMapy(mapy);
-		pdto.setContent(mapx+","+mapy);
-		
+		System.out.println(address1);
 		gp.setSdto(pdto);
-
 
 		pdto.setContent(address2);
 		pdto.setStartDate(startDate);
-		pdto.setLongTime(durTime);
+		pdto.setLongTime(durTime/60);
 		pdto.setContenttypeid(999);
 		pdto.setMapx(mapx);
 		pdto.setMapy(mapy);
-		pdto.setContent(mapx+","+mapy);
-
+		System.out.println(address2);
 		gp.setEdto(pdto);
 
 		System.out.println(pdto.getStartDate());
@@ -235,6 +232,7 @@ public class PlanInfoController {
 		dto.setContentid((long) 8888);
 		dto.setContenttypeid(8888);
 		dao.planInfoInsert(dto);
+		System.out.println(dto.getContent()+1);
 		
 		dto = gp.getEdto();
 		dto.setPlanNum(dao.planInfoMax()+1);
@@ -242,7 +240,7 @@ public class PlanInfoController {
 		dto.setContentid((long) 9999);
 		dto.setContenttypeid(9999);
 		dao.planInfoInsert(dto);
-		
+		System.out.println(dto.getContent()+2);
 		ListIterator<HashMap<String, Object>> it = lists.listIterator();
 		while(it.hasNext()){
 			
@@ -351,10 +349,18 @@ public class PlanInfoController {
 			
 			System.out.println(dto.getFirstimage());
 		}
-				
+		PlanInfoDTO dto1 = new PlanInfoDTO(); 
+		dto1 = dao.getStartPlace(groupNum);
+		req.setAttribute("startPlace", dto1);
+		
+		dto1 = dao.getSecondPlace(groupNum);
+		req.setAttribute("secondPlace", dto1);
+		
 		req.setAttribute("title", title);
 		req.setAttribute("lists", lists);
 		req.setAttribute("startDate", startDate);
+		
+		
 		return "myPlanCompl";
 	}
 

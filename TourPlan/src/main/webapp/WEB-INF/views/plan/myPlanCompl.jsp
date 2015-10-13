@@ -63,6 +63,33 @@
 				<div style="width: 100%; height: 20px; margin-top: 10px; margin-bottom: 10px;">
 				Tour Start!!
 				</div>
+											<div id="travel_data${status.index}" style="width: 100%; height: 20px; font-size: 10pt;">
+				최단거리 -> 
+				</div>
+		
+				<!-- 2 -->
+				<div style="width: 100%; height:100px; border:1px solid; border-color: #BDBDBD;">
+					<!-- day1 박스  -->
+					<div style="background-color: white; width: 25%; height: 100px; text-align: center; float: left; overflow: hidden; ">
+						<div style="color: black; font-size: 20pt; padding-top: 15%;"><b>출발지역</b></div>
+					</div>
+					
+					<!-- 정보박스  -->
+					<div style="background-color: white; width: 20%; height: 100px; float: left; overflow: hidden;">
+						<div style="margin-top: 10px; width: 75px; height: 75px; border:1px solid; border-color: #BDBDBD; " >
+							<img alt="대표이미지" src="${map.firstimage }"> 
+						</div>
+					</div>
+					
+					<div style="background-color: white; width: 55%; height: 100px; float: left; overflow: hidden; text-align: left: ;">
+						<div style="font-size: 14pt; padding-top: 4%;">
+							${startPlace.content}->${secondPlace.content}       //소요시간 ${secondPlace.longTime}
+						</div>
+						
+					</div>
+					
+				</div>
+				<!-- 2 -->
 
  			<c:forEach var="map" items="${lists}" varStatus="status">
  			

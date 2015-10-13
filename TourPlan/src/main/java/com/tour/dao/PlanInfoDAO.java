@@ -67,5 +67,22 @@ public class PlanInfoDAO {
 		
 		return startDate;
 	}
+	
+	//출발설정의 출발정보가져오기
+	public PlanInfoDTO getStartPlace(int groupNum) {
+		
+		PlanInfoDTO startPlace = sessionTemplate.selectOne("com.tour.planInfo.getStartPlace",groupNum);
+		
+		return startPlace;
+	}
+	
+	//출발설정의 도착정보가져오기
+	public PlanInfoDTO getSecondPlace(int groupNum) {
+		
+		PlanInfoDTO secondPlace = sessionTemplate.selectOne("com.tour.planInfo.getSecondPlace",groupNum);
+		
+		return secondPlace;
+	}
+
 
 }

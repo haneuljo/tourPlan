@@ -3,15 +3,6 @@
 <%
 	String cp = request.getContextPath();
 %>
-
-
-
-내일정 : ${listsSize}
- 			<c:forEach var="dto" items="${lists}" varStatus="status">
- 			
-				<div class="plan"><a onclick="javascript:location.href='<%=cp%>/myPlanCompl?groupNum=${dto.groupNum}'">${dto.title }</a> </div>
-
-			</c:forEach>
 <!-- 이미지&바 묶기  -->
 <div style="width: 100%;">
 	<div style="width:100%; height:300px; background:url(/tourPlan/resources/image/myPlanbg.jpg) center;">
