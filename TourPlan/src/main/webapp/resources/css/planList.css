@@ -94,8 +94,7 @@
 	font-size:9pt;
 }
 #areaList{
-	/* height: 91.6%;	 */
-	height: 453px;
+	height: 91.6%;	
 	overflow-y: scroll;
 	color:black;
 	background-color: #fff;
