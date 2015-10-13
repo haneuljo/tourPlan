@@ -32,6 +32,9 @@
 			<div class="contentTypeDetails"  data="38">
 				<span class="glyphicon glyphicon-credit-card"></span>
 			</div>
+			<div class="contentTypeDetails"  data="32">
+				<span class="glyphicon glyphicon-home"></span>
+			</div>
 			<div class="contentTypeDetails"  data="12">
 				<span class="glyphicon glyphicon-send"></span>
 			</div>
@@ -75,11 +78,18 @@
 	   			 $("#clipMapViewContentType").show();
 				 $("#areaList").css("height","453px");
 				 //alert($(this).parent('div').children('span').text());
-		 		 markerMap();
+		 		 markerMap(12);
 			 });
 		},error:function(e){}
 	  });
 
+	$(".contentTypeDetails").click(function(){
+		$(".contentTypeDetails").attr("class","contentTypeDetails");
+		$(this).attr("class","contentTypeDetails contentTypeActive");
+		clearMarkers();
+		markerMap($(this).attr("data"));
+		
+	});
 	$("#startSelectBtn").click(function(){
     	$.ajax({
 			type:"GET",

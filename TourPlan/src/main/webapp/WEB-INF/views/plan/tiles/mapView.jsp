@@ -33,12 +33,10 @@
 	 
 	}
 	
-	 function markerMap(){
-		 
-		 
-		 
-			var contentTypeId=12;
+	var itemsMarker  = [];
+	 function markerMap(contentTypeId){
 			var sigunguCode = 0;
+
 			$.ajax({
 				type:"GET",
 				url:"<%=cp%>/travelMapClipCount?areaCode="+areaCode+"&sigunguCode="+sigunguCode+"&contentTypeId="+contentTypeId,
@@ -49,7 +47,7 @@
 					var secretMessages = new Array();
 					var mapy;
 					var mapx;
-						
+					$("#areaList").empty();
 					$.each(data, function(index, value) {
 						$("#areaList").append('<div class="clipMapView_info"><img src="'+value.firstimage+'"/><div class="clipMapViewContent"><div class="clipMapView_info_title">'+value.title+'</div><div class="clipMapView_info_span"><span class="glyphicon glyphicon-send"></span>'+value.clipCount+'</div></div></div>');
 						 
@@ -75,17 +73,27 @@
 
 							
 						var itemsXY = new google.maps.LatLng(value.mapy,value.mapx);
-						var itemsMarker=new google.maps.Marker({
+						itemsMarker[i]=new google.maps.Marker({
 						  	  position:itemsXY,
 					  	});
-						itemsMarker.setMap(map);
-						attachSecretMessage(itemsMarker, secretMessages[i]);
+						itemsMarker[i].setMap(map);
+						attachSecretMessage(itemsMarker[i], secretMessages[i]);
 					});  
 					},error:function(e){	alert("1111111111"+e.responseText);}
 					
 				});
 			}
-			// marker is clicked, the info window will open with the secret message
+				 
+		
+			 function clearMarkers() {
+				 //alert(itemsMarker.length);
+				 for (var i = 0; i < itemsMarker.length; i++) {
+					 itemsMarker[i].setMap(null);
+				   }
+				 itemsMarker = [];
+			 }
+		
+				// marker is clicked, the info window will open with the secret message
 			function attachSecretMessage(marker, secretMessage) {
 			  var infowindow = new google.maps.InfoWindow({
 			    content: secretMessage

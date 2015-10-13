@@ -47,7 +47,7 @@
 	<select id="clipList" resultType="com.tour.dto.ClipBoardDTO">
       select * from 
       (select rownum rnum, data.* from
-      (select distinct contentid, 
+      (select distinct contentid, area,
       count(*) over (PARTITION BY contentid) clipCount from clipBoard 
       order by clipCount desc) data) 
       <![CDATA[
