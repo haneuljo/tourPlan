@@ -14,7 +14,7 @@
  			
 				<div id="travel_data${status.index}"class="travel_data"></div>
  			
-				<div id="sortable_item-${status.index}" onprogress="initMap(${map.mapx},${map.mapy});">
+				<div id="sortable_item-${status.index}">
 				
 					<div class="sortable-item">
 					<div class="sortItem_firstImg"><img alt="대표이미지" src="${map.firstimage }"></div>

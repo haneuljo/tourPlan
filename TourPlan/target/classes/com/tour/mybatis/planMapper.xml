@@ -20,8 +20,8 @@
 	</select>
 
 
-	<select id="getMyPlan" resultType="com.tour.dto.PlanInfoDTO" parameterType="String"><!-- uploadchk추가필요  -->
-		select groupNum from plan where email=#{email}
+	<select id="getMyPlan" resultType="com.tour.dto.PlanDTO" parameterType="String"><!-- uploadchk추가필요  -->
+		select * from plan where email=#{email}
 	</select>
 	
 	

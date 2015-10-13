@@ -80,7 +80,7 @@
         <li class="active"><a href="<%=cp%>/">Index</a></li>
         <li><a href="<%=cp%>/travel">여행지</a></li>
         <li><a href="<%=cp%>/planInfo">여행일정</a></li>
-        <li><a href="<%=cp%>/myPlanTest">내일정</a></li>
+        <li><a href="<%=cp%>/myPlan">내일정</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       

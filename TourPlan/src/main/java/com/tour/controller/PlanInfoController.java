@@ -30,6 +30,8 @@ import com.tour.util.GroupSession;
 import com.tour.util.JSONResponseUtil;
 import com.tour.util.SessionInfo;
 
+import oracle.net.aso.h;
+
 @Controller("PlanInfoController")
 public class PlanInfoController {
 
@@ -225,20 +227,27 @@ public class PlanInfoController {
 		
 		ArrayList<HashMap<String, Object>> lists = new  ArrayList<HashMap<String,Object>>();               
 		lists = info.getInfoList();
-		System.out.println("not null");
-
+		
+		PlanDTO pdto = new PlanDTO();
+		int groupNum = dao.planInfoGroupMax()+1;
+		String email = info.getEmail();
+		String title = "임시";
+		pdto.setGroupNum(groupNum+1);
+		pdto.setEmail(email);
+		pdto.setTitle(title);
+		pdao.planInsert(pdto);
+		
+		
 		ListIterator<HashMap<String, Object>> it = lists.listIterator();
 		while(it.hasNext()){
 			
 			HashMap<String, Object> hMap = (HashMap<String, Object>)it.next();
-			hMap.put("planNum", dao.planInfoMax()+1);
-			//hMap.put("groupNum", dao.planInfoGroupMax()+1); //占싹놂옙占쏙옙 占쏙옙占쏙옙占쏙옙 groupNum占싹놂옙占쏙옙 insert占쌔억옙 占실쇽옙 +1 占쏙옙占쌔듸옙 占심듸옙?
+			hMap.put("planNum",dao.planInfoMax()+1);
+			hMap.put("groupNum", groupNum);
+
 			dao.planInfoInsertForhMap(hMap);
 			
 		}	
-		
-		listchk(lists);
-		
 		session.removeAttribute("groupDate"); //占쏙옙占싸울옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 session占쏙옙占쏙옙 클占쏙옙占쏙옙
 
 		return "planInfo";
@@ -286,42 +295,52 @@ public class PlanInfoController {
 		return "newPlan";
 	}
 
-	@RequestMapping("/myPlan")                                    //占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙
+	@RequestMapping("/myPlan")                                    //   db에저장된 일정들
 	public String myPlan(HttpServletRequest req) {
 
-		/*int groupNum = 1;
-
-		List<PlanInfoDTO> lists = dao.getLists(groupNum);
-
-		req.setAttribute("lists", lists);*/
-
 		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");  //占쏙옙占실울옙占쏙옙 占싸깍옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
+		
+		String email = info.getEmail();
+		List<PlanDTO> lists = pdao.getMyPlan(email);
+		
+		
+		req.setAttribute("lists", lists);
+		req.setAttribute("listsSize", lists.size());
 
-		ArrayList<HashMap<String, Object>> lists = info.getInfoList();
-		ArrayList<HashMap<String, Object>> lists2 = new ArrayList<HashMap<String,Object>>();
+
+		return "plan/myPlan";
+	}
+	
+	@RequestMapping("/myPlanCompl")                                    //   db에저장된 일정들
+	public String myPlanCompl(HttpServletRequest req, HttpServletResponse res, int groupNum) throws ParseException, IOException {
+		
+		List<PlanInfoDTO> lists = dao.getLists(groupNum);
+		ListIterator<PlanInfoDTO> it = lists.listIterator();
+		
 		Object mapxex = null;
 		Object mapyex = null;
-		ListIterator<HashMap<String, Object>> it = lists.listIterator();
+		
+		String startDate="임시";          //어디서 가져옴?;
+		
 		while(it.hasNext()){
+			PlanInfoDTO dto = it.next();
+			dto = (getPlanInfoDTOfromContentID(req, res, dto, startDate));
 			
-			HashMap<String, Object> hMap = (HashMap<String, Object>)it.next();
 			if(mapxex!=null){
-			hMap.put("mapxex", mapxex);
-			hMap.put("mapyex", mapyex);
+				dto.setMapxex(mapxex);
+				dto.setMapyex(mapyex);
 			}
-			mapxex=hMap.get("mapx");
-			mapyex=hMap.get("mapy");
 			
-			lists2.add(hMap);
+			mapxex = dto.getMapx();
+			mapyex = dto.getMapy();
 			
-		}	
+			System.out.println(dto.getFirstimage());
+		}
+				
+		req.setAttribute("lists", lists);
 
-		req.setAttribute("lists", lists2);
-
-		listchk(lists2);
-
-		return "myPlan";
+		return "plan/myPlanCompl";
 	}
 
 	@RequestMapping("/myPlanTest")          
@@ -406,12 +425,12 @@ public class PlanInfoController {
 		if(lists!=null){
 			Iterator<HashMap<String, Object>> it = lists.iterator();
 			HashMap<String, Object> dto = new HashMap<String, Object>();
-			System.out.println("占쏙옙占쏙옙트占쏙옙占쏙옙--------------------");
+			System.out.println("리스트시작--------------------");
 			while(it.hasNext()){                                      //占쏙옙占쏙옙체크
 				dto = (HashMap<String, Object>)it.next();
 				System.out.println(dto);
 			}
-			System.out.println("占쏙옙占쏙옙트占쏙옙--------------------");
+			System.out.println("리스트끝--------------------");
 		}else {
 			System.out.println("lists is null");
 		}
@@ -579,6 +598,42 @@ public class PlanInfoController {
 		return adto;
 	}
 
+	public PlanInfoDTO getPlanInfoDTOfromContentID(HttpServletRequest req,HttpServletResponse res,PlanInfoDTO dto,String startDate) throws ParseException, IOException {                                       //占싹댐옙占쏙옙 article.action占쏙옙占쏙옙占쌔쇽옙 contentid  -> api占쏙옙占쏙옙占쏙옙환占쏙옙占쏙옙 adto占싸뱄옙환
+
+		PlanInfoDTO adto = dto;
+
+		String url =
+				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?contentId="+dto.getContentid()+"&defaultYN=Y&addrinfoYN=Y&mapinfoYN=Y&firstImageYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTesting&_type=json&ServiceKey="
+						+tourAPIKey;
+
+		JSONParser jsonparser = new JSONParser();
+		JSONObject jsonobject = (JSONObject)jsonparser.parse(jsonUtil.getJSONResponseString(res, url));
+		JSONObject json =  (JSONObject) jsonobject.get("response");
+		JSONObject jsonbody =  (JSONObject) json.get("body");
+		JSONObject jsonitem =  (JSONObject) jsonbody.get("items");
+		JSONObject array = (JSONObject)jsonitem.get("item");
+
+
+		adto.setTitle((String) array.get("title"));
+		adto.setAddr1((String) array.get("addr1"));
+		adto.setAddr2((String) array.get("addr2"));
+		System.out.println("Addr2 : "+(String) array.get("addr2"));
+		adto.setContentid(dto.getContentid());
+		adto.setFirstimage((String) array.get("firstimage"));
+		adto.setOverview((String) array.get("overview"));
+		System.out.println(array.get("contenttypeid"));
+		adto.setContenttypeid((Long) array.get("contenttypeid"));
+
+		if(array.containsKey("mapx")){
+
+			adto.setMapx(array.get("mapx"));
+			adto.setMapy(array.get("mapy"));
+
+		}
+
+		return adto;
+	}
+	
 	@RequestMapping("/orderUpdate")
 	public String orderUpdate(HttpServletRequest req,HttpServletResponse res, String[] sortable_item) {             //占싹댐옙占싱곤옙占쌔곤옙 占썲래占쌓억옙 占쏙옙占�.. 占쌕듸옙 占쏙옙占쏙옙占�?;
 
