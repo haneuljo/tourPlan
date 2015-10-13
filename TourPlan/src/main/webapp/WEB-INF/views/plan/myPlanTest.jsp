@@ -21,7 +21,7 @@
 				 		<div class="sortContent">
 						 	<div class="sortItem_title"> <span>${map.title}<%-- //index:${status.index} --%></span></div>
 			 				<div class="sortItem_addr"> <span> ${map.addr1}<%--  ${map.addr2 } --%></span> </div>
-			 				<select id="lonTime${status.index}" class="form-control sortItem_time">
+			 				<select id="lonTime" class="form-control sortItem_time" data="${status.index}">
 			 					<option value="0">0</option>
 			 					<option value="30">30분</option>
 			 					<option value="60">1시간</option>
@@ -121,6 +121,25 @@
 				});
 				
 			});
+		
+ 			$(".form-control").change(function(){
+				var time_index = $(this).attr("data");
+				//alert(del_index);
+		    	$.ajax({
+		            type:"POST",
+					url:"<%=cp%>/longTime",
+					data:"index="+time_index+"&longTime="+$(".form-control").val(),	
+					success:function(args){
+				           $("#result").html(args);
+					},
+			        error:function(e){
+			            alert(e.responseText);
+			         }
+					
+				});
+				
+			});
+
 
 		
 		

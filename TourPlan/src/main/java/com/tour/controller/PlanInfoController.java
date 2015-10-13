@@ -58,7 +58,7 @@ public class PlanInfoController {
 	@RequestMapping("/choice")
 	public String choice(int durTime,int endTime,Long contentid,HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {
 
-		int time=endTime+durTime; //愿�愿묒� 異쒕컻�떆媛�
+		int time=endTime+durTime; //
 		int tran, min=0;
 		int hour=0;
 
@@ -72,43 +72,23 @@ public class PlanInfoController {
 			min = tran/60;
 			//d = b % 60; //占쏙옙
 
-			System.out.println(hour + "�떆" + min + "遺�");
+			System.out.println(hour + "시" + min + "분");
 
 		} else if (time<3600 && time>60) {
 
 			min = time/60;
 			//d = time % 60;//占쏙옙
 
-			System.out.println(min + "遺�" );
+			System.out.println(min + "분" );
 
 		} 
 
 		String stratDate = gp.getStartDate() + " " + hour + ":" + min + ":00"; 
-		System.out.println("�궇吏�:" + gp.getStartDate()); 
-		System.out.println("�냼�슂:" + durTime);
-		System.out.println("�룄李�:" + endTime);
-		System.out.println("而⑥븘�씠�뵒:" + contentid);
-		System.out.println("異쒕컻�궇吏쒖떆媛�:" + stratDate);
-		//System.out.println(contentid);
-	
-		/*�씤�꽌�듃 �빐�빞�븯�뒗 蹂��닔�뱾
-		 planNum : dao.planInfoMax()+1
-		 groupNum : gp.getGroupNum()
-		 content : 愿�愿묒��젙蹂�
-		 startDate : gp.getStartDate()
-		 longTime : 0 愿�愿묎킅吏��뿉�꽌 癒몃Т瑜대뒗 �떆媛꾩쑝濡� 諛붾�붾븣留덈떎 update�빐�빞�븿
-		 contentid : contentid
-		 contenttypeid : 愿�愿묒����엯
-		 
-		hMap.put("order", 4);  //�씠遺�遺꾩� 硫� �꽔�뼱�빞�븷吏�????
-		hMap.put("planNum", dao.planInfoMax()+1);
-		hMap.put("groupNum", gp.getGroupNum());
-		hMap.put("contentid", contentid);
-		hMap.put("contenttypeid", 1);
-		hMap.put("longTime",0); //default濡� 0�쑝濡�
-		hMap.put("content", "111");
-		hMap.put("startDate", gp.getStartDate());
-		 */
+		System.out.println("gp.getStartDate():" + gp.getStartDate()); 
+		System.out.println("durTime:" + durTime);
+		System.out.println("endTime:" + endTime);
+		System.out.println("contentid:" + contentid);
+		System.out.println("stratDate:" + stratDate);
 
 		PlanInfoDTO adto = new PlanInfoDTO();
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
@@ -121,11 +101,10 @@ public class PlanInfoController {
 		hMap.put("title",adto.getTitle());
 		hMap.put("mapx",adto.getMapx());
 		hMap.put("mapy",adto.getMapy());
-		//hMap.put("planNum", dao.planInfoMax()+1);
 		hMap.put("groupNum", gp.getGroupNum());
 		hMap.put("contentid", contentid);
 		hMap.put("contenttypeid", 1);
-		hMap.put("longTime",0); //default占쏙옙 0占쏙옙占쏙옙
+		hMap.put("longTime",60); //              소요시간 분단위?
 		hMap.put("content", "111");
 		hMap.put("startDate", gp.getStartDate());
 
@@ -576,6 +555,8 @@ public class PlanInfoController {
 			//int index = getPlanInfoMapIndex(lists, "planNum", dto.getPlanNum());                //占쏙옙占쏙옙占쏙옙트占싹깍옙 String contentid占쏙옙 占싯삼옙占심깍옙                   占쌓쏙옙트 占십울옙
 
 			lists.remove(index);
+			
+			info.setInfoList(lists);
 
 			session.setAttribute("loginInfo", info);                      //占쏙옙占실울옙 占쏙옙占쏙옙트 占쏙옙틸첩占�
 		}
@@ -671,7 +652,7 @@ public class PlanInfoController {
 	}
 	
 	@RequestMapping("/orderUpdate")
-	public String orderUpdate(HttpServletRequest req,HttpServletResponse res, String[] sortable_item) {             //占싹댐옙占싱곤옙占쌔곤옙 占썲래占쌓억옙 占쏙옙占�.. 占쌕듸옙 占쏙옙占쏙옙占�?;
+	public String orderUpdate(HttpServletRequest req,HttpServletResponse res, String[] sortable_item) {             //저장하기전 새로정렬
 
 		System.out.println("orderUpdate");
 		for(String value : sortable_item){
@@ -679,6 +660,37 @@ public class PlanInfoController {
 		}
 		updateInfoLists(req, sortable_item);
 		System.out.println(sortable_item.length);
+
+		return "redirect:/myPlanTest";
+	}
+	
+	@RequestMapping("/longTime")
+	public String longTime(HttpServletRequest req,HttpServletResponse res, int index, int longTime) {             //저장하기전 새로정렬
+
+		System.out.println(index);
+		System.out.println(longTime);
+		
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo"); 
+
+		ArrayList<HashMap<String, Object>> lists;
+
+		if(info.getInfoList()==null){                                        
+			lists = new  ArrayList<HashMap<String,Object>>();             
+			System.out.println("infolist is null and index:"+index);
+		}else{
+			lists = info.getInfoList();
+			System.out.println("not null");
+
+			HashMap<String, Object> hMap;
+			hMap = lists.get(index);
+			hMap.put("longTime", longTime);
+			lists.set(index, hMap);
+
+			info.setInfoList(lists);
+			session.setAttribute("loginInfo", info);                      
+		}
+
 
 		return "redirect:/myPlanTest";
 	}

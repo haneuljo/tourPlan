@@ -80,13 +80,13 @@
 					<!-- 정보박스  -->
 					<div style="background-color: white; width: 20%; height: 100px; float: left; overflow: hidden;">
 						<div style="margin-top: 10px; width: 75px; height: 75px; border:1px solid; border-color: #BDBDBD; " >
-							<img alt="대표이미지" src="${map.firstimage }"> ${map.title}//${map.addr1}
+							<img alt="대표이미지" src="${map.firstimage }"> 
 						</div>
 					</div>
 					
 					<div style="background-color: white; width: 55%; height: 100px; float: left; overflow: hidden; text-align: left: ;">
 						<div style="font-size: 14pt; padding-top: 4%;">
-							 ${map.title}
+							${map.title}//${map.addr1}       //소요시간 ${map.longTime}
 						</div>
 						
 					</div>
