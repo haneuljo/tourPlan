@@ -117,7 +117,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 				</div>
 		
 		
-		
+				<div style="width: 100%; height: 20px; font-size: 10pt;">
+				최단거리 -> 
+				</div>
 		
 				<!-- 2 -->
 				<div style="width: 100%; height:100px; border:1px solid; border-color: #BDBDBD;">

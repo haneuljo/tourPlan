@@ -3,25 +3,93 @@
 <%
 	String cp = request.getContextPath();
 %>
+<div class="container" style="width: 100%; height:100%;">
 
+	<!-- body부분 전체묶기 -->
+	<div style="width: 100%; height: 100%;">
+
+ 		<div style="width: 1072px; height:502px; border: 1px solid; border-color: #BDBDBD; margin-left: 10%;">
+ 		
+		 	<div style="width: 1070px; height:400px;  background:url(/tourPlan/resources/image/1.png); background-size: corver; "></div>
+	 		
+	 		<div style="width: 1070px; height:100px; background-color: white;">
+	 		
+	 			<div style="font-size: 16pt; padding-top: 5px;">
+	 				<b>E-mail</b>
+	 			</div>
+	 			
+	 			<div style="font-size: 20pt;">
+	 				<b>Title</b>
+	 			</div>
+	 			
+	 			<div style="font-size: 10pt;">
+	 				startDate ~ endDate
+	 			</div>
+	 		
+	 		</div>
+	 		
+	 
+	 	</div>
+	 
+		<div style="width: 1702px; margin-left: 10%;">
+	 
+			<!-- 여행 일정 뿌리는곳 -->
+			<div style="width: 43%; float: left; margin-top: 2%;">
+				
+				<!-- 1 -->
+				<div style="width: 100%; height:60px; border:1px solid; border-color: #BDBDBD;">
+					<!-- day1 박스  -->
+					<div style="background-color: #000042; width: 25%; height: 60px; text-align: center; float: left; overflow: hidden; ">
+						<div style="color: white; font-size: 20pt; padding-top: 7%;"><b>DAY1</b></div>
+					</div>
+					
+					<!-- 정보박스  -->
+					<div style="background-color: white; width: 75%; height: 60px; float: left; overflow: hidden;">
+						<div style="font-size: 12pt; color: #B3A197; padding-top: 3px; text-align: left;" >
+							startDate 
+						</div>
+					
+			
+						<div style="font-size: 15pt; text-align: left; padding-top: 5px;">
+							<b>지역코드</b>
+						</div>
+					</div>
+					
+				</div>
+				<!-- 1 -->
+			
+		
+		
+				<div style="width: 100%; height: 20px; margin-top: 10px; margin-bottom: 10px;">
+				Tour Start!!
+				</div>
 
  			<c:forEach var="map" items="${lists}" varStatus="status">
  			
-				<div id="travel_data${status.index}"class="travel_data"></div>
- 			
-				<div id="sortable_item-${status.index}">
-				
-					<div class="sortable-item">
-					<div class="sortItem_firstImg"><img alt="대표이미지" src="${map.firstimage }"></div>
-				 		<div class="sortContent">
-						 	<div class="sortItem_title"> <span>${map.title}<%-- //index:${status.index} --%></span></div>
-			 				<div class="sortItem_addr"> <span> ${map.addr1}<%--  ${map.addr2 } --%></span> </div>
-			 				<div class="sortBtnGroup">
-				 				<div class="sortBtn"><span class="glyphicon glyphicon-wrench"></span></div>
-				 				<div id="deleteTemp" class="deleteTemp sortBtn" data="${status.index}"><span class="glyphicon glyphicon-trash"></span></div>
-			 				</div>
+							<div style="width: 100%; height: 20px; font-size: 10pt;">
+				최단거리 -> 
+				</div>
+		
+				<!-- 2 -->
+				<div style="width: 100%; height:100px; border:1px solid; border-color: #BDBDBD;">
+					<!-- day1 박스  -->
+					<div style="background-color: white; width: 25%; height: 100px; text-align: center; float: left; overflow: hidden; ">
+						<div style="color: black; font-size: 20pt; padding-top: 15%;"><b>Tour : 1</b></div>
+					</div>
+					
+					<!-- 정보박스  -->
+					<div style="background-color: white; width: 20%; height: 100px; float: left; overflow: hidden;">
+						<div style="margin-top: 10px; width: 75px; height: 75px; border:1px solid; border-color: #BDBDBD; " >
+							<img alt="대표이미지" src="${map.firstimage }"> ${map.title}//${map.addr1}
 						</div>
-	 				</div>
+					</div>
+					
+					<div style="background-color: white; width: 55%; height: 100px; float: left; overflow: hidden; text-align: left: ;">
+						<div style="font-size: 14pt; padding-top: 4%;">
+							${map.content}
+						</div>
+						
+					</div>
 					<input type="hidden" name="planNum" value="${map.planNum }">
 					<input type="hidden" name="groupNum" value="${map.groupNum }">
 					<input type="hidden" name="contentid" value="${map.contentid }contentid">
@@ -29,14 +97,22 @@
 					<input type="hidden" name="longTime" value="${map.longTime }longtime">
 					<input type="hidden" name="content" value="${map.content }content">
 					<input type="hidden" name="startDate" value="${map.startDate }startDate">
+					
 				</div>
-				
+				<!-- 2 -->
 				
 
 
 			</c:forEach>
+</div>
+			<!-- 여행 일정 뿌리는곳 -->
+</div>
 
+	</div>
+	<!-- body부분 전체묶기 -->
 	
+</div>
+
 <script>
 	var map;
 	var directionsDisplay;
