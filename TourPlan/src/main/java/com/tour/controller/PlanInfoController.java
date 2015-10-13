@@ -47,6 +47,13 @@ public class PlanInfoController {
 
 	@Autowired
 	JSONResponseUtil jsonUtil;
+	
+	@RequestMapping("/test")
+	public String test(HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {
+		
+		return "/plan/test";
+	}
+	
 
 	@RequestMapping("/choice")
 	public String choice(int durTime,int endTime,Long contentid,HttpServletRequest req,HttpServletResponse res) throws ParseException, IOException {
