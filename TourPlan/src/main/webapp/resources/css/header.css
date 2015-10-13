@@ -36,15 +36,44 @@
 .navbar-inverse .navbar-nav>.active>a:hover {
     height: 60px;
 	background-color:#fff;
+    padding-right: 20px;
+    color: black;
 
 }
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: black;
+    background-color: #fff;
+    border-bottom: 2px solid #ccc;
+}
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
+    height: 60px;
+    color: black;
+    background-color: #fff;
+    border-bottom: 2px solid #ccc;
+}
  .navbar-nav{
-	margin-right: 10%;
+ 
+    margin-right: 0px;
     margin-left: 15%;
 	
 }
 	
+.navbar-right{
+	
+	margin-right: 0px;
+	
+}
+.navbar-right>li>a:focus, #sign>a:focus,#login>a:focus,#sign>a:hover,#login>a:hover,#sign>a:visited,#login>a:visited{
+	border:1px solid #ccc;
+	margin-right: 10px;
+    margin-top: 10px;
+    height: 32px;
+	background-color: #000042;
+	
+}
+
 .navbar-inverse .navbar-nav>.active>a{
+	
 	color:#003399;
 }
 
@@ -55,7 +84,14 @@
     background-size: cover;
 }
 
-
+.headerBtn{
+	border:1px solid #ccc;
+	margin-right: 10px;
+    margin-top: 10px;
+    height: 32px;
+	background-color: #000042;
+	
+}
 
 
 

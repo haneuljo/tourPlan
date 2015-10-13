@@ -37,7 +37,7 @@ public class MemberController {
 	@RequestMapping("/")
 	public String intro(HttpServletRequest req) {
 		//DB������ ���ϰ� ���� ����
-		HttpSession session = req.getSession(true); 
+		/*HttpSession session = req.getSession(true); 
 
 		SessionInfo info = new SessionInfo();
 		
@@ -57,7 +57,7 @@ public class MemberController {
 		req.setAttribute("clipCount", clipCount);
 		req.setAttribute("planCount", planCount);
 		req.setAttribute("reviewCount", reviewCount);
-		
+		*/
 		return "index";
 	}
 		
@@ -101,7 +101,16 @@ public class MemberController {
 		//info.setProfileImg(dto.getProfileImg());
 
 		session.setAttribute("loginInfo", info);
-		// loginInfo��� �����ȿ� info ��� Ŭ���� ��ü�� �־��ش�
+		
+		
+		int clipCount = cdao.myClipCount(info.getEmail());
+		int planCount = pdao.myPlanCount(info.getEmail());
+		int reviewCount = rdao.myReviewCount(info.getEmail());
+		
+		req.setAttribute("name", dto.getName());
+		req.setAttribute("clipCount", clipCount);
+		req.setAttribute("planCount", planCount);
+		req.setAttribute("reviewCount", reviewCount);
 		
 		return "redirect:/";
 	}
