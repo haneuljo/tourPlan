@@ -10,7 +10,7 @@
 
  		<div style="width: 1072px; height:502px; border: 1px solid; border-color: #BDBDBD; margin-left: 10%;">
  		
-		 	<div style="width: 1070px; height:400px;  background:url(/tourPlan/resources/image/1.png); background-size: corver; "></div>
+		 	<div style="width: 1070px; height:400px;  background:url(/tourPlan/resources/image/planComplbg.jsp); background-size: corver; "></div>
 	 		
 	 		<div style="width: 1070px; height:100px; background-color: white;">
 	 		
@@ -74,7 +74,7 @@
 				<div style="width: 100%; height:100px; border:1px solid; border-color: #BDBDBD;">
 					<!-- day1 박스  -->
 					<div style="background-color: white; width: 25%; height: 100px; text-align: center; float: left; overflow: hidden; ">
-						<div style="color: black; font-size: 20pt; padding-top: 15%;"><b>Tour : 1</b></div>
+						<div style="color: black; font-size: 20pt; padding-top: 15%;"><b>Tour : ${status.index+1}</b></div>
 					</div>
 					
 					<!-- 정보박스  -->
