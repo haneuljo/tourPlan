@@ -243,7 +243,7 @@ public class PlanInfoController {
 		PlanDTO pdto = new PlanDTO();
 		int groupNum = dao.planInfoGroupMax()+1;
 		String email = info.getEmail();
-		pdto.setGroupNum(groupNum+1);
+		pdto.setGroupNum(groupNum);
 		pdto.setEmail(email);
 		pdto.setTitle(gp.getTitle());
 		pdao.planInsert(pdto);
@@ -253,11 +253,15 @@ public class PlanInfoController {
 		dto = gp.getSdto();
 		dto.setPlanNum(dao.planInfoMax()+1);
 		dto.setGroupNum(groupNum);
+		dto.setContentid((long) 8888);
+		dto.setContenttypeid(8888);
 		dao.planInfoInsert(dto);
 		
 		dto = gp.getEdto();
 		dto.setPlanNum(dao.planInfoMax()+1);
 		dto.setGroupNum(groupNum);
+		dto.setContentid((long) 9999);
+		dto.setContenttypeid(9999);
 		dao.planInfoInsert(dto);
 		
 		ListIterator<HashMap<String, Object>> it = lists.listIterator();
@@ -317,20 +321,30 @@ public class PlanInfoController {
 	}
 
 	@RequestMapping("/myPlan")                                    //   db에저장된 일정들
-	public String myPlan(HttpServletRequest req) {
+	public String myPlan(HttpServletRequest req, HttpServletResponse res) throws ParseException, IOException {
 
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
 		
 		String email = info.getEmail();
 		List<PlanDTO> lists = pdao.getMyPlan(email);
+		PlanDTO pdto = new PlanDTO(); 
 		
+		ListIterator<PlanDTO> it = lists.listIterator();
+		while(it.hasNext()){
+			pdto = it.next();
+			Long contentid = dao.getLastId(pdto.getGroupNum());
+			System.out.println(contentid);
+			if(contentid!=null){
+			pdto.setFirstimage(getPlanInfoDTOfromContentID(req, res,contentid, "11").getFirstimage());         //노답
+			}
+		}
 		
 		req.setAttribute("lists", lists);
 		req.setAttribute("listsSize", lists.size());
 
 
-		return "plan/myPlan";
+		return "myPlan";
 	}
 	
 	@RequestMapping("/myPlanCompl")                                    //   db에저장된 일정들
@@ -361,7 +375,7 @@ public class PlanInfoController {
 				
 		req.setAttribute("lists", lists);
 
-		return "plan/myPlanCompl";
+		return "myPlanCompl";
 	}
 
 	@RequestMapping("/myPlanTest")          

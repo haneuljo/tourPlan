@@ -26,15 +26,16 @@
 	</select>
 	
 	<select id="getLists" resultType="com.tour.dto.PlanInfoDTO" parameterType="int">
-		select * from planInfo where groupNum = #{groupNum}
+		select * from planInfo where groupNum = #{groupNum} and contentid not in (8888, 9999)
 	</select>
 	
-	
+	<select id="getLastId" resultType="Long" parameterType="int">
+		select contentid from (select rownum rnum, contentid from planInfo where  groupNum = #{groupNum} and contentid not in (8888, 9999)) where rnum = (select nvl(max(rownum),0) from planinfo  where  groupNum = #{groupNum} and contentid not in (8888, 9999))
+	</select>
 	
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 
 	from post where seq=#{seq}
 </select> -->
-
 
 </mapper> 

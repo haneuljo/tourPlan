@@ -44,15 +44,15 @@
      <put-attribute name="content" value="/WEB-INF/views/plan/planInfo.jsp" />
    </definition>
    
-<!--    <definition name="myPlan" extends="template">
+ <definition name="myPlan" extends="template">
      
      <put-attribute name="content" value="/WEB-INF/views/plan/myPlan.jsp" />
    </definition>
- -->   
-<!--    <definition name="myPlanTest" extends="template">
-     <put-attribute name="content" value="/WEB-INF/views/plan/myPlanTest.jsp" />
-   </definition>
-    -->
+    
+<definition name="myPlanCompl" extends="template">
+     <put-attribute name="content" value="/WEB-INF/views/plan/myPlanCompl.jsp" />
+</definition>
+
    
    
    
