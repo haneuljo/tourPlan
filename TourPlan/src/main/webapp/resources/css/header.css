@@ -79,10 +79,17 @@
 
 .area_top {
     width: 100%;
-    height: 450px;
-    background: url('../area_top_img.JPG') no-repeat;
+    height: 400px;
+    background: url('../main.jpg') no-repeat;
     background-size: cover;
 }
+.planInfo_top_img{
+	width: 100%;
+    height: 400px;
+    background: url('../planInfo.jpg') no-repeat;
+    background-size: cover;
+}
+
 
 .headerBtn{
 	border:1px solid #ccc;

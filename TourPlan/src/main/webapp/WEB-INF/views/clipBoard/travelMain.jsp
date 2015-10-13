@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%	String cp = request.getContextPath(); %>
-<div class="area_top">
-</div>
+<div class="travelMainimage"></div>
 <div class="container">
+
 	<div id="areaContainer">
 		<div id="seoul" class ="area area0">서울</div>
 		<div id="incheon" class ="area area1">인천</div>
@@ -26,12 +26,21 @@
 		<div id="sigungu2" class="sigungu"></div>
 	</div>
 	<form name="clip" method="post">
+	<div>
+		<ul class="nav nav-tabs">
+		    <li class="active"><a href="#">관광</a></li>
+		    <li><a href="#">숙박</a></li>
+		    <li><a href="#">음식점</a></li>
+		    <li><a href="#">쇼핑</a></li>
+		</ul>
+		
+	
+	</div>
 	<div id="clipResult"></div> 
 
 	</form>
 	
 	<script>
-		$("#menu1").attr("class","active");
 		var areaCode;
 		var sigunguCode=0;
 		$.ajax({
@@ -84,6 +93,7 @@
 					},	error:function(e){alert("1111111111"+e.responseText);}
 				});		
 			}else{
+				$(".nav-tabs").show();
 				clipCount(1);
 			}
 			
@@ -101,7 +111,7 @@
 					//alert(data);
 					
 					$.each(data, function(index, value) {
-						$("#clipResult").append('<div class="travel_info" onclick="article('+value.contentid+');"><img style="width:200px; height:150px;"src="'+value.firstimage+'"/><br/>클립: '+value.clipCount+' : '+value.title+'</div>');
+						$("#clipResult").append('<div class="travel_info" onclick="article('+value.contentid+');"><div class="imageBox"><img style="width: 238px; height: 150px;" src="'+value.firstimage+'"/></div><div class="titleBox" align="left"><font style="font-size: 13pt; font-weight:bold; margin-left: 5px;"> '+value.title+'</font><br/><span style="font-size: 12pt; color : #A6A6A6; margin-left: 5px; margin-top: 8px;" class="glyphicon glyphicon-send"> '+value.clipCount+'</span></div>');
 					});  
 					 
 					
