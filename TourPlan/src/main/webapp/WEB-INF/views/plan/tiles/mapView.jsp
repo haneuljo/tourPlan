@@ -74,6 +74,7 @@
 						var itemsMarker=new google.maps.Marker({
 						  	  position:itemsXY,
 					  	});
+						itemsMarker.setMap(null);
 						itemsMarker.setMap(map);
 						attachSecretMessage(itemsMarker, secretMessages[i]);
 					});  

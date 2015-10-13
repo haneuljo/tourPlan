@@ -32,6 +32,9 @@
 			<div class="contentTypeDetails"  data="38">
 				<span class="glyphicon glyphicon-credit-card"></span>
 			</div>
+			<div class="contentTypeDetails"  data="32">
+				<span class="glyphicon glyphicon-home"></span>
+			</div>
 			<div class="contentTypeDetails"  data="12">
 				<span class="glyphicon glyphicon-send"></span>
 			</div>

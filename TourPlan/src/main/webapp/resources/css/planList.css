@@ -270,14 +270,14 @@
 }
 
 #clipMapViewContentType{
-	padding-left: 10%;
+	padding-left: 2.6px;
 	border-bottom:1px solid #ccc;
 	padding-top:2px;
 	height:50px;
 	background-color: #fff;
 }
 .contentTypeDetails{
-	margin-right:5%;
+	margin-right:3%;
 	width:45px;
 	height:45px;
 	border: 2px solid #ccc;
