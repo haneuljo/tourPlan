@@ -34,11 +34,13 @@
 .title{
 	
 	color: #000042; 
-	font-size: 12pt;
-	font-weight:bold; 
+	font-size: 13pt;
+	font-weight:bold;
+	text-align:center;
+	padding-top: 4px;
+	/* 
 	margin-left: 5px;
-	margin-top: 3px;
-	
+ */	
 	
 	}
 	
