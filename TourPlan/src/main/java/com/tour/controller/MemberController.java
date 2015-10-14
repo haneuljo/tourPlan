@@ -58,12 +58,23 @@ public class MemberController {
 		//경주 첨성대 : 126207
 		//인천 동화마을 : 1938168
 		//부산 부산타워 : 1277679
+		//부산 해동용궁사 : 126848
 		//전라남도 순천만정원 : 1919548
-		for (int i = 0; i < 291; i++) {
+		//전라남도 담양 메타세콰이어길 : 250094
+		//명성황후 생가 contentId=126790
+		//경복궁 126508
+		//광화문 ontentId=126512
+		for (int i = 0; i < 204; i++) {
 			
 			//cdao.clipInsertLoop(126207,"경상북도");
 			//cdao.clipInsertLoop(1938168,"인천");
-			cdao.clipInsertLoop(1919548,"전라남도");
+			//cdao.clipInsertLoop(1919548,"전라남도");
+			//cdao.clipInsertLoop(250094,"전라남도");
+			//cdao.clipInsertLoop(126848,"부산");
+			//cdao.clipInsertLoop(1277679,"부산");
+			//cdao.clipInsertLoop(126790,"경기도");
+			//cdao.clipInsertLoop(126508,"서울");
+			cdao.clipInsertLoop(126512,"서울");
 		}
 	
 	}
@@ -103,7 +114,7 @@ public class MemberController {
 	         String url =
 	               "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?contentId="+cdto.getContentid()+"&defaultYN=Y&addrinfoYN=Y&mapinfoYN=Y&firstImageYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTesting&_type=json&ServiceKey="
 	                  +tourAPIKey;
-	         System.out.println(url);
+	         //System.out.println(url);
 	         
 	         JSONParser jsonparser = new JSONParser();
 	         JSONObject jsonobject = (JSONObject)jsonparser.parse(jsonUtil.getJSONResponseString(resp, url));
