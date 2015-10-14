@@ -30,7 +30,6 @@ import com.tour.util.GroupSession;
 import com.tour.util.JSONResponseUtil;
 import com.tour.util.SessionInfo;
 
-import oracle.net.aso.h;
 
 @Controller("PlanInfoController")
 public class PlanInfoController {
@@ -160,30 +159,30 @@ public class PlanInfoController {
 		int endTime = 60*60*hour+60*min+durTime; //占쏙옙占쏙옙챨占�
 		String startDate = pdto.getStartDate() + " " + hour + ":" + min + ":00";
 
-		pdto.setContent(address1);
-		pdto.setStartDate(startDate);
-		pdto.setLongTime(0);
-		pdto.setContenttypeid(888);
-		pdto.setMapx(mapx);
-		pdto.setMapy(mapy);
+		PlanInfoDTO pdto1 = new PlanInfoDTO();
+		pdto1.setContent(address1);
+		pdto1.setStartDate(startDate);
+		pdto1.setLongTime(0);
+		pdto1.setContenttypeid(888);
+		pdto1.setMapx(mapx);
+		pdto1.setMapy(mapy);
 		System.out.println(address1);
-		gp.setSdto(pdto);
+		gp.setSdto(pdto1);
 
-		pdto.setContent(address2);
-		pdto.setStartDate(startDate);
-		pdto.setLongTime(durTime/60);
-		pdto.setContenttypeid(999);
-		pdto.setMapx(mapx);
-		pdto.setMapy(mapy);
+		PlanInfoDTO pdto2 = new PlanInfoDTO();
+		pdto2.setContent(address2);
+		pdto2.setStartDate(startDate);
+		pdto2.setLongTime(durTime/60);
+		pdto2.setContenttypeid(999);
+		pdto2.setMapx(mapx);
+		pdto2.setMapy(mapy);
 		System.out.println(address2);
-		gp.setEdto(pdto);
+		gp.setEdto(pdto2);
 
-		System.out.println(pdto.getStartDate());
-		System.out.println(hour);
-		System.out.println(min);
-		System.out.println(address1);
-		System.out.println(address2);
-		System.out.println(endTime);
+
+		System.out.println(gp.getSdto().getContent());
+		System.out.println(gp.getEdto().getContent());
+
 		//System.out.println(durTime);
 		//System.out.println(durTime);
 		//req.setAttribute("durTime", durTime);
@@ -203,7 +202,7 @@ public class PlanInfoController {
 	@RequestMapping("/register")
 	public String register(HttpServletRequest req,HttpServletResponse res) {
 
-		System.out.println("re占쏙옙ister 占쏙옙占쏙옙");
+		System.out.println("register 시작");
 		
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("loginInfo");
