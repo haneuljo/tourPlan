@@ -166,7 +166,7 @@
 			    }
 			});
 			
- 			$("#updateTemp").click(function(){
+ 			$(".updateTemp").click(function(){
 				var update_index = $(this).attr("data");
 		    	$.ajax({
 					type:"GET",

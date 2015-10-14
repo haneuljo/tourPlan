@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -12,7 +13,7 @@
 
  		<div style="width: 1072px; height:502px; border: 1px solid; border-color: #BDBDBD; margin-left: 10%;">
  		
-		 	<div style="width: 1070px; height:400px;  background:url(/tourPlan/resources/image/planComplbg.jsp); background-size: corver; "></div>
+		 	<div style="width: 1070px; height:400px;  background:url(/tourPlan/resources/image/myPlanbg.jpg); background-size: corver; "></div>
 	 		
 	 		<div style="width: 1070px; height:100px; background-color: white;">
 	 		
@@ -25,7 +26,7 @@
 	 			</div>
 	 			
 	 			<div style="font-size: 10pt;">
-	 				${startDate} ~ endDate
+	 				<fmt:formatDate value="<%=new Date() %>" type="date"/>${startDate} ~ ${startDate}
 	 			</div>
 	 		
 	 		</div>
@@ -39,7 +40,7 @@
 			<div style="width: 43%; float: left; margin-top: 2%;">
 				
 				<!-- 1 -->
-				<div style="width: 100%; height:60px; border:1px solid; border-color: #BDBDBD;">
+				<div style="width: 100%; height:62px; border:1px solid; border-color: #BDBDBD;">
 					<!-- day1 박스  -->
 					<div style="background-color: #000042; width: 25%; height: 60px; text-align: center; float: left; overflow: hidden; ">
 						<div style="color: white; font-size: 20pt; padding-top: 7%;"><b>DAY1</b></div>
@@ -65,13 +66,13 @@
 				<div style="width: 100%; height: 20px; margin-top: 10px; margin-bottom: 10px;">
 				Tour Start!!
 				</div>
-											<div id="travel_data${status.index}" style="width: 100%; height: 20px; font-size: 10pt;">
+											<div id="travel_data" style="width: 100%; height: 20px; font-size: 10pt;">
 				<!-- 처음 출발지 시간 -->
 				
-				</div>
+											</div>
 		
 				<!-- 2 -->
-				<div style="width: 100%; height:100px; border:1px solid; border-color: #BDBDBD;">
+				<div style="width: 100%; height:102px; border:1px solid; border-color: #BDBDBD;">
 					<!-- day1 박스  -->
 					<div style="background-color: white; width: 25%; height: 100px; text-align: center; float: left; overflow: hidden; ">
 						<div style="color: black; font-size: 20pt; padding-top: 15%;"><b>출발지역</b></div>
@@ -86,7 +87,8 @@
 					
 					<div style="background-color: white; width: 55%; height: 100px; float: left; overflow: hidden; text-align: left: ;">
 						<div style="font-size: 14pt; padding-top: 4%;">
-							${startPlace.content}->${secondPlace.content}       //소요시간 ${secondPlace.longTime}
+							${startPlace.content} -> ${secondPlace.content}<br/>
+							소요시간 : ${secondPlace.longTime} 분
 						</div>
 						
 					</div>
@@ -101,7 +103,7 @@
 				</div>
 		
 				<!-- 2 -->
-				<div style="width: 100%; height:100px; border:1px solid; border-color: #BDBDBD;">
+				<div style="width: 100%; height:102px; border:1px solid; border-color: #BDBDBD;">
 					<!-- day1 박스  -->
 					<div style="background-color: white; width: 25%; height: 100px; text-align: center; float: left; overflow: hidden; ">
 						<div style="color: black; font-size: 20pt; padding-top: 15%;"><b>Tour : ${status.index+1}</b></div>
@@ -116,7 +118,9 @@
 					
 					<div style="background-color: white; width: 55%; height: 100px; float: left; overflow: hidden; text-align: left: ;">
 						<div style="font-size: 14pt; padding-top: 4%;">
-							${map.title}//${map.addr1}       //소요시간 ${map.longTime}
+									${map.title}<br/>
+							주소 : ${map.addr1}<br/>
+						    소요시간 : ${map.longTime}분
 						</div>
 						
 					</div>
@@ -133,6 +137,7 @@
 				
 
 
+
 			</c:forEach>
 </div>
 			<!-- 여행 일정 뿌리는곳 -->
@@ -143,6 +148,8 @@
 	<!-- body부분 전체묶기 -->
 	
 </div>
+
+<br/>
 
 <script type="text/javascript">
 	var map;
@@ -165,12 +172,31 @@
 	 	
 	}
 	function calculateAndDisplayRoute(directionsService, directionsDisplay, index) {            //대중교통길찾기
+		  <c:forEach var="map" items="${lists}" varStatus="status" begin="0" end="0">
+			var test = '${status.index}';
+			if(test==index){
+				directionsService.route({
+			    origin: new google.maps.LatLng('${secondy}','${secondx}'),
+			    destination: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
+			    travelMode: google.maps.TravelMode.TRANSIT       //모드는 차량, 도보, 대중교통, 자전거 등이있음 TRANSIT은 대중교통
+			  }, function(response, status) {          //성공시 response json형태의 정보를 받음. 
+			    if (status === google.maps.DirectionsStatus.OK) {
+			        var point = response.routes[0].legs[0];
+			        $( '#travel_data${status.index}' ).html( '이동시간: ' + point.duration.text + ' (' + point.distance.text + ')' );
+			    } else {
+			      window.alert('Directions request failed due to ' + status);
+			    }
+			  });
+			}
+		</c:forEach>
+			}
+		
 		  <c:forEach var="map" items="${lists}" varStatus="status">
 			var test = '${status.index}';
 			if(test==index){
 				directionsService.route({
-			    origin: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
-			    destination: new google.maps.LatLng('${map.mapyex}','${map.mapxex}'),
+			    origin: new google.maps.LatLng('${map.mapyex}','${map.mapxex}'),
+			    destination: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
 			    travelMode: google.maps.TravelMode.TRANSIT       //모드는 차량, 도보, 대중교통, 자전거 등이있음 TRANSIT은 대중교통
 			  }, function(response, status) {          //성공시 response json형태의 정보를 받음. 
 			    if (status === google.maps.DirectionsStatus.OK) {

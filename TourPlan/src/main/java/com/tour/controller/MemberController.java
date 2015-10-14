@@ -50,7 +50,7 @@ public class MemberController {
 	JSONResponseUtil jsonUtil;
 
 
-	String tourAPIKey = "yTjHIt%2FH7AcPJXelK4H8YojzSp9LozbSrtkEaNNnK5MySJEpntK5dWQIcNCYQRzNQCpR4oBcpXtQVtMCBlWYEQ%3D%3D";
+	String tourAPIKey = "GuzaHzXNprs4fLYjtHtDrHm56KNX9GWdRELzkuqPUELlWBjOtuW%2BygZfhgEuZI2ZbU4se3cn2AFfyfQJM%2BhG3Q%3D%3D";
 	
 	@RequestMapping("/clipInsertLoop")
 	public void clipInsertLoop(HttpServletRequest req, HttpServletResponse resp){ 
