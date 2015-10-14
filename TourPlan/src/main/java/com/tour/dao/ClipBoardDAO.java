@@ -18,6 +18,7 @@ public class ClipBoardDAO {
 	}	
 	
 	
+	
 	public List<ClipBoardDTO>  clipCount(){
 		
 		List<ClipBoardDTO> clipCountList = sessionTemplate.selectList("com.tour.clipBoard.clipCount");
@@ -110,4 +111,17 @@ public class ClipBoardDAO {
 
 	   }
 	
+	public void clipInsertLoop(int contentid, String area){
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		int maxNum = sessionTemplate.selectOne("com.tour.clipBoard.maxNum");
+		params.put("clipBoardNum", maxNum+1);
+		params.put("area", area);
+		params.put("contentid", contentid);
+		
+		
+		sessionTemplate.insert("com.tour.clipBoard.clipInsertLoop",params);
+		
+		
+	}
 }

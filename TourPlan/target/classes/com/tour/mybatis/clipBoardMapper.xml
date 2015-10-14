@@ -54,11 +54,19 @@
 		   where rnum>=1 and rnum<=8
 	  ]]> 
    </select>
+   
 	
 <!-- <select id="getAddrData" resultType="com.tour.dto.PostDTO" parameterType="int"> 
 	select seq,zipcode,sido,gugun,dong,bunji 
 	from post where seq=#{seq}
 </select> -->
 
+	<insert id="clipInsertLoop" parameterType="map">
+	
+	insert into clipBoard(clipBoardNum,email,contentid,area)
+	values (#{clipBoardNum},'1',#{contentid},#{area})
+	
+	</insert>
+	
 
 </mapper> 
