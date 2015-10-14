@@ -112,6 +112,10 @@
         
         </c:when>
 	        <c:otherwise>
+	        <c:if test="${!empty planChk}">
+	        	<input type="button" value="일정저장" onclick="register();" />
+	        </c:if>
+	        <c:if test="${empty planChk}">
 	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이페이지<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	            <li><a href="<%=cp%>/myClip">My ClipList</a></li>
@@ -120,6 +124,7 @@
 	            <li><a href="<%=cp%>/logout">로그아웃</a></li>
 	          </ul>
 	       </li>
+	       </c:if>
 	       </c:otherwise>
        </c:choose>
       </ul>

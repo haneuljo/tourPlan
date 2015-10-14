@@ -122,7 +122,7 @@
 				
 			});
 		
- 			$(".form-control").change(function(){
+ 			$(".sortItem_time").change(function(){
 				var time_index = $(this).attr("data");
 				//alert(del_index);
 		    	$.ajax({

@@ -49,21 +49,12 @@ public class MemberController {
 	@Autowired
 	JSONResponseUtil jsonUtil;
 
-	String tourAPIKey = "sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D";
+
+	String tourAPIKey = "yTjHIt%2FH7AcPJXelK4H8YojzSp9LozbSrtkEaNNnK5MySJEpntK5dWQIcNCYQRzNQCpR4oBcpXtQVtMCBlWYEQ%3D%3D";
 	
 	
 	@RequestMapping("/")
 	public String intro(HttpServletRequest req, HttpServletResponse resp) throws ParseException, IOException {
-		//DB占쏙옙占쏙옙占쏙옙 占쏙옙占싹곤옙 占쏙옙占쏙옙 占쏙옙占쏙옙
-/*		HttpSession session = req.getSession(true); 
-
-		SessionInfo info = new SessionInfo();
-		
-		//1占싱띰옙占�占쏙옙占싱듸옙 占쏙옙占쏙옙
-		
-		info.setEmail("1");
-		session.setAttribute("loginInfo", info);
-*/		// loginInfo占쏙옙占�占쏙옙占쏙옙占싫울옙 info 占쏙옙占�클占쏙옙占쏙옙 占쏙옙체占쏙옙 占쌍억옙占쌔댐옙
 		
 		HttpSession session = req.getSession(); 
 
@@ -98,6 +89,7 @@ public class MemberController {
 	         String url =
 	               "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?contentId="+cdto.getContentid()+"&defaultYN=Y&addrinfoYN=Y&mapinfoYN=Y&firstImageYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTesting&_type=json&ServiceKey="
 	                  +tourAPIKey;
+	         System.out.println(url);
 	         
 	         JSONParser jsonparser = new JSONParser();
 	         JSONObject jsonobject = (JSONObject)jsonparser.parse(jsonUtil.getJSONResponseString(resp, url));

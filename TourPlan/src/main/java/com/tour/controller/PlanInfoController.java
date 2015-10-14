@@ -293,6 +293,7 @@ public class PlanInfoController {
 		//pdao.planInsert(pdto);
 		session.setAttribute("groupDate", gp);
 		req.setAttribute("startDate", startDate);
+		req.setAttribute("planChk", 1);
 
 		return "newPlan";
 	}
