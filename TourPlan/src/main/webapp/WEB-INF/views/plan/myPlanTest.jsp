@@ -32,7 +32,7 @@
 			 					<option value="180">3시간</option>
 			 				</select>
 			 				<div class="sortBtnGroup">
-				 				<%-- <div id="updateTemp" class="sortBtn" data="${status.index}"><span class="glyphicon glyphicon-wrench"></span></div> --%>
+				 				<div id="updateTemp" class="updateTemp sortBtn" data="${status.index}"><span class="glyphicon glyphicon-wrench"></span></div>
 				 				<div id="deleteTemp" class="deleteTemp sortBtn" data="${status.index}"><span class="glyphicon glyphicon-trash"></span></div>
 			 				</div>
 						</div>
@@ -166,14 +166,14 @@
 			    }
 			});
 			
-<%-- 			$("#updateTemp").click(function(){
+ 			$("#updateTemp").click(function(){
 				var update_index = $(this).attr("data");
 		    	$.ajax({
 					type:"GET",
 					url:"<%=cp%>/updateTemp?index=" + update_index,
 					dataType:"html",		
-					success:function(data){
-						$("#myModal").html(data);
+					success:function(args){
+						$("#myModal").html(args);
 						//alert(data);
 						$("#myModal").modal();
 
@@ -185,7 +185,7 @@
 					
 				});
 		        
-		    }); --%>
+		    }); 
 		});
 		
 		</script>
