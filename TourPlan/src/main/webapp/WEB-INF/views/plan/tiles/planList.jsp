@@ -27,7 +27,7 @@
 				<span class="glyphicon glyphicon-camera"></span>
 			</div>
 			<div class="contentTypeDetails"  data="39">
-				<span class="glyphicon glyphicon-cutlery"></span>
+				<span class="glyphicon glyphicon-cutlery" style="color:#FF7012"></span>
 			</div>
 			<div class="contentTypeDetails"  data="38">
 				<span class="glyphicon glyphicon-credit-card"></span>
@@ -90,6 +90,7 @@
 	$(".contentTypeDetails").click(function(){
 		$(".contentTypeDetails").attr("class","contentTypeDetails");
 		$(this).attr("class","contentTypeDetails contentTypeActive");
+		$(this>"span").css("color","#FF7012");
 		clearMarkers();
 		image='/tourPlan/resources/marker/'+$(this).attr("data")+'.png';
 		markerMap($(this).attr("data"));
