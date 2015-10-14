@@ -52,7 +52,21 @@ public class MemberController {
 
 	String tourAPIKey = "yTjHIt%2FH7AcPJXelK4H8YojzSp9LozbSrtkEaNNnK5MySJEpntK5dWQIcNCYQRzNQCpR4oBcpXtQVtMCBlWYEQ%3D%3D";
 	
+	@RequestMapping("/clipInsertLoop")
+	public void clipInsertLoop(HttpServletRequest req, HttpServletResponse resp){ 
+		//contentid 넣기
+		//경주 첨성대 : 126207
+		//인천 동화마을 : 1938168
+		//부산 부산타워 : 1277679
+		//전라남도 순천만정원 : 1919548
+		for (int i = 0; i < 291; i++) {
+			
+			//cdao.clipInsertLoop(126207,"경상북도");
+			//cdao.clipInsertLoop(1938168,"인천");
+			cdao.clipInsertLoop(1919548,"전라남도");
+		}
 	
+	}
 	@RequestMapping("/")
 	public String intro(HttpServletRequest req, HttpServletResponse resp) throws ParseException, IOException {
 		
