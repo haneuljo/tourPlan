@@ -7,7 +7,7 @@
 <div class="container" style="margin-top: 10px; margin-bottom: 10px;">
 <c:if test="${!empty sessionScope.loginInfo.email}">
 
-	<div id="indexLogin">
+	<div id="indexLogin" class="shadowAll">
 		<div class="indexLoginProfile">
 			<img src="/tourPlan/resources/profile.jpg">
 		</div>
@@ -67,12 +67,15 @@
 	  		<div class="imageBox">
 	  			<img src="${cdto.firstimage }">
 	  		</div>
-	  		<div class="titleBox">
-		  		<div class="title">${cdto.title }</div>
-		  		<div class="clip"><span class="glyphicon glyphicon-send"> ${cdto.clipCount }</span></div>
-		  		<div class="area"><span class="glyphicon glyphicon-road"> ${cdto.area }</span></div> 
-	  		</div>
-	  		
+	  		<div class="contentTextBox">
+		  		<div class="titleBox">
+			  		<div class="title">${cdto.title }</div>
+		  		</div>
+		  		<div class="clipAreaBox">
+			  		<div class="clip"><span class="glyphicon glyphicon-send indexIcon"> ${cdto.clipCount }</span></div>
+			  		<div class="area"><span class="glyphicon glyphicon-road indexIcon"> ${cdto.area }</span></div> 
+		  		</div>
+		  		</div>
 	  		</div>
 	  	</c:forEach>
 	  	</c:if>

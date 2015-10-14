@@ -24,6 +24,7 @@
 #areaContainer{
  height:130px;
 }
+
 .day{
 	border-bottom:  1px solid rgba( 255, 255, 255, 0.5 );	
 	padding : 8%;
@@ -296,5 +297,16 @@
 	margin-top: 25%;
 }
 
-
+/* 플랜 버튼*/
+.planChkBtn{
+	margin-top:12px;
+	margin-right:3px;
+	background-color:black;
+	color:#fff;
+	border-radius: 0px;
+}
+#planok{
+	background-color: #000042;
+	
+}
 
