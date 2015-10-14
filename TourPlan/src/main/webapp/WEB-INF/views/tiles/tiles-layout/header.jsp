@@ -90,7 +90,7 @@
   <div class="container-fluid">
   
     <div class="navbar-header" style="padding-right: 0px;width: 92px; padding-top: 7px;">
-      <img style="width: 100px; height: 45px;" src="/tourPlan/resources/logo.jpg" id="logo">
+      <img style="width: 120px; height: 45px;" src="/tourPlan/resources/logo.jpg" id="logo">
     </div>
 
 	<script>
