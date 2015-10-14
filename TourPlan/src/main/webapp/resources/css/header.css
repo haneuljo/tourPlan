@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
+body{
+	 background-color: #e8e4d9;
+}
 .navbar-inverse {
     background-color: #fff;
     margin-bottom: 0px;
@@ -54,7 +57,7 @@
  .navbar-nav{
  
     margin-right: 0px;
-    margin-left: 15%;
+    margin-left: 17%;
 	
 }
 	

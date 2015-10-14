@@ -49,18 +49,12 @@ public class MemberController {
 	@Autowired
 	JSONResponseUtil jsonUtil;
 
+
 	String tourAPIKey = "yTjHIt%2FH7AcPJXelK4H8YojzSp9LozbSrtkEaNNnK5MySJEpntK5dWQIcNCYQRzNQCpR4oBcpXtQVtMCBlWYEQ%3D%3D";
 	
 	
 	@RequestMapping("/")
 	public String intro(HttpServletRequest req, HttpServletResponse resp) throws ParseException, IOException {
-/*		HttpSession session = req.getSession(true); 
-
-		SessionInfo info = new SessionInfo();
-		
-		
-		info.setEmail("1");
-		session.setAttribute("loginInfo", info);*/
 		
 		HttpSession session = req.getSession(); 
 

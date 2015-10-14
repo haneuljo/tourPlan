@@ -15,7 +15,6 @@
  <link rel="stylesheet" href="<%=cp%>/resources/css/header.css" type="text/css"/>
  <link rel="stylesheet" href="<%=cp%>/resources/css/planList.css" type="text/css"/>
  <link rel="stylesheet" href="<%=cp%>/resources/css/index.css" type="text/css"/>
- <link rel="stylesheet" href="<%=cp%>/resources/css/travelMain.css" type="text/css"/>
   
    <style>
   .modal-header, h4, .close {
@@ -90,10 +89,18 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
   
-    <div class="navbar-header" style="border:1px solid #ccc;">
-      <a class="navbar-brand" href="<%=cp%>/"><img style="width:186px; height: 60px;" src="/tourPlan/resources/logo.png"></a>
+    <div class="navbar-header" style="padding-right: 0px;width: 92px; padding-top: 7px;">
+      <img style="width: 100px; height: 45px;" src="/tourPlan/resources/logo.jpg" id="logo">
     </div>
-    
+
+	<script>
+	$("#logo").click(function(){
+		
+		location.href="<%=cp%>/";
+		
+	})
+	
+	</script>    
     <div>
       <ul class="nav navbar-nav">
         <%-- <li class="active"><a href="<%=cp%>/">Index</a></li> --%>
@@ -108,7 +115,7 @@
       	<c:when test="${empty sessionScope.loginInfo.email}">
       	
         <li id="sign"><a href="#" class="headerBtn" style="padding-top: 5px; color: #fff; font-weight: normal;">Sign Up</a></li>
-        <li id="login"><a href="#" class="headerBtn" style="padding-top: 5px; color: #fff; font-weight: normal;">Login</a></li>
+        <li id="login"><a href="#" class="headerBtn" style="padding-top: 5px; color: #fff; font-weight: normal;">Sign In</a></li>
         
         </c:when>
 	        <c:otherwise>

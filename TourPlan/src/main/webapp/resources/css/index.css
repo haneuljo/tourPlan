@@ -14,7 +14,7 @@
 	font-size: 13pt;
 	font-weight: bold;
 	margin-bottom: 20px;
-	color: #BDBDBD;
+	color: #006583;
 	
 	
 }
@@ -33,12 +33,14 @@
 
 .title{
 	
-	color: #01A6BC; 
-	font-size: 12pt;
-	font-weight:bold; 
+	color: #000042; 
+	font-size: 13pt;
+	font-weight:bold;
+	text-align:center;
+	padding-top: 4px;
+	/* 
 	margin-left: 5px;
-	margin-top: 3px;
-	
+ */	
 	
 	}
 	
@@ -61,12 +63,12 @@
 }
 
 .titleBox{
+	background-color:#fff;
 	
 	color: #01A6BC; 
 	font-size: 14pt; 
 	width: 260px; 
 	height: 70px;
-	 
 	
 	
 }
@@ -75,5 +77,9 @@
 	width: 260px; 
 	height: 150px;
 	
+}
+.imageBox img{
+	width: 260px; 
+	height: 150px;
 	
 }
