@@ -5,7 +5,7 @@
 %>
 <!-- 이미지&바 묶기  -->
 <div style="width: 100%;">
-	<div style="width:100%; height:300px; background:url(/tourPlan/resources/image/myPlanbg.jpg) center;">
+	<div style="width:100%; height:300px; background:url(/tourPlan/resources/image/planComplbg.jpg) center;">
 		<div style="font-size: 40pt; color: white; padding-top: 150px;" align="center" >여행일정</div>
 	</div>
 	

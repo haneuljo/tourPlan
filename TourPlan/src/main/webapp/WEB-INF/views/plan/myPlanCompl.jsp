@@ -12,7 +12,7 @@
 
  		<div style="width: 1072px; height:502px; border: 1px solid; border-color: #BDBDBD; margin-left: 10%;">
  		
-		 	<div style="width: 1070px; height:400px;  background:url(/tourPlan/resources/image/planComplbg.jsp); background-size: corver; "></div>
+		 	<div style="width: 1070px; height:400px;  background:url(/tourPlan/resources/image/myPlanbg.jpg); background-size: corver; "></div>
 	 		
 	 		<div style="width: 1070px; height:100px; background-color: white;">
 	 		
@@ -25,7 +25,7 @@
 	 			</div>
 	 			
 	 			<div style="font-size: 10pt;">
-	 				${startDate} ~ endDate
+	 				${startDate} ~ ${startDate}
 	 			</div>
 	 		
 	 		</div>
@@ -39,7 +39,7 @@
 			<div style="width: 43%; float: left; margin-top: 2%;">
 				
 				<!-- 1 -->
-				<div style="width: 100%; height:60px; border:1px solid; border-color: #BDBDBD;">
+				<div style="width: 100%; height:62px; border:1px solid; border-color: #BDBDBD;">
 					<!-- day1 박스  -->
 					<div style="background-color: #000042; width: 25%; height: 60px; text-align: center; float: left; overflow: hidden; ">
 						<div style="color: white; font-size: 20pt; padding-top: 7%;"><b>DAY1</b></div>
@@ -71,7 +71,7 @@
 				</div>
 		
 				<!-- 2 -->
-				<div style="width: 100%; height:100px; border:1px solid; border-color: #BDBDBD;">
+				<div style="width: 100%; height:102px; border:1px solid; border-color: #BDBDBD;">
 					<!-- day1 박스  -->
 					<div style="background-color: white; width: 25%; height: 100px; text-align: center; float: left; overflow: hidden; ">
 						<div style="color: black; font-size: 20pt; padding-top: 15%;"><b>출발지역</b></div>
@@ -86,7 +86,8 @@
 					
 					<div style="background-color: white; width: 55%; height: 100px; float: left; overflow: hidden; text-align: left: ;">
 						<div style="font-size: 14pt; padding-top: 4%;">
-							${startPlace.content}->${secondPlace.content}       //소요시간 ${secondPlace.longTime}
+							${startPlace.content} -> ${secondPlace.content}<br/>
+							소요시간 : ${secondPlace.longTime} 분
 						</div>
 						
 					</div>
@@ -101,7 +102,7 @@
 				</div>
 		
 				<!-- 2 -->
-				<div style="width: 100%; height:100px; border:1px solid; border-color: #BDBDBD;">
+				<div style="width: 100%; height:102px; border:1px solid; border-color: #BDBDBD;">
 					<!-- day1 박스  -->
 					<div style="background-color: white; width: 25%; height: 100px; text-align: center; float: left; overflow: hidden; ">
 						<div style="color: black; font-size: 20pt; padding-top: 15%;"><b>Tour : ${status.index+1}</b></div>
@@ -116,7 +117,9 @@
 					
 					<div style="background-color: white; width: 55%; height: 100px; float: left; overflow: hidden; text-align: left: ;">
 						<div style="font-size: 14pt; padding-top: 4%;">
-							${map.title}//${map.addr1}       //소요시간 ${map.longTime}
+									${map.title}<br/>
+							주소 : ${map.addr1}<br/>
+						    소요시간 : ${map.longTime}분
 						</div>
 						
 					</div>
@@ -133,6 +136,7 @@
 				
 
 
+
 			</c:forEach>
 </div>
 			<!-- 여행 일정 뿌리는곳 -->
@@ -143,6 +147,8 @@
 	<!-- body부분 전체묶기 -->
 	
 </div>
+
+<br/>
 
 <script type="text/javascript">
 	var map;
