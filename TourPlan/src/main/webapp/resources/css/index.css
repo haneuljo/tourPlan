@@ -37,7 +37,7 @@
 .title{
 	
 	color: #000042; 
-	font-size: 13pt;
+	font-size: 12pt;
 	font-weight:bold;
     padding-top: 20px;
 	padding-left: 20px;
@@ -52,7 +52,6 @@
 	font-size: 10pt; 
 	height:20px;
 	color : #A6A6A6; 
-	float: left;
 }
 
 .area{
@@ -80,6 +79,8 @@
 .clipAreaBox{
 	float:left;
 	font-size: 14pt; 
+	text-color:#a6a6a6;
+	
 	
     padding-top: 15px;
 	
