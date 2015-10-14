@@ -72,8 +72,8 @@
 			  		<div class="title">${cdto.title }</div>
 		  		</div>
 		  		<div class="clipAreaBox">
-			  		<div class="clip"><span class="glyphicon glyphicon-send indexIcon"> ${cdto.clipCount }</span></div>
-			  		<div class="area"><span class="glyphicon glyphicon-road indexIcon"> ${cdto.area }</span></div> 
+			  		<div class="clip"><span class="glyphicon glyphicon-send indexIcon"></span> ${cdto.clipCount }</div>
+			  		<div class="area"><span class="glyphicon glyphicon-road indexIcon"></span> ${cdto.area }</div> 
 		  		</div>
 		  		</div>
 	  		</div>
