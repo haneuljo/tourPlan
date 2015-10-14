@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -25,7 +26,7 @@
 	 			</div>
 	 			
 	 			<div style="font-size: 10pt;">
-	 				${startDate} ~ ${startDate}
+	 				<fmt:formatDate value="<%=new Date() %>" type="date"/>${startDate} ~ ${startDate}
 	 			</div>
 	 		
 	 		</div>
@@ -65,10 +66,10 @@
 				<div style="width: 100%; height: 20px; margin-top: 10px; margin-bottom: 10px;">
 				Tour Start!!
 				</div>
-											<div id="travel_data${status.index}" style="width: 100%; height: 20px; font-size: 10pt;">
+											<div id="travel_data" style="width: 100%; height: 20px; font-size: 10pt;">
 				<!-- 처음 출발지 시간 -->
 				
-				</div>
+											</div>
 		
 				<!-- 2 -->
 				<div style="width: 100%; height:102px; border:1px solid; border-color: #BDBDBD;">
@@ -171,6 +172,25 @@
 	 	
 	}
 	function calculateAndDisplayRoute(directionsService, directionsDisplay, index) {            //대중교통길찾기
+		  <c:forEach var="map" items="${lists}" varStatus="status" begin="1" end="1">
+			var test = '${status.index}';
+			if(test==index){
+				directionsService.route({
+			    origin: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
+			    destination: new google.maps.LatLng('${map.mapyex}','${map.mapxex}'),
+			    travelMode: google.maps.TravelMode.TRANSIT       //모드는 차량, 도보, 대중교통, 자전거 등이있음 TRANSIT은 대중교통
+			  }, function(response, status) {          //성공시 response json형태의 정보를 받음. 
+			    if (status === google.maps.DirectionsStatus.OK) {
+			        var point = response.routes[0].legs[0];
+			        $( '#travel_data${status.index}' ).html( '이동시간: ' + point.duration.text + ' (' + point.distance.text + ')' );
+			    } else {
+			      window.alert('Directions request failed due to ' + status);
+			    }
+			  });
+			}
+		</c:forEach>
+			}
+		
 		  <c:forEach var="map" items="${lists}" varStatus="status">
 			var test = '${status.index}';
 			if(test==index){
