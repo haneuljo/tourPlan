@@ -24,19 +24,19 @@
 		<div class="clipMapView_info clipMapView_info_Header" ></div>
 		<div id="clipMapViewContentType">
 			<div class="contentTypeDetails contentTypeActive"  data="12">
-				<span class="glyphicon glyphicon-camera"></span>
+				<span class="glyphicon glyphicon-camera contentTypeIcon" style="color:#FF7012"></span>
 			</div>
 			<div class="contentTypeDetails"  data="39">
-				<span class="glyphicon glyphicon-cutlery" style="color:#FF7012"></span>
+				<span class="glyphicon glyphicon-cutlery contentTypeIcon"></span>
 			</div>
 			<div class="contentTypeDetails"  data="38">
-				<span class="glyphicon glyphicon-credit-card"></span>
+				<span class="glyphicon glyphicon-credit-card contentTypeIcon"></span>
 			</div>
 			<div class="contentTypeDetails"  data="32">
-				<span class="glyphicon glyphicon-home"></span>
+				<span class="glyphicon glyphicon-home contentTypeIcon"></span>
 			</div>
 			<div class="contentTypeDetails"  data="12">
-				<span class="glyphicon glyphicon-send"></span>
+				<span class="glyphicon glyphicon-send contentTypeIcon"></span>
 			</div>
 		</div>					
 		<div id="areaList"></div>
@@ -90,7 +90,9 @@
 	$(".contentTypeDetails").click(function(){
 		$(".contentTypeDetails").attr("class","contentTypeDetails");
 		$(this).attr("class","contentTypeDetails contentTypeActive");
-		$(this>"span").css("color","#FF7012");
+		//alert($(this).children("span"));
+		$(".contentTypeIcon").css("color","#ccc");
+		$(this).children('span').css("color","#FF7012");
 		clearMarkers();
 		image='/tourPlan/resources/marker/'+$(this).attr("data")+'.png';
 		markerMap($(this).attr("data"));
