@@ -5,26 +5,72 @@
 %>
 <!-- 이미지&바 묶기  -->
 <div style="width: 100%;">
-	<div style="width:100%; height:300px; background:url(/tourPlan/resources/image/planComplbg.jpg) center;">
-		<div style="font-size: 40pt; color: white; padding-top: 150px;" align="center" >여행일정</div>
+	<div style="height:400px; background:url(/tourPlan/resources/image/planComplbg.jpg) center;">
+		<div style="font-size: 40pt; color: white; padding-top: 250px;" align="center" >여행일정</div>
 	</div>
+<div style="margin-top: 10px; margin-bottom: 10px;"></div>
 	
-	<div class="container" style="width: 100%">
-	  <ul class="nav nav-tabs">
-	    <li style="padding-left: 20%; font-size: 12pt;"><a href="#">클립보드</a></li>
-	    <li style="font-size: 12pt;"><a href="#">여행일정</a></li>
-	    <li style="font-size: 12pt;"><a href="#">리뷰</a></li>
-	  </ul>
-	</div>
+	<c:if test="${!empty sessionScope.loginInfo.email}">
+
+	<div id="indexLogin">
+		<div class="indexLoginProfile">
+			<img src="/tourPlan/resources/profile.jpg">
+		</div>
+		<div class="indexLoginText">
+	
+			<div class="indexLoginName">
+				${name}		
+			</div>
+			<div>
+				<div class="indexLoginContent">
+					<span class="contentTitle">클립보드</span><br>
+					<span class="contentCount">${clipCount}</span>
+				</div>
+				<div class="indexLoginContent">
+					<span class="contentTitle">여행일정</span><br>
+					<span class="contentCount">${planCount}</span>
+				</div>
+				<div class="indexLoginContent">
+					<span class="contentTitle" style="padding-left: 14px;">리　뷰</span><br>
+					<span class="contentCount">${reviewCount}</span>
+				</div>
+				<div class="indexLoginContent">
+					<span class="contentTitle" style="padding-left: 12px;">Q & A</span><Br>
+					<span class="contentCount">0</span>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id="indexLoginBtn">
+			<div class="indexBtn">
+				<span class="glyphicon glyphicon-calendar"></span><br>
+				<span style="font-size: 7.5pt; margin-left: 10px;">일정만들기</span>
+			</div>
+			<div class="indexBtn">
+				<span class="glyphicon glyphicon-pencil"></span><br>
+				<span style="font-size: 9pt; margin-left: 12px;">리뷰쓰기</span>
+			</div>
+			<div class="indexBtn">
+				<span class="glyphicon glyphicon-question-sign"></span><br>
+				<span style="font-size: 9pt; margin-left: 12px;">질문하기</span>
+			</div>		
+		</div>
+		
+
+	</div>	
+
+</c:if>
 </div>
 <!-- 이미지&바 묶기  -->
 
+<br/>
 		
 <!-- 일정뿌리는곳 묶기 -->
 <div style="width: 1300px; height: 100%; padding-left: 14%;" >
 	<c:forEach var="dto" items="${lists}" varStatus="status">
 <!-- for문?  -->
-<div style="width: 300px; height: 250px; border: 1px solid; border-color: #BDBDBD; float: left; overflow: hidden; margin-left: 1%;margin-right: 1%; margin-bottom: 3%;">
+<div class="clipBox shadowAll" style="width: 300px; height: 250px; border: 1px solid; border-color: #BDBDBD; float: left; overflow: hidden; margin-left: 1%;margin-right: 1%; margin-bottom: 3%;">
 	
 	<div>	
 		<a onclick="javascript:location.href='<%=cp%>/myPlanCompl?groupNum=${dto.groupNum}&title=${dto.title}'"><img src="${dto.firstimage}" style="width: 300px; height: 150px;"></a>
