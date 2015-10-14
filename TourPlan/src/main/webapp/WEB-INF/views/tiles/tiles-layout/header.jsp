@@ -120,7 +120,8 @@
         </c:when>
 	        <c:otherwise>
 	        <c:if test="${!empty planChk}">
-	        	<input type="button" value="일정저장" onclick="register();" />
+	        	<button id="planSave" class="btn planChkBtn"> 저장 & 닫기 </button>
+	        	<button id="planOk" class="btn planChkBtn" onclick="register();"> 일정 등록 </button>
 	        </c:if>
 	        <c:if test="${empty planChk}">
 	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이페이지<span class="caret"></span></a>
