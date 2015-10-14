@@ -91,7 +91,7 @@
   <div class="container-fluid">
   
     <div class="navbar-header" style="border:1px solid #ccc;">
-      <a class="navbar-brand" href="<%=cp%>/">TourPlan</a>
+      <a class="navbar-brand" href="<%=cp%>/"><img style="width:186px; height: 60px;" src="/tourPlan/resources/logo.png"></a>
     </div>
     
     <div>
