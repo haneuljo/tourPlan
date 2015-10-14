@@ -14,9 +14,12 @@
 	font-size: 13pt;
 	font-weight: bold;
 	margin-bottom: 20px;
-	color: #BDBDBD;
+	color: #006583;
 	
+}
+.indexIcon{
 	
+	color: #006583;
 }
 
 .clipBox{
@@ -33,41 +36,55 @@
 
 .title{
 	
-	color: #01A6BC; 
-	font-size: 12pt;
-	font-weight:bold; 
+	color: #000042; 
+	font-size: 13pt;
+	font-weight:bold;
+    padding-top: 20px;
+	padding-left: 20px;
+	/* 
 	margin-left: 5px;
-	margin-top: 3px;
-	
+ */	
 	
 	}
 	
 .clip{
 	
 	font-size: 10pt; 
+	height:20px;
 	color : #A6A6A6; 
-	margin-left: 5px; 
-	margin-top: 8px;
-	margin-right: 80px;
 	float: left;
 }
 
 .area{
-	width: 70px;
+	height:20px;
 	color : #A6A6A6;
 	font-size: 10pt; 
-	margin-top: 4px;
-	
 }
 
-.titleBox{
-	
+.contentTextBox{
+	background-color:#fff;
+	float:left;
 	color: #01A6BC; 
 	font-size: 14pt; 
 	width: 260px; 
 	height: 70px;
-	 
 	
+}
+.titleBox{
+	float:left;
+	font-size: 14pt; 
+	height: 70px;
+	width: 180px;
+	
+}
+.clipAreaBox{
+	float:left;
+	font-size: 14pt; 
+	
+    padding-top: 15px;
+	
+	height: 70px;
+	width: 80px;
 	
 }
 
@@ -75,5 +92,9 @@
 	width: 260px; 
 	height: 150px;
 	
+}
+.imageBox img{
+	width: 260px; 
+	height: 150px;
 	
 }

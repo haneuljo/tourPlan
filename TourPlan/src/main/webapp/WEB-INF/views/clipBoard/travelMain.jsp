@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%	String cp = request.getContextPath(); %>
+
+ <link rel="stylesheet" href="<%=cp%>/resources/css/travelMain.css" type="text/css"/>
 <div class="travelMainimage"></div>
 <div class="container">
 
