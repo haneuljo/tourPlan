@@ -21,7 +21,7 @@
 				 		<div class="sortContent">
 						 	<div class="sortItem_title"> <span>${map.title}<%-- //index:${status.index} --%></span></div>
 			 				<div class="sortItem_addr"> <span> ${map.addr1}<%--  ${map.addr2 } --%></span> </div>
-			 				<select id="lonTime" class="form-control sortItem_time" data="${status.index}">
+			 				<select id="longTime" class="form-control sortItem_time" data="${status.index}">
 			 					<option value="0">0</option>
 			 					<option value="30">30분</option>
 			 					<option value="60">1시간</option>
