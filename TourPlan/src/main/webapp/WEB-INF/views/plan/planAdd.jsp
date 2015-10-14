@@ -15,19 +15,19 @@
     
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header" style="padding:35px 50px;">
+        <div class="modal-header" style="padding:35px 50px; ">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4><span class="glyphicon glyphicon-lock"></span> sign</h4>
+          <h4><span class="glyphicon glyphicon-road"></span> Plan</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
           <form role="form" action="<%=cp%>/planOk" method="post">
             <div class="form-group">
-              <label for="title"><span class="glyphicon glyphicon-user"></span> Title</label>
+              <label for="title"><span class="glyphicon glyphicon-list-alt"></span> Title</label>
               <input type="text" name="title" class="form-control" id="title" placeholder="Enter title">
             </div>
             
             <div class="form-group">
-              <label for="startDate"><span class="glyphicon glyphicon-eye-open"></span>시작날짜</label>
+              <label for="startDate"><span class="glyphicon glyphicon-calendar"></span>시작날짜</label>
               <input type="text" name="startDate" class="form-control" id="startDate" placeholder="Enter startDate">
             </div>
             

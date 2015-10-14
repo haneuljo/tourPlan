@@ -57,7 +57,7 @@
 
 </c:if>
 
-<div>
+<div style="margin-top:10%;">
   	<div align="center" class="titleName">인기 관광지 TOP 8</div>
   	<div align="center" class="subTitle">대한민국 어디까지 가봤니?</div>
   	

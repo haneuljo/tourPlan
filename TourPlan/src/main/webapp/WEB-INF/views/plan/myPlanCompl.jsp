@@ -3,10 +3,12 @@
 <%
 	String cp = request.getContextPath();
 %>
-<div class="container" style="width: 100%; height:100%;">
+
+<div id="map" ></div>
+<div class="container" style="width: 100%;">
 
 	<!-- body부분 전체묶기 -->
-	<div style="width: 100%; height: 100%;">
+	<div style="width: 100%;">
 
  		<div style="width: 1072px; height:502px; border: 1px solid; border-color: #BDBDBD; margin-left: 10%;">
  		
@@ -64,7 +66,8 @@
 				Tour Start!!
 				</div>
 											<div id="travel_data${status.index}" style="width: 100%; height: 20px; font-size: 10pt;">
-				최단거리 -> 
+				<!-- 처음 출발지 시간 -->
+				
 				</div>
 		
 				<!-- 2 -->
@@ -77,7 +80,7 @@
 					<!-- 정보박스  -->
 					<div style="background-color: white; width: 20%; height: 100px; float: left; overflow: hidden;">
 						<div style="margin-top: 10px; width: 75px; height: 75px; border:1px solid; border-color: #BDBDBD; " >
-							<img alt="대표이미지" src="${map.firstimage }"> 
+							<img alt="대표이미지" src="${map.firstimage }" style="width: 75px; height: 75px; "> 
 						</div>
 					</div>
 					
@@ -107,7 +110,7 @@
 					<!-- 정보박스  -->
 					<div style="background-color: white; width: 20%; height: 100px; float: left; overflow: hidden;">
 						<div style="margin-top: 10px; width: 75px; height: 75px; border:1px solid; border-color: #BDBDBD; " >
-							<img alt="대표이미지" src="${map.firstimage }"> 
+							<img alt="대표이미지" src="${map.firstimage }" style="width: 75px; height: 75px; ">  
 						</div>
 					</div>
 					
@@ -136,12 +139,12 @@
 </div>
 
 	</div>
+	
 	<!-- body부분 전체묶기 -->
 	
 </div>
 
 <script type="text/javascript">
-alert("Aa");
 	var map;
 	var directionsDisplay;
 	var directionsService;
@@ -152,23 +155,20 @@ alert("Aa");
 		directionsService = new google.maps.DirectionsService;
 		
 		geocoder = new google.maps.Geocoder();
-		alert("Aa11");
-	  map = new google.maps.Map({});
-	}
-
-
-	transitDisplay();
-	function transitDisplay(){
+		 map = new google.maps.Map(document.getElementById('map'), {
+			    zoom: 12,
+			    center: {lat: 37.5, lng: 127.037}  
+			  });
 			  <c:forEach var="map" items="${lists}" varStatus="status">
 			  calculateAndDisplayRoute(directionsService, directionsDisplay, '${status.index}');
 			  </c:forEach>
-			  alert("Aa");
-	 	function calculateAndDisplayRoute(directionsService, directionsDisplay, index) {            //대중교통길찾기
+	 	
+	}
+	function calculateAndDisplayRoute(directionsService, directionsDisplay, index) {            //대중교통길찾기
 		  <c:forEach var="map" items="${lists}" varStatus="status">
 			var test = '${status.index}';
 			if(test==index){
-				
-	 		directionsService.route({
+				directionsService.route({
 			    origin: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
 			    destination: new google.maps.LatLng('${map.mapyex}','${map.mapxex}'),
 			    travelMode: google.maps.TravelMode.TRANSIT       //모드는 차량, 도보, 대중교통, 자전거 등이있음 TRANSIT은 대중교통
@@ -183,7 +183,6 @@ alert("Aa");
 			}
 		</c:forEach>
 			}
-	}
 					</script>
 	
 		

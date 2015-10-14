@@ -49,21 +49,18 @@ public class MemberController {
 	@Autowired
 	JSONResponseUtil jsonUtil;
 
-	String tourAPIKey = "GuzaHzXNprs4fLYjtHtDrHm56KNX9GWdRELzkuqPUELlWBjOtuW%2BygZfhgEuZI2ZbU4se3cn2AFfyfQJM%2BhG3Q%3D%3D";
+	String tourAPIKey = "yTjHIt%2FH7AcPJXelK4H8YojzSp9LozbSrtkEaNNnK5MySJEpntK5dWQIcNCYQRzNQCpR4oBcpXtQVtMCBlWYEQ%3D%3D";
 	
 	
 	@RequestMapping("/")
 	public String intro(HttpServletRequest req, HttpServletResponse resp) throws ParseException, IOException {
-		//DB������ ���ϰ� ���� ����
 /*		HttpSession session = req.getSession(true); 
 
 		SessionInfo info = new SessionInfo();
 		
-		//1�̶�� ���̵� ����
 		
 		info.setEmail("1");
-		session.setAttribute("loginInfo", info);
-*/		// loginInfo��� �����ȿ� info ��� Ŭ���� ��ü�� �־��ش�
+		session.setAttribute("loginInfo", info);*/
 		
 		HttpSession session = req.getSession(); 
 
@@ -98,6 +95,7 @@ public class MemberController {
 	         String url =
 	               "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?contentId="+cdto.getContentid()+"&defaultYN=Y&addrinfoYN=Y&mapinfoYN=Y&firstImageYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTesting&_type=json&ServiceKey="
 	                  +tourAPIKey;
+	         System.out.println(url);
 	         
 	         JSONParser jsonparser = new JSONParser();
 	         JSONObject jsonobject = (JSONObject)jsonparser.parse(jsonUtil.getJSONResponseString(resp, url));
@@ -120,14 +118,14 @@ public class MemberController {
 		return "index";
 	}
 		
-	//����â Modal
+	//占쏙옙占쏙옙창 Modal
 	@RequestMapping("/signModal")
 	public String signModal() {
 		
 		return "member/sign";
 	}
 	
-	//����â Insert
+	//占쏙옙占쏙옙창 Insert
 	@RequestMapping("/memberSign")
 	public String memberSign(HttpServletRequest req, MemberDTO dto) {
 		dao.insertData(dto);
@@ -135,7 +133,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	//�α��� Modal
+	//占싸깍옙占쏙옙 Modal
 	@RequestMapping("/loginModal")
 	public String loginModal() {
 
@@ -146,11 +144,11 @@ public class MemberController {
 		
 		MemberDTO dto = dao.loginChk(email,pwd);
 		
-		//���̵�� ��й�ȣ�� Ʋ����?
+		//占쏙옙占싱듸옙占�占쏙옙橘占싫ｏ옙占�틀占쏙옙占쏙옙?
 		if (dto == null || (!dto.getPwd().equals(pwd))) {
 			return null;
 		}
-		// id, pwd�� ��ġ
+		// id, pwd占쏙옙 占쏙옙치
 
 		HttpSession session = req.getSession(true); 
 
@@ -165,7 +163,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	//�α׾ƿ�
+	//占싸그아울옙
 	@RequestMapping(value = "/logout")
 	public String logout(HttpServletRequest req) {
 		HttpSession session = req.getSession();

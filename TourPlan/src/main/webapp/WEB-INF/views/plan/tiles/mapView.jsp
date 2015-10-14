@@ -1,18 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String cp = request.getContextPath();
 %>
 <div>
-	
-	<div id="map" style="height: 100%; width:100%;"></div>	
-	
+
+	<div id="map" style="height: 100%; width: 100%;"></div>
+
 </div>
 
-<input type="button" value="일정저장" onclick="register();"/>
-	
-<form action="" name="planForm" method="post">	
-	
+
+<form action="" name="planForm" method="post">
+
 	<script type="text/javascript">
 	var map;
 	var directionsDisplay;
@@ -77,11 +76,23 @@
 				});
 			}
 			// Adds a marker to the map and push to the array.
+				//var image='/tourPlan/resources/maker/관광지.png';
+			
 			 function addMarker(mapy, mapx, msg) {
+			/* 	  var image = {
+						    url: '/tourPlan/resources/marker/12.png',
+						    size: new google.maps.Size(100,100),
+						    //origin: new google.maps.Point(0, 0),
+						   // anchor: new google.maps.Point(0, 32)
+						  };
+  */
+ 				//var image = '/tourPlan/resources/marker/12.png';
 				var itemsXY = new google.maps.LatLng(mapy,mapx);
 				var addMarker=new google.maps.Marker({
-					  position:itemsXY,
-				     map: map
+					 position:itemsXY,
+				     map: map,
+				     //icon:image,
+
 			  	});
 				itemsMarker.push(addMarker);
 				attachSecretMessage(addMarker, msg);
@@ -157,7 +168,7 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEOJtjhA9loNkOUI0RVIWarJMGMyn5V-A&signed_in=true&callback=initMap"
 		async defer></script>
 
-	
-	
-	
-  </form>
+
+
+
+</form>
