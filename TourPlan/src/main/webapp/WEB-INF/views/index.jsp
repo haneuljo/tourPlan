@@ -57,7 +57,7 @@
 
 </c:if>
 
-<div style="margin-top:3%;">
+<div style="margin-top:3%; height: 600px;">
   	<div align="center" class="titleName">인기 관광지 TOP 8</div>
   	<div align="center" class="subTitle">대한민국 어디까지 가봤니?</div>
   	
@@ -80,5 +80,8 @@
 	  	</c:forEach>
 	  	</c:if>
 	
+  </div>
+  <div class="shadowAll btn" style="height: 40px; width:250px; background-color:#fff; margin-left:440px; margin-bottom: 20px;">
+  <span style="color:#000042; " class="glyphicon glyphicon-triangle-bottom"></span> 더 많은 관광지 보기
   </div>
 </div>
