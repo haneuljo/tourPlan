@@ -46,8 +46,11 @@
 
 		
 	<script>
+	
+	
 	$(function(){
 
+		
 		$(".currentDay").html($(".day").html());
 		$(".day").css("background-color","#006583");
 		
@@ -79,6 +82,7 @@
 				 $("#areaList").css("height","453px");
 				 //alert($(this).parent('div').children('span').text());
 		 		 markerMap(12);
+		 		 
 			 });
 		},error:function(e){}
 	  });
@@ -87,6 +91,7 @@
 		$(".contentTypeDetails").attr("class","contentTypeDetails");
 		$(this).attr("class","contentTypeDetails contentTypeActive");
 		clearMarkers();
+		image='/tourPlan/resources/marker/'+$(this).attr("data")+'.png';
 		markerMap($(this).attr("data"));
 		
 	});

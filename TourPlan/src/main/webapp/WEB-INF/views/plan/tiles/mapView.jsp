@@ -32,7 +32,7 @@
 	  
 	 
 	}
-	
+	var image='/tourPlan/resources/marker/12.png';
 	var itemsMarker  = [];
 	 function markerMap(contentTypeId){
 			var sigunguCode = 0;
@@ -76,12 +76,16 @@
 					
 				});
 			}
+	 
+	 	
 			// Adds a marker to the map and push to the array.
 			 function addMarker(mapy, mapx, msg) {
 				var itemsXY = new google.maps.LatLng(mapy,mapx);
+				
 				var addMarker=new google.maps.Marker({
-					  position:itemsXY,
-				     map: map
+					 position:itemsXY,
+				     map: map,
+				     icon:image
 			  	});
 				itemsMarker.push(addMarker);
 				attachSecretMessage(addMarker, msg);

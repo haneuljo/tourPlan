@@ -49,21 +49,21 @@ public class MemberController {
 	@Autowired
 	JSONResponseUtil jsonUtil;
 
-	String tourAPIKey = "GuzaHzXNprs4fLYjtHtDrHm56KNX9GWdRELzkuqPUELlWBjOtuW%2BygZfhgEuZI2ZbU4se3cn2AFfyfQJM%2BhG3Q%3D%3D";
+	String tourAPIKey = "sGR0LkYPdWBTkZqjRcwTe8AzAV9yoa3Qkl0Tq6y7eAf1AJL0YcsaWSv2kaDmBRWikYgT5czC1BZ2N7K13YcEfQ%3D%3D";
 	
 	
 	@RequestMapping("/")
 	public String intro(HttpServletRequest req, HttpServletResponse resp) throws ParseException, IOException {
-		//DB������ ���ϰ� ���� ����
+		//DB占쏙옙占쏙옙占쏙옙 占쏙옙占싹곤옙 占쏙옙占쏙옙 占쏙옙占쏙옙
 /*		HttpSession session = req.getSession(true); 
 
 		SessionInfo info = new SessionInfo();
 		
-		//1�̶�� ���̵� ����
+		//1占싱띰옙占�占쏙옙占싱듸옙 占쏙옙占쏙옙
 		
 		info.setEmail("1");
 		session.setAttribute("loginInfo", info);
-*/		// loginInfo��� �����ȿ� info ��� Ŭ���� ��ü�� �־��ش�
+*/		// loginInfo占쏙옙占�占쏙옙占쏙옙占싫울옙 info 占쏙옙占�클占쏙옙占쏙옙 占쏙옙체占쏙옙 占쌍억옙占쌔댐옙
 		
 		HttpSession session = req.getSession(); 
 
@@ -120,14 +120,14 @@ public class MemberController {
 		return "index";
 	}
 		
-	//����â Modal
+	//占쏙옙占쏙옙창 Modal
 	@RequestMapping("/signModal")
 	public String signModal() {
 		
 		return "member/sign";
 	}
 	
-	//����â Insert
+	//占쏙옙占쏙옙창 Insert
 	@RequestMapping("/memberSign")
 	public String memberSign(HttpServletRequest req, MemberDTO dto) {
 		dao.insertData(dto);
@@ -135,7 +135,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	//�α��� Modal
+	//占싸깍옙占쏙옙 Modal
 	@RequestMapping("/loginModal")
 	public String loginModal() {
 
@@ -146,11 +146,11 @@ public class MemberController {
 		
 		MemberDTO dto = dao.loginChk(email,pwd);
 		
-		//���̵�� ��й�ȣ�� Ʋ����?
+		//占쏙옙占싱듸옙占�占쏙옙橘占싫ｏ옙占�틀占쏙옙占쏙옙?
 		if (dto == null || (!dto.getPwd().equals(pwd))) {
 			return null;
 		}
-		// id, pwd�� ��ġ
+		// id, pwd占쏙옙 占쏙옙치
 
 		HttpSession session = req.getSession(true); 
 
@@ -165,7 +165,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	//�α׾ƿ�
+	//占싸그아울옙
 	@RequestMapping(value = "/logout")
 	public String logout(HttpServletRequest req) {
 		HttpSession session = req.getSession();
