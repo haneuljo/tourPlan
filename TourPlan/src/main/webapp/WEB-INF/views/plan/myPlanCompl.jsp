@@ -172,12 +172,12 @@
 	 	
 	}
 	function calculateAndDisplayRoute(directionsService, directionsDisplay, index) {            //대중교통길찾기
-		  <c:forEach var="map" items="${lists}" varStatus="status" begin="1" end="1">
+		  <c:forEach var="map" items="${lists}" varStatus="status" begin="0" end="0">
 			var test = '${status.index}';
 			if(test==index){
 				directionsService.route({
-			    origin: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
-			    destination: new google.maps.LatLng('${map.mapyex}','${map.mapxex}'),
+			    origin: new google.maps.LatLng('${secondy}','${secondx}'),
+			    destination: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
 			    travelMode: google.maps.TravelMode.TRANSIT       //모드는 차량, 도보, 대중교통, 자전거 등이있음 TRANSIT은 대중교통
 			  }, function(response, status) {          //성공시 response json형태의 정보를 받음. 
 			    if (status === google.maps.DirectionsStatus.OK) {
@@ -195,8 +195,8 @@
 			var test = '${status.index}';
 			if(test==index){
 				directionsService.route({
-			    origin: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
-			    destination: new google.maps.LatLng('${map.mapyex}','${map.mapxex}'),
+			    origin: new google.maps.LatLng('${map.mapyex}','${map.mapxex}'),
+			    destination: new google.maps.LatLng('${map.mapy}','${map.mapx}'),
 			    travelMode: google.maps.TravelMode.TRANSIT       //모드는 차량, 도보, 대중교통, 자전거 등이있음 TRANSIT은 대중교통
 			  }, function(response, status) {          //성공시 response json형태의 정보를 받음. 
 			    if (status === google.maps.DirectionsStatus.OK) {

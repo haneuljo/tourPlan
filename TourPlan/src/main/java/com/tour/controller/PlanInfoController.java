@@ -193,6 +193,8 @@ public class PlanInfoController {
 		
 		gp.setMapx(mapx);
 		gp.setMapy(mapy);
+		
+		session.setAttribute("groupDate",gp);
 
 		PrintWriter out = res.getWriter();
 		out.print(endTime);
@@ -339,6 +341,9 @@ public class PlanInfoController {
 		List<PlanInfoDTO> lists = dao.getLists(groupNum);
 		ListIterator<PlanInfoDTO> it = lists.listIterator();
 		
+		HttpSession session = req.getSession();
+		GroupSession gp = (GroupSession) session.getAttribute("groupDate");
+		
 		Object mapxex = null;
 		Object mapyex = null;
 		
@@ -356,15 +361,17 @@ public class PlanInfoController {
 			mapxex = dto.getMapx();
 			mapyex = dto.getMapy();
 			
-			System.out.println(dto.getFirstimage());
 		}
 		PlanInfoDTO dto1 = new PlanInfoDTO(); 
 		dto1 = dao.getStartPlace(groupNum);
 		req.setAttribute("startPlace", dto1);
+		PlanInfoDTO dto2 = new PlanInfoDTO(); 
+		dto2 = dao.getSecondPlace(groupNum);
+		req.setAttribute("secondPlace", dto2);
 		
-		dto1 = dao.getSecondPlace(groupNum);
-		req.setAttribute("secondPlace", dto1);
 		
+		req.setAttribute("secondx", gp.getMapx());
+		req.setAttribute("secondy", gp.getMapy());
 		req.setAttribute("title", title);
 		req.setAttribute("lists", lists);
 		req.setAttribute("startDate", startDate);
