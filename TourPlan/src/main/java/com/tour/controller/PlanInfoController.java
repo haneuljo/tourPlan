@@ -261,6 +261,15 @@ public class PlanInfoController {
 	public String planAdd(PlanDTO pdto,HttpServletRequest req,HttpServletResponse res) {
 		return "plan/planAdd";
 	}
+	
+	//예산받는창
+	@RequestMapping("/updateTemp")
+	public String updateTemp(int update_index,HttpServletRequest req,HttpServletResponse res) {
+		
+		req.setAttribute("update_index", update_index);
+		
+		return "plan/updateTemp";
+	}
 
 	//占쏙옙占�
 	@RequestMapping("/startPlace")

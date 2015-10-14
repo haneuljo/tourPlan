@@ -22,7 +22,8 @@
 						 	<div class="sortItem_title"> <span>${map.title}<%-- //index:${status.index} --%></span></div>
 			 				<div class="sortItem_addr"> <span> ${map.addr1}<%--  ${map.addr2 } --%></span> </div>
 			 				<select id="lonTime" class="form-control sortItem_time" data="${status.index}">
-			 					<option value="0">0</option>
+			 					<option value="${map.longTime}" >${map.longTime}분</option>
+			 					<option value="0" >0</option>
 			 					<option value="30">30분</option>
 			 					<option value="60">1시간</option>
 			 					<option value="90">1시간30분</option>
@@ -31,7 +32,7 @@
 			 					<option value="180">3시간</option>
 			 				</select>
 			 				<div class="sortBtnGroup">
-				 				<div class="sortBtn"><span class="glyphicon glyphicon-wrench"></span></div>
+				 				<%-- <div id="updateTemp" class="sortBtn" data="${status.index}"><span class="glyphicon glyphicon-wrench"></span></div> --%>
 				 				<div id="deleteTemp" class="deleteTemp sortBtn" data="${status.index}"><span class="glyphicon glyphicon-trash"></span></div>
 			 				</div>
 						</div>
@@ -164,6 +165,27 @@
 			        }); 
 			    }
 			});
+			
+<%-- 			$("#updateTemp").click(function(){
+				var update_index = $(this).attr("data");
+		    	$.ajax({
+					type:"GET",
+					url:"<%=cp%>/updateTemp?index=" + update_index,
+					dataType:"html",		
+					success:function(data){
+						$("#myModal").html(data);
+						//alert(data);
+						$("#myModal").modal();
+
+						
+					},
+					error:function(e){11
+						alert("1111111111"+e.responseText);
+					}
+					
+				});
+		        
+		    }); --%>
 		});
 		
 		</script>
